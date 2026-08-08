@@ -1,0 +1,36 @@
+# Dependencias
+node_modules/
+
+# Variables y secretos
+.env
+.env.*
+!.env.example
+
+# Compilación y cobertura
+dist/
+build/
+coverage/
+
+# Registros y temporales
+*.log
+logs/
+tmp/
+temp/
+
+# Bases locales
+*.db
+*.sqlite
+*.sqlite3
+
+# Editores y sistema operativo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Microsoft Office
+~$*.docx
+~$*.xlsx
+~$*.pptx
