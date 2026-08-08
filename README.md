@@ -5,94 +5,98 @@
 <h1 align="center">AUT-INS API</h1>
 
 <p align="center">
-  API para la administración y el control del proceso de admisión e inscripción escolar.
+  Backend modular para administrar el proceso de admisión e inscripción escolar.
 </p>
 
 <p align="center">
-  <img alt="Estado del proyecto" src="https://img.shields.io/badge/estado-dise%C3%B1o%20en%20progreso-374151">
+  <img alt="Estado del proyecto" src="https://img.shields.io/badge/estado-base%20inicial-374151">
   <img alt="Metodología Scrum" src="https://img.shields.io/badge/metodolog%C3%ADa-Scrum-111827">
-  <img alt="Base de datos MySQL" src="https://img.shields.io/badge/base%20de%20datos-MySQL-4b5563">
-  <img alt="ORM Prisma" src="https://img.shields.io/badge/ORM-Prisma-1f2937">
-  <img alt="Autenticación JWT" src="https://img.shields.io/badge/autenticaci%C3%B3n-JWT-6b7280">
+  <img alt="Node.js" src="https://img.shields.io/badge/Node.js-22%2B-4b5563">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-API-1f2937">
 </p>
 
 ---
 
-## Descripción
+## Propósito
 
-AUT-INS busca sustituir el manejo manual de inscripciones por un proceso centralizado, seguro y trazable. El sistema acompaña al aspirante desde su pre-registro y carga documental hasta la emisión del dictamen, su enrolamiento y la generación de su matrícula institucional.
+AUT-INS busca sustituir el manejo manual de inscripciones por un proceso centralizado, seguro y trazable. El alcance prioritario acompaña al aspirante desde el pre-registro y la carga documental hasta el dictamen, el enrolamiento y la generación de su matrícula institucional.
 
-El alcance prioritario se concentra en:
+Esta versión establece la base ejecutable del backend. Los contratos funcionales, las reglas de negocio y el acceso a MySQL se implementarán por módulo conforme sean aprobados en el tablero Scrum.
 
-- Registro y seguimiento de aspirantes.
-- Revisión y dictamen de documentación.
-- Corrección de documentos observados.
-- Conversión de aspirantes aceptados en alumnos.
-- Inscripción y asignación de grupo con control de cupo.
-- Consulta del avance del trámite.
-- Notificaciones por correo dirigidas exclusivamente al aspirante.
+## Inicio rápido
 
-Los módulos académicos avanzados, la mensajería interna y los reportes se conservan como componentes complementarios.
+Requisitos: Node.js 22 o superior y npm.
 
-## Estado actual
+```powershell
+Copy-Item .env.example .env
+npm install
+npm run dev
+```
 
-> **Proyecto en fase de diseño.** El repositorio contiene la base documental y la estructura inicial de trabajo. La implementación de la API todavía no ha comenzado.
+El servidor quedará disponible en `http://localhost:3000`. Para comprobarlo:
+
+```http
+GET /api/health
+```
+
+Comandos disponibles:
+
+| Comando | Uso |
+|---|---|
+| `npm run dev` | Inicia el servidor en modo de desarrollo. |
+| `npm run check:structure` | Verifica módulos e importaciones internas. |
+| `npm run typecheck` | Revisa los tipos sin generar archivos. |
+| `npm run build` | Compila TypeScript en `dist/`. |
+| `npm start` | Ejecuta la compilación generada. |
+
+## Arquitectura modular
+
+```text
+src/
+|-- app.ts
+|-- server.ts
+|-- config/
+`-- modules/
+    |-- auth/
+    |-- aspirantes/
+    |-- admisiones/
+    |-- control-escolar/
+    |-- coordinacion/
+    |-- alumnos/
+    |-- mensajes/
+    |-- historial/
+    `-- common/
+```
+
+Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explícita para que su desarrollo no redefina tareas pertenecientes a otra etapa. Consulta la [guía de arquitectura del código](src/README.md) para conocer el alcance de cada carpeta.
+
+## Estado del proyecto
 
 | Área | Estado |
 |---|---|
-| Análisis del problema | Concluido |
-| Actores, responsabilidades y UFP | Concluido |
-| Cadena de valor | Concluida |
-| Tecnologías confirmadas | Registradas |
-| Análisis de requisitos y entidades | Concluido |
-| Normalización y modelo físico | Pendiente |
-| Identificación de recursos de la API | Concluida |
-| Endpoints, parámetros y respuestas | En diseño |
-| Desarrollo y pruebas | Pendiente |
+| Análisis, actores, UFP y cadena de valor | Concluido |
+| Tecnologías y requisitos | Registrados |
+| Modelo y normalización de datos | En desarrollo |
+| Diseño de recursos de la API | En desarrollo |
+| Base modular de Node.js, Express y TypeScript | Disponible |
+| Reglas de negocio y persistencia | Pendientes por módulo |
+| Pruebas funcionales | Pendientes |
+| Front end | Pendiente |
 
-## Flujo general
-
-```mermaid
-flowchart LR
-    A["Aspirante"] --> B(["Pre-registro y documentos"])
-    B --> C(["Revisión de Admisiones"])
-    C --> D{"¿Expediente aprobado?"}
-    D -- "Requiere corrección" --> E(["Subsanación documental"])
-    E --> C
-    D -- "Sí" --> F(["Enrolamiento y matrícula"])
-    F --> G(["Inscripción y asignación de grupo"])
-    G --> H["Portal del alumno"]
-
-    B -. "EmailJS" .-> N(["Aviso al aspirante"])
-    C -. "EmailJS" .-> N
-```
-
-## Tecnologías confirmadas
+## Tecnologías
 
 | Tecnología | Responsabilidad |
 |---|---|
-| MySQL | Persistencia relacional de la información escolar. |
-| Microsoft Azure | Alojamiento exclusivo de la base de datos MySQL. |
-| Prisma ORM | Acceso a datos, modelos y migraciones. |
-| JWT | Autenticación y autorización de rutas por rol. |
-| EmailJS | Notificaciones al aspirante durante su trámite. |
+| Node.js y Express | Ejecución y enrutamiento de la API. |
+| TypeScript | Tipado y mantenimiento del código. |
+| CORS y dotenv | Orígenes autorizados y configuración por entorno. |
+| MySQL en Microsoft Azure | Persistencia relacional alojada en la nube. |
+| Prisma ORM | Acceso a datos y migraciones, cuando se integre el esquema aprobado. |
+| JWT | Autenticación y autorización por rol, pendiente de implementación. |
+| EmailJS | Notificaciones externas dirigidas exclusivamente a aspirantes. |
 | Git y GitHub | Control de versiones, revisión y colaboración. |
 
-El entorno de ejecución y el servicio donde se desplegará la API permanecen pendientes de confirmación. GitHub almacenará el código, pero no sustituirá al servicio de ejecución.
-
-## Estructura del repositorio
-
-```text
-aut-ins-api/
-├── .github/                 Colaboración, seguridad y plantillas
-├── docs/                    Documentación numerada del proyecto
-│   ├── assets/              Identidad y recursos visuales
-│   └── diagramas/           Diagramas versionados
-├── prisma/                  Futuro esquema y migraciones
-├── src/                     Futuro código fuente de la API
-├── tests/                   Futuras pruebas automatizadas
-└── .env.example             Variables necesarias sin secretos
-```
+Microsoft Azure alojará únicamente MySQL. GitHub conservará el código fuente; el servicio donde se ejecutará la API aún debe definirse.
 
 ## Documentación
 
@@ -105,24 +109,18 @@ aut-ins-api/
 - [6. Historial de cambios](docs/06-historial-cambios.md)
 - [Diagrama de casos de uso — nivel 0](docs/diagramas/01-casos-de-uso-nivel-0.md)
 
-## Forma de trabajo
+## Colaboración
 
-```text
-main
-├── feature/SCRUM-XX-descripcion
-├── fix/SCRUM-XX-descripcion
-└── docs/SCRUM-XX-descripcion
-```
-
-Cada cambio deberá estar vinculado con una tarea del tablero, realizarse en una rama independiente creada desde `main` y volver a `main` mediante un pull request revisado. Consulta la [guía de colaboración](.github/CONTRIBUTING.md) y la [política de seguridad](.github/SECURITY.md) antes de aportar cambios.
+Cada cambio debe vincularse con una tarea del tablero, desarrollarse en una rama creada desde `main` e integrarse mediante un pull request revisado. Consulta la [guía de colaboración](.github/CONTRIBUTING.md) y la [política de seguridad](.github/SECURITY.md).
 
 ## Equipo
 
-- Carlos Eduardo Martínez Morales
-- Daen Sánchez Marín
-- Fernando Pérez Acuautla
-- Fernando Aguilar Velázquez
+- Carlos Eduardo Martínez Morales — dirección técnica y desarrollo.
+- Daen Sánchez Marín — coordinación del equipo y desarrollo.
+- Fernando Pérez Acuautla — desarrollo.
+- Fernando Aguilar Velázquez — desarrollo.
+- Pedro Jair Suárez Flores — pruebas.
 
 ## Aviso
 
-Este repositorio corresponde a un proyecto académico. La licencia y las condiciones de distribución se definirán antes de su publicación definitiva.
+Este repositorio corresponde a un proyecto académico privado. No deben publicarse credenciales, tokens, documentos personales ni datos reales de aspirantes o alumnos.
