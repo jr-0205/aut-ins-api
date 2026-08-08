@@ -1,4 +1,4 @@
-# Tecnologías y decisiones
+# 2. Tecnologías y decisiones
 
 ## Confirmadas
 

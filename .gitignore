@@ -17,6 +17,10 @@ logs/
 tmp/
 temp/
 
+# Archivos cargados durante el desarrollo
+uploads/
+storage/
+
 # Bases locales
 *.db
 *.sqlite

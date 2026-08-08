@@ -1,4 +1,4 @@
-# Diagrama general de casos de uso — Nivel 0
+# Diagrama 1. Casos de uso — Nivel 0
 
 El sistema se representa como el límite que contiene las funciones y automatizaciones. Por esta razón, `Sistema` no aparece como actor externo.
 

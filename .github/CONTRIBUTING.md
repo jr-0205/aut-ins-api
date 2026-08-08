@@ -1,14 +1,14 @@
-# Guía de colaboración
+# Colaboración en AUT-INS
 
 Esta guía establece una forma de trabajo sencilla para mantener el repositorio ordenado y relacionar cada cambio con el tablero Scrum.
 
 ## Flujo recomendado
 
 1. Seleccionar una tarea preparada en el tablero.
-2. Crear una rama desde `develop`.
+2. Crear una rama desde `main`.
 3. Implementar únicamente el alcance de esa tarea.
 4. Ejecutar las validaciones disponibles.
-5. Abrir un pull request hacia `develop`.
+5. Abrir un pull request hacia `main`.
 6. Solicitar la revisión de al menos otro integrante.
 7. Integrar el cambio cuando cumpla los criterios de aceptación.
 

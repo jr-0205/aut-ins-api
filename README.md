@@ -84,40 +84,37 @@ El entorno de ejecución y el servicio donde se desplegará la API permanecen pe
 
 ```text
 aut-ins-api/
-├── .github/                 Plantillas para la colaboración
-├── docs/                    Documentación funcional y técnica
-│   ├── assets/              Recursos visuales del repositorio
+├── .github/                 Colaboración, seguridad y plantillas
+├── docs/                    Documentación numerada del proyecto
+│   ├── assets/              Identidad y recursos visuales
 │   └── diagramas/           Diagramas versionados
 ├── prisma/                  Futuro esquema y migraciones
 ├── src/                     Futuro código fuente de la API
 ├── tests/                   Futuras pruebas automatizadas
-├── .env.example             Variables necesarias sin secretos
-├── CONTRIBUTING.md          Flujo de colaboración
-├── SECURITY.md              Reglas básicas de seguridad
-└── CHANGELOG.md             Historial de entregas
+└── .env.example             Variables necesarias sin secretos
 ```
 
 ## Documentación
 
 - [Índice documental](docs/README.md)
-- [Alcance funcional](docs/alcance.md)
-- [Tecnologías y decisiones](docs/tecnologias.md)
-- [Modelo de datos](docs/modelo-datos.md)
-- [Diseño preliminar de la API](docs/diseno-api.md)
-- [Organización Scrum](docs/scrum.md)
-- [Casos de uso — nivel 0](docs/diagramas/casos-de-uso-nivel-0.md)
+- [1. Alcance funcional](docs/01-alcance.md)
+- [2. Tecnologías y decisiones](docs/02-tecnologias.md)
+- [3. Modelo de datos](docs/03-modelo-datos.md)
+- [4. Diseño preliminar de la API](docs/04-diseno-api.md)
+- [5. Organización Scrum](docs/05-scrum.md)
+- [6. Historial de cambios](docs/06-historial-cambios.md)
+- [Diagrama de casos de uso — nivel 0](docs/diagramas/01-casos-de-uso-nivel-0.md)
 
 ## Forma de trabajo
 
 ```text
 main
-└── develop
-    ├── feature/SCRUM-XX-descripcion
-    ├── fix/SCRUM-XX-descripcion
-    └── docs/SCRUM-XX-descripcion
+├── feature/SCRUM-XX-descripcion
+├── fix/SCRUM-XX-descripcion
+└── docs/SCRUM-XX-descripcion
 ```
 
-Cada cambio deberá estar vinculado con una tarea del tablero, realizarse en una rama independiente y llegar a `develop` mediante una revisión. Las reglas completas se encuentran en [CONTRIBUTING.md](CONTRIBUTING.md).
+Cada cambio deberá estar vinculado con una tarea del tablero, realizarse en una rama independiente creada desde `main` y volver a `main` mediante un pull request revisado. Consulta la [guía de colaboración](.github/CONTRIBUTING.md) y la [política de seguridad](.github/SECURITY.md) antes de aportar cambios.
 
 ## Equipo
 

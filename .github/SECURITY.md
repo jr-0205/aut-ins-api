@@ -1,4 +1,4 @@
-# Seguridad del repositorio
+# Política de seguridad
 
 ## Información que nunca debe publicarse
 
