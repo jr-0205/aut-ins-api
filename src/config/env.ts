@@ -14,4 +14,5 @@ export const env = Object.freeze({
   nodeEnv: process.env.NODE_ENV ?? "development",
   port: parsePort(process.env.PORT),
   corsOrigin: process.env.CORS_ORIGIN ?? "*",
+  databaseUrl: process.env.DATABASE_URL,
 });

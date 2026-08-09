@@ -10,12 +10,14 @@ node_modules/
 dist/
 build/
 coverage/
+src/generated/prisma/
 
 # Registros y temporales
 *.log
 logs/
 tmp/
 temp/
+.local/
 
 # Archivos cargados durante el desarrollo
 uploads/

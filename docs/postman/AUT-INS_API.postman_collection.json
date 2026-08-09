@@ -1,0 +1,1646 @@
+{
+  "info": {
+    "_postman_id": "3f2c8296-d62b-45a4-b4a7-5a391d054671",
+    "name": "AUT-INS API - Diseño inicial",
+    "description": "Colección base de la etapa 4. Reúne los 35 contratos aprobados para admisión, inscripción y módulos complementarios. Las pruebas sirven como punto de partida y deberán ejecutarse contra la API implementada en la etapa 6.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "jwt",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tokenTemporal",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "aspiranteId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "expedienteId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "documentoId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "alumnoId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "empleadoId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "periodoId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "grupoId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "conversacionId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "carreraId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "curp",
+      "value": "PEAF060205HPLRCR09",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Autenticación",
+      "description": "Inicio de sesión y emisión de JWT. Cubre UFP-SUG-02.",
+      "item": [
+        {
+          "name": "Iniciar sesión",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Valida matrícula y contraseña y devuelve los datos mínimos de sesión.\n\nCobertura: UFP-SUG-02.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matricula\": \"20260001\",\n  \"password\": \"Cambiar123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.token !== undefined && data.token !== null) pm.collectionVariables.set(\"jwt\", String(data.token));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02. Catálogo público",
+      "description": "Oferta educativa necesaria para el pre-registro.",
+      "item": [
+        {
+          "name": "Consultar carreras activas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/carreras",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carreras"
+              ]
+            },
+            "description": "Devuelve la oferta educativa habilitada para el registro.\n\nCobertura: UFP-01, UFP-04.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03. Aspirantes",
+      "description": "Pre-registro y consulta del estado del trámite.",
+      "item": [
+        {
+          "name": "Crear pre-registro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/aspirantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "aspirantes"
+              ]
+            },
+            "description": "Registra al aspirante, crea el folio y habilita la carga documental.\n\nCobertura: UFP-01.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Luis Fernando\",\n  \"apellidoPaterno\": \"Pérez\",\n  \"apellidoMaterno\": \"Acuautla\",\n  \"curp\": \"{{curp}}\",\n  \"correo\": \"aspirante@example.com\",\n  \"telefono\": \"2221234567\",\n  \"carreraId\": \"{{carreraId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.aspiranteId !== undefined && data.aspiranteId !== null) pm.collectionVariables.set(\"aspiranteId\", String(data.aspiranteId));",
+                  "  if (data.expedienteId !== undefined && data.expedienteId !== null) pm.collectionVariables.set(\"expedienteId\", String(data.expedienteId));",
+                  "  if (data.tokenTemporal !== undefined && data.tokenTemporal !== null) pm.collectionVariables.set(\"tokenTemporal\", String(data.tokenTemporal));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar estado del trámite",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aspirantes/{{aspiranteId}}/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "aspirantes",
+                "{{aspiranteId}}",
+                "estado"
+              ]
+            },
+            "description": "Consulta el folio, estado y observaciones del expediente propio.\n\nCobertura: UFP-01, UFP-02, UFP-SUG-03.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTemporal}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04. Documentos",
+      "description": "Carga inicial y subsanación de documentos observados.",
+      "item": [
+        {
+          "name": "Cargar documento del aspirante",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/aspirantes/{{aspiranteId}}/documentos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "aspirantes",
+                "{{aspiranteId}}",
+                "documentos"
+              ]
+            },
+            "description": "Adjunta un archivo al expediente digital del aspirante.\n\nCobertura: UFP-01, UFP-02.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "tipoDocumento",
+                  "value": "CERTIFICADO",
+                  "type": "text"
+                },
+                {
+                  "key": "archivo",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTemporal}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,400,413,415]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.documentoId !== undefined && data.documentoId !== null) pm.collectionVariables.set(\"documentoId\", String(data.documentoId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reemplazar documento observado",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/documentos/{{documentoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documentos",
+                "{{documentoId}}"
+              ]
+            },
+            "description": "Sustituye únicamente un documento marcado con observaciones.\n\nCobertura: UFP-02, UFP-SUG-03.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "archivo",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenTemporal}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,404,409,413,415]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05. Admisiones y expedientes",
+      "description": "Revisión documental y emisión del dictamen.",
+      "item": [
+        {
+          "name": "Listar expedientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/expedientes?estado=PENDIENTE_REVISION&carreraId={{carreraId}}&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "expedientes"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "PENDIENTE_REVISION",
+                  "description": "Estado del expediente",
+                  "disabled": false
+                },
+                {
+                  "key": "carreraId",
+                  "value": "{{carreraId}}",
+                  "description": "Carrera solicitada",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Página",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Resultados por página",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Lista expedientes autorizados con filtros y paginación.\n\nCobertura: UFP-02, UFP-04."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar expediente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/expedientes/{{expedienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "expedientes",
+                "{{expedienteId}}"
+              ]
+            },
+            "description": "Consulta los datos y documentos necesarios para la revisión.\n\nCobertura: UFP-02, UFP-04."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Emitir dictamen",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/expedientes/{{expedienteId}}/dictamen",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "expedientes",
+                "{{expedienteId}}",
+                "dictamen"
+              ]
+            },
+            "description": "Acepta, rechaza u observa el expediente y registra la resolución.\n\nCobertura: UFP-02, UFP-SUG-03.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"ACEPTADO\",\n  \"observaciones\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06. Alumnos y enrolamiento",
+      "description": "Alta institucional y administración del estado del alumno.",
+      "item": [
+        {
+          "name": "Enrolar aspirante aceptado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/alumnos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alumnos"
+              ]
+            },
+            "description": "Crea el alumno y su matrícula desde un expediente aceptado.\n\nCobertura: UFP-03, UFP-04.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expedienteId\": \"{{expedienteId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,404,409,500]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.alumnoId !== undefined && data.alumnoId !== null) pm.collectionVariables.set(\"alumnoId\", String(data.alumnoId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar alumnos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/alumnos?estado=ACTIVO&carreraId={{carreraId}}&page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alumnos"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "ACTIVO",
+                  "description": "Estado escolar",
+                  "disabled": true
+                },
+                {
+                  "key": "carreraId",
+                  "value": "{{carreraId}}",
+                  "description": "Carrera",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Página",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Resultados por página",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Consulta alumnos dentro del ámbito autorizado.\n\nCobertura: UFP-04, UFP-05."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar alumno",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/alumnos/{{alumnoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alumnos",
+                "{{alumnoId}}"
+              ]
+            },
+            "description": "Consulta el expediente esencial de un alumno autorizado.\n\nCobertura: UFP-04, UFP-05."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado del alumno",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/alumnos/{{alumnoId}}/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alumnos",
+                "{{alumnoId}}",
+                "estado"
+              ]
+            },
+            "description": "Registra una baja, reincorporación, egreso o cierre autorizado.\n\nCobertura: UFP-04, UFP-08.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"BAJA_TEMPORAL\",\n  \"motivo\": \"Solicitud autorizada\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "07. Portal del alumno",
+      "description": "Consultas propias del alumno autenticado.",
+      "item": [
+        {
+          "name": "Consultar perfil propio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/alumnos/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alumnos",
+                "me"
+              ]
+            },
+            "description": "Devuelve matrícula, nombre, carrera y estado del alumno autenticado.\n\nCobertura: UFP-06."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar inscripción propia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/alumnos/me/inscripcion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alumnos",
+                "me",
+                "inscripcion"
+              ]
+            },
+            "description": "Devuelve periodo, grupo, turno y situación de inscripción.\n\nCobertura: UFP-05, UFP-06."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "08. Personal",
+      "description": "Administración de empleados, roles y ámbito por carrera.",
+      "item": [
+        {
+          "name": "Listar empleados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/empleados",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "empleados"
+              ]
+            },
+            "description": "Consulta al personal y sus roles institucionales.\n\nCobertura: UFP-04."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear empleado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/empleados",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "empleados"
+              ]
+            },
+            "description": "Registra una cuenta autorizada para Admisiones, Control Escolar o Coordinación.\n\nCobertura: UFP-04, UFP-SUG-02.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pedro Jair\",\n  \"apellidos\": \"Suárez Flores\",\n  \"matricula\": \"EMP-0005\",\n  \"rolId\": 4,\n  \"carreraId\": \"{{carreraId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,400,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.empleadoId !== undefined && data.empleadoId !== null) pm.collectionVariables.set(\"empleadoId\", String(data.empleadoId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar empleado",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/empleados/{{empleadoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "empleados",
+                "{{empleadoId}}"
+              ]
+            },
+            "description": "Actualiza datos, rol o carrera asignada del empleado.\n\nCobertura: UFP-04, UFP-SUG-02.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rolId\": 4,\n  \"carreraId\": \"{{carreraId}}\",\n  \"activo\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "09. Periodos y grupos",
+      "description": "Catálogos operativos, cupos y asignación académica.",
+      "item": [
+        {
+          "name": "Listar periodos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/periodos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "periodos"
+              ]
+            },
+            "description": "Consulta periodos disponibles para grupos e inscripciones.\n\nCobertura: UFP-05."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear periodo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/periodos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "periodos"
+              ]
+            },
+            "description": "Registra un periodo institucional.\n\nCobertura: UFP-05.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"2026-2\",\n  \"fechaInicio\": \"2026-08-10\",\n  \"fechaFin\": \"2026-12-11\",\n  \"estado\": \"ACTIVO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,400,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.periodoId !== undefined && data.periodoId !== null) pm.collectionVariables.set(\"periodoId\", String(data.periodoId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar grupos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/grupos?carreraId={{carreraId}}&periodoId={{periodoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "grupos"
+              ],
+              "query": [
+                {
+                  "key": "carreraId",
+                  "value": "{{carreraId}}",
+                  "description": "Carrera",
+                  "disabled": true
+                },
+                {
+                  "key": "periodoId",
+                  "value": "{{periodoId}}",
+                  "description": "Periodo",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Consulta grupos y disponibilidad de cupo.\n\nCobertura: UFP-05, UFP-SUG-01."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear grupo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/grupos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "grupos"
+              ]
+            },
+            "description": "Crea un grupo y fija su capacidad máxima.\n\nCobertura: UFP-05, UFP-SUG-01.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"turno\": \"MATUTINO\",\n  \"grado\": 1,\n  \"capacidadMaxima\": 30,\n  \"carreraId\": \"{{carreraId}}\",\n  \"periodoId\": \"{{periodoId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,400,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.grupoId !== undefined && data.grupoId !== null) pm.collectionVariables.set(\"grupoId\", String(data.grupoId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar grupo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/grupos/{{grupoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "grupos",
+                "{{grupoId}}"
+              ]
+            },
+            "description": "Actualiza los datos autorizados de un grupo.\n\nCobertura: UFP-05, UFP-SUG-01.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"turno\": \"MATUTINO\",\n  \"capacidadMaxima\": 35\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "10. Inscripciones",
+      "description": "Asignación de grupo con validación de carrera, periodo y cupo.",
+      "item": [
+        {
+          "name": "Inscribir alumno en grupo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Registra la inscripción solo cuando el alumno y el grupo son compatibles y hay cupo.\n\nCobertura: UFP-03, UFP-05, UFP-SUG-01.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alumnoId\": \"{{alumnoId}}\",\n  \"grupoId\": \"{{grupoId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar inscripciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones?periodoId={{periodoId}}&grupoId={{grupoId}}&alumnoId={{alumnoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ],
+              "query": [
+                {
+                  "key": "periodoId",
+                  "value": "{{periodoId}}",
+                  "description": "Periodo",
+                  "disabled": false
+                },
+                {
+                  "key": "grupoId",
+                  "value": "{{grupoId}}",
+                  "description": "Grupo",
+                  "disabled": true
+                },
+                {
+                  "key": "alumnoId",
+                  "value": "{{alumnoId}}",
+                  "description": "Alumno",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Consulta inscripciones mediante filtros autorizados.\n\nCobertura: UFP-03, UFP-05."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "11. Conversaciones y mensajes",
+      "description": "Caja de mensajes interna del alumno y las áreas responsables.",
+      "item": [
+        {
+          "name": "Listar conversaciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones"
+              ]
+            },
+            "description": "Lista los hilos visibles para el usuario autenticado.\n\nCobertura: UFP-07."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear conversación",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones"
+              ]
+            },
+            "description": "Abre una solicitud de ayuda dirigida al área correspondiente.\n\nCobertura: UFP-07.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asunto\": \"Corrección de datos\",\n  \"areaDestino\": \"CONTROL_ESCOLAR\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,400,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });",
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const payload = pm.response.json();",
+                  "  const data = payload.data || payload;",
+                  "  if (data.conversacionId !== undefined && data.conversacionId !== null) pm.collectionVariables.set(\"conversacionId\", String(data.conversacionId));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar conversación",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones/{{conversacionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones",
+                "{{conversacionId}}"
+              ]
+            },
+            "description": "Consulta un hilo cuando el usuario participa o pertenece al área responsable.\n\nCobertura: UFP-07."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar mensajes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones/{{conversacionId}}/mensajes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones",
+                "{{conversacionId}}",
+                "mensajes"
+              ]
+            },
+            "description": "Consulta mensajes sin modificar automáticamente su estado de lectura.\n\nCobertura: UFP-07."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Enviar mensaje",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones/{{conversacionId}}/mensajes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones",
+                "{{conversacionId}}",
+                "mensajes"
+              ]
+            },
+            "description": "Añade un mensaje al hilo; el remitente se obtiene del JWT.\n\nCobertura: UFP-07.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contenido\": \"Solicito la revisión de mi información.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([201,400,401,403,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Marcar mensajes como leídos",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones/{{conversacionId}}/lectura",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones",
+                "{{conversacionId}}",
+                "lectura"
+              ]
+            },
+            "description": "Registra la lectura de los mensajes recibidos por el usuario.\n\nCobertura: UFP-07."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cambiar estado de la conversación",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversaciones/{{conversacionId}}/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "conversaciones",
+                "{{conversacionId}}",
+                "estado"
+              ]
+            },
+            "description": "Cierra o reabre el hilo por el área responsable.\n\nCobertura: UFP-07.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"CERRADA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,401,403,404,409]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "12. Historial y reportes",
+      "description": "Trazabilidad e indicadores del proceso.",
+      "item": [
+        {
+          "name": "Consultar historial por CURP",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/historial/curp/{{curp}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "historial",
+                "curp",
+                "{{curp}}"
+              ]
+            },
+            "description": "Consulta procesos anteriores, estados y referencias relacionadas con una persona.\n\nCobertura: UFP-04, UFP-08."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401,403,404]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Consultar reporte de inscripciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reportes/inscripciones?periodoId={{periodoId}}&carreraId={{carreraId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reportes",
+                "inscripciones"
+              ],
+              "query": [
+                {
+                  "key": "periodoId",
+                  "value": "{{periodoId}}",
+                  "description": "Periodo",
+                  "disabled": true
+                },
+                {
+                  "key": "carreraId",
+                  "value": "{{carreraId}}",
+                  "description": "Carrera",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Devuelve totales e indicadores generales del proceso.\n\nCobertura: UFP-08."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,400,401,403]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "13. Materias complementarias",
+      "description": "Consulta académica ampliada que no bloquea el núcleo de inscripción.",
+      "item": [
+        {
+          "name": "Consultar materias",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/materias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "materias"
+              ]
+            },
+            "description": "Consulta el catálogo académico cuando el módulo se encuentre habilitado.\n\nCobertura: UFP-05, UFP-06."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Código HTTP esperado\", function () { pm.expect([200,401]).to.include(pm.response.code); });",
+                  "pm.test(\"Tiempo de respuesta registrado\", function () { pm.expect(pm.response.responseTime).to.be.a(\"number\"); });",
+                  "pm.test(\"Respuesta JSON\", function () { pm.expect(pm.response.headers.get(\"Content-Type\") || \"\").to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,490 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum TipoUsuario {
+  ALUMNO
+  EMPLEADO
+}
+
+enum EstadoDocumento {
+  PENDIENTE
+  VALIDADO
+  OBSERVADO
+  REEMPLAZADO
+}
+
+enum EstadoPeriodo {
+  PLANEADO
+  ACTIVO
+  CERRADO
+}
+
+enum Turno {
+  MATUTINO
+  VESPERTINO
+  MIXTO
+}
+
+enum AreaDestino {
+  CONTROL_ESCOLAR
+  COORDINACION
+}
+
+enum EstadoConversacion {
+  ABIERTA
+  EN_ATENCION
+  CERRADA
+}
+
+enum TipoNotificacion {
+  REGISTRO_RECIBIDO
+  EXPEDIENTE_OBSERVADO
+  DICTAMEN_ACEPTADO
+  DICTAMEN_RECHAZADO
+}
+
+enum EstadoNotificacion {
+  PENDIENTE
+  ENVIADA
+  FALLIDA
+}
+
+model Persona {
+  id              Int            @id @default(autoincrement()) @map("id_persona") @db.UnsignedInt
+  curp            String         @unique(map: "uq_persona_curp") @db.Char(18)
+  nombre          String         @db.VarChar(80)
+  apellidoPaterno String         @map("apellido_paterno") @db.VarChar(80)
+  apellidoMaterno String?        @map("apellido_materno") @db.VarChar(80)
+  correoPrincipal String         @map("correo_principal") @db.VarChar(254)
+  telefono        String?        @db.VarChar(20)
+  creadoEn        DateTime       @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn   DateTime       @updatedAt @map("actualizado_en") @db.DateTime(3)
+  aspirantes      Aspirante[]
+  procesoActivo   ProcesoActivo?
+
+  @@index([apellidoPaterno, apellidoMaterno, nombre], map: "idx_persona_nombre")
+  @@map("tbl_persona")
+}
+
+model Carrera {
+  id            Int         @id @default(autoincrement()) @map("id_carrera") @db.UnsignedInt
+  clave         String      @unique(map: "uq_carrera_clave") @db.VarChar(20)
+  nombre        String      @unique(map: "uq_carrera_nombre") @db.VarChar(150)
+  descripcion   String?     @db.Text
+  activa        Boolean     @default(true)
+  creadoEn      DateTime    @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn DateTime    @updatedAt @map("actualizado_en") @db.DateTime(3)
+  aspirantes    Aspirante[]
+  alumnos       Alumno[]
+  empleados     Empleado[]
+  grupos        Grupo[]
+
+  @@index([activa, nombre], map: "idx_carrera_activa")
+  @@map("tbl_cat_carrera")
+}
+
+model Aspirante {
+  id               Int                     @id @default(autoincrement()) @map("id_aspirante") @db.UnsignedInt
+  personaId        Int                     @map("id_persona") @db.UnsignedInt
+  carreraId        Int                     @map("id_carrera") @db.UnsignedInt
+  correoContacto   String                  @map("correo_contacto") @db.VarChar(254)
+  telefonoContacto String?                 @map("telefono_contacto") @db.VarChar(20)
+  fechaRegistro    DateTime                @default(now()) @map("fecha_registro") @db.DateTime(3)
+  persona          Persona                 @relation(fields: [personaId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  carrera          Carrera                 @relation(fields: [carreraId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  expediente       Expediente?
+  procesoActivo    ProcesoActivo?
+  notificaciones   NotificacionAspirante[]
+
+  @@unique([id, personaId], map: "uq_aspirante_id_persona")
+  @@index([personaId, fechaRegistro], map: "idx_aspirante_persona_fecha")
+  @@index([carreraId, fechaRegistro], map: "idx_aspirante_carrera_fecha")
+  @@map("tbl_aspirante")
+}
+
+model ProcesoActivo {
+  personaId   Int       @id @map("id_persona") @db.UnsignedInt
+  aspiranteId Int       @map("id_aspirante") @db.UnsignedInt
+  creadoEn    DateTime  @default(now()) @map("creado_en") @db.DateTime(3)
+  persona     Persona   @relation(fields: [personaId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  aspirante   Aspirante @relation(fields: [aspiranteId, personaId], references: [id, personaId], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([aspiranteId, personaId], map: "uq_proceso_activo_aspirante")
+  @@map("tbl_proceso_activo")
+}
+
+model EstadoExpediente {
+  id                Int                         @id @default(autoincrement()) @map("id_estado_expediente") @db.UnsignedTinyInt
+  codigo            String                      @unique(map: "uq_estado_expediente_codigo") @db.VarChar(30)
+  descripcion       String                      @db.VarChar(120)
+  bloqueaCurp       Boolean                     @default(true) @map("bloquea_curp")
+  esTerminal        Boolean                     @default(false) @map("es_terminal")
+  orden             Int                         @default(0) @db.UnsignedTinyInt
+  expedientes       Expediente[]
+  historialAnterior HistorialEstadoExpediente[] @relation("EstadoExpedienteAnterior")
+  historialNuevo    HistorialEstadoExpediente[] @relation("EstadoExpedienteNuevo")
+
+  @@map("tbl_cat_estado_expediente")
+}
+
+model Expediente {
+  id               Int                         @id @default(autoincrement()) @map("id_expediente") @db.UnsignedInt
+  folio            String                      @unique(map: "uq_expediente_folio") @db.VarChar(30)
+  aspiranteId      Int                         @unique(map: "uq_expediente_aspirante") @map("id_aspirante") @db.UnsignedInt
+  estadoId         Int                         @map("id_estado_expediente") @db.UnsignedTinyInt
+  observaciones    String?                     @db.Text
+  fechaDictamen    DateTime?                   @map("fecha_dictamen") @db.DateTime(3)
+  dictaminadoPorId Int?                        @map("dictaminado_por") @db.UnsignedInt
+  creadoEn         DateTime                    @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn    DateTime                    @updatedAt @map("actualizado_en") @db.DateTime(3)
+  aspirante        Aspirante                   @relation(fields: [aspiranteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estado           EstadoExpediente            @relation(fields: [estadoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  dictaminadoPor   Empleado?                   @relation("ExpedienteDictaminadoPor", fields: [dictaminadoPorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  documentos       Documento[]
+  alumno           Alumno?
+  historialEstados HistorialEstadoExpediente[]
+
+  @@index([estadoId, actualizadoEn], map: "idx_expediente_estado_fecha")
+  @@index([dictaminadoPorId], map: "idx_expediente_dictaminador")
+  @@map("tbl_expediente")
+}
+
+model TipoDocumentoCatalogo {
+  id         Int         @id @default(autoincrement()) @map("id_tipo_documento") @db.UnsignedTinyInt
+  codigo     String      @unique(map: "uq_tipo_documento_codigo") @db.VarChar(40)
+  nombre     String      @db.VarChar(120)
+  requerido  Boolean     @default(true)
+  orden      Int         @default(0) @db.UnsignedTinyInt
+  activo     Boolean     @default(true)
+  documentos Documento[]
+
+  @@map("tbl_cat_tipo_documento")
+}
+
+model Documento {
+  id                 Int                   @id @default(autoincrement()) @map("id_documento") @db.UnsignedInt
+  expedienteId       Int                   @map("id_expediente") @db.UnsignedInt
+  tipoDocumentoId    Int                   @map("id_tipo_documento") @db.UnsignedTinyInt
+  version            Int                   @default(1) @db.UnsignedSmallInt
+  nombreOriginal     String                @map("nombre_original") @db.VarChar(255)
+  rutaAlmacenamiento String                @map("ruta_almacenamiento") @db.VarChar(500)
+  mimeType           String                @map("mime_type") @db.VarChar(100)
+  tamanoBytes        Int                   @map("tamano_bytes") @db.UnsignedInt
+  estado             EstadoDocumento       @default(PENDIENTE)
+  observaciones      String?               @db.Text
+  reemplazaAId       Int?                  @unique(map: "uq_documento_reemplaza") @map("reemplaza_a") @db.UnsignedInt
+  revisadoPorId      Int?                  @map("revisado_por") @db.UnsignedInt
+  cargadoEn          DateTime              @default(now()) @map("cargado_en") @db.DateTime(3)
+  revisadoEn         DateTime?             @map("revisado_en") @db.DateTime(3)
+  expediente         Expediente            @relation(fields: [expedienteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  tipoDocumento      TipoDocumentoCatalogo @relation(fields: [tipoDocumentoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  reemplazaA         Documento?            @relation("VersionDocumento", fields: [reemplazaAId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  reemplazos         Documento[]           @relation("VersionDocumento")
+  revisadoPor        Empleado?             @relation("DocumentoRevisadoPor", fields: [revisadoPorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  vigencia           DocumentoVigente?
+
+  @@unique([expedienteId, tipoDocumentoId, version], map: "uq_documento_version")
+  @@unique([id, expedienteId, tipoDocumentoId], map: "uq_documento_id_expediente_tipo")
+  @@index([expedienteId, tipoDocumentoId, estado], map: "idx_documento_expediente_tipo")
+  @@index([estado, revisadoEn], map: "idx_documento_estado")
+  @@map("tbl_documento")
+}
+
+model DocumentoVigente {
+  expedienteId    Int       @map("id_expediente") @db.UnsignedInt
+  tipoDocumentoId Int       @map("id_tipo_documento") @db.UnsignedTinyInt
+  documentoId     Int       @map("id_documento") @db.UnsignedInt
+  actualizadoEn   DateTime  @updatedAt @map("actualizado_en") @db.DateTime(3)
+  documento       Documento @relation(fields: [documentoId, expedienteId, tipoDocumentoId], references: [id, expedienteId, tipoDocumentoId], onDelete: Restrict, onUpdate: Cascade)
+
+  @@id([expedienteId, tipoDocumentoId])
+  @@unique([documentoId, expedienteId, tipoDocumentoId], map: "uq_documento_vigente_documento")
+  @@map("tbl_documento_vigente")
+}
+
+model Usuario {
+  id                  Int              @id @default(autoincrement()) @map("id_usuario") @db.UnsignedInt
+  matricula           String           @unique(map: "uq_usuario_matricula") @db.VarChar(30)
+  passwordHash        String           @map("password_hash") @db.VarChar(255)
+  tipo                TipoUsuario
+  debeCambiarPassword Boolean          @default(true) @map("debe_cambiar_password")
+  activo              Boolean          @default(true)
+  ultimoAccesoEn      DateTime?        @map("ultimo_acceso_en") @db.DateTime(3)
+  creadoEn            DateTime         @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn       DateTime         @updatedAt @map("actualizado_en") @db.DateTime(3)
+  alumno              Alumno?
+  empleado            Empleado?
+  mensajesEnviados    Mensaje[]
+  lecturas            MensajeLectura[]
+
+  @@index([tipo, activo], map: "idx_usuario_tipo_activo")
+  @@map("tbl_usuario")
+}
+
+model EstadoAlumno {
+  id                Int                     @id @default(autoincrement()) @map("id_estado_alumno") @db.UnsignedTinyInt
+  codigo            String                  @unique(map: "uq_estado_alumno_codigo") @db.VarChar(30)
+  descripcion       String                  @db.VarChar(120)
+  bloqueaCurp       Boolean                 @default(true) @map("bloquea_curp")
+  esTerminal        Boolean                 @default(false) @map("es_terminal")
+  orden             Int                     @default(0) @db.UnsignedTinyInt
+  alumnos           Alumno[]
+  historialAnterior HistorialEstadoAlumno[] @relation("EstadoAlumnoAnterior")
+  historialNuevo    HistorialEstadoAlumno[] @relation("EstadoAlumnoNuevo")
+
+  @@map("tbl_cat_estado_alumno")
+}
+
+model Alumno {
+  id               Int                     @id @default(autoincrement()) @map("id_alumno") @db.UnsignedInt
+  usuarioId        Int                     @unique(map: "uq_alumno_usuario") @map("id_usuario") @db.UnsignedInt
+  expedienteId     Int                     @unique(map: "uq_alumno_expediente") @map("id_expediente") @db.UnsignedInt
+  carreraId        Int                     @map("id_carrera") @db.UnsignedInt
+  estadoId         Int                     @map("id_estado_alumno") @db.UnsignedTinyInt
+  fechaAlta        DateTime                @default(now()) @map("fecha_alta") @db.DateTime(3)
+  actualizadoEn    DateTime                @updatedAt @map("actualizado_en") @db.DateTime(3)
+  usuario          Usuario                 @relation(fields: [usuarioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  expediente       Expediente              @relation(fields: [expedienteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  carrera          Carrera                 @relation(fields: [carreraId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estado           EstadoAlumno            @relation(fields: [estadoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  inscripciones    Inscripcion[]
+  conversaciones   Conversacion[]
+  historialEstados HistorialEstadoAlumno[]
+
+  @@index([carreraId, estadoId], map: "idx_alumno_carrera_estado")
+  @@map("tbl_alumno")
+}
+
+model RolEmpleado {
+  id        Int        @id @default(autoincrement()) @map("id_rol_empleado") @db.UnsignedTinyInt
+  codigo    String     @unique(map: "uq_rol_empleado_codigo") @db.VarChar(30)
+  nombre    String     @db.VarChar(80)
+  activo    Boolean    @default(true)
+  empleados Empleado[]
+
+  @@map("tbl_cat_rol_empleado")
+}
+
+model Empleado {
+  id                       Int                         @id @default(autoincrement()) @map("id_empleado") @db.UnsignedInt
+  usuarioId                Int                         @unique(map: "uq_empleado_usuario") @map("id_usuario") @db.UnsignedInt
+  nombre                   String                      @db.VarChar(80)
+  apellidoPaterno          String                      @map("apellido_paterno") @db.VarChar(80)
+  apellidoMaterno          String?                     @map("apellido_materno") @db.VarChar(80)
+  rolId                    Int                         @map("id_rol_empleado") @db.UnsignedTinyInt
+  carreraId                Int?                        @map("id_carrera") @db.UnsignedInt
+  activo                   Boolean                     @default(true)
+  creadoEn                 DateTime                    @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn            DateTime                    @updatedAt @map("actualizado_en") @db.DateTime(3)
+  usuario                  Usuario                     @relation(fields: [usuarioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  rol                      RolEmpleado                 @relation(fields: [rolId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  carrera                  Carrera?                    @relation(fields: [carreraId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  expedientesDictaminados  Expediente[]                @relation("ExpedienteDictaminadoPor")
+  documentosRevisados      Documento[]                 @relation("DocumentoRevisadoPor")
+  inscripcionesRegistradas Inscripcion[]               @relation("InscripcionRegistradaPor")
+  historialInscripciones   HistorialInscripcion[]      @relation("MovimientoRegistradoPor")
+  historialExpedientes     HistorialEstadoExpediente[] @relation("CambioExpedientePor")
+  historialAlumnos         HistorialEstadoAlumno[]     @relation("CambioAlumnoPor")
+  conversacionesAsignadas  Conversacion[]              @relation("ConversacionAsignadaA")
+
+  @@index([rolId, activo], map: "idx_empleado_rol_activo")
+  @@index([carreraId, activo], map: "idx_empleado_carrera_activo")
+  @@map("tbl_empleado")
+}
+
+model Periodo {
+  id            Int           @id @default(autoincrement()) @map("id_periodo") @db.UnsignedInt
+  nombre        String        @unique(map: "uq_periodo_nombre") @db.VarChar(30)
+  fechaInicio   DateTime      @map("fecha_inicio") @db.Date
+  fechaFin      DateTime      @map("fecha_fin") @db.Date
+  estado        EstadoPeriodo @default(PLANEADO)
+  creadoEn      DateTime      @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn DateTime      @updatedAt @map("actualizado_en") @db.DateTime(3)
+  grupos        Grupo[]
+  inscripciones Inscripcion[]
+
+  @@index([estado, fechaInicio], map: "idx_periodo_estado_fecha")
+  @@map("tbl_cat_periodo")
+}
+
+model Grupo {
+  id                      Int                    @id @default(autoincrement()) @map("id_grupo") @db.UnsignedInt
+  clave                   String                 @db.VarChar(20)
+  turno                   Turno
+  grado                   Int                    @db.UnsignedTinyInt
+  capacidadMaxima         Int                    @map("capacidad_maxima") @db.UnsignedSmallInt
+  carreraId               Int                    @map("id_carrera") @db.UnsignedInt
+  periodoId               Int                    @map("id_periodo") @db.UnsignedInt
+  activo                  Boolean                @default(true)
+  creadoEn                DateTime               @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn           DateTime               @updatedAt @map("actualizado_en") @db.DateTime(3)
+  carrera                 Carrera                @relation(fields: [carreraId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  periodo                 Periodo                @relation(fields: [periodoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  inscripciones           Inscripcion[]          @relation("GrupoPeriodo")
+  movimientosComoAnterior HistorialInscripcion[] @relation("GrupoAnterior")
+  movimientosComoNuevo    HistorialInscripcion[] @relation("GrupoNuevo")
+
+  @@unique([periodoId, carreraId, clave], map: "uq_grupo_periodo_carrera_clave")
+  @@unique([id, periodoId], map: "uq_grupo_id_periodo")
+  @@index([carreraId, periodoId, activo], map: "idx_grupo_disponibilidad")
+  @@map("tbl_grupo")
+}
+
+model EstadoInscripcion {
+  id                Int                    @id @default(autoincrement()) @map("id_estado_inscripcion") @db.UnsignedTinyInt
+  codigo            String                 @unique(map: "uq_estado_inscripcion_codigo") @db.VarChar(30)
+  descripcion       String                 @db.VarChar(120)
+  ocupaCupo         Boolean                @default(true) @map("ocupa_cupo")
+  esTerminal        Boolean                @default(false) @map("es_terminal")
+  inscripciones     Inscripcion[]
+  historialAnterior HistorialInscripcion[] @relation("EstadoInscripcionAnterior")
+  historialNuevo    HistorialInscripcion[] @relation("EstadoInscripcionNuevo")
+
+  @@map("tbl_cat_estado_inscripcion")
+}
+
+model Inscripcion {
+  id               Int                    @id @default(autoincrement()) @map("id_inscripcion") @db.UnsignedInt
+  alumnoId         Int                    @map("id_alumno") @db.UnsignedInt
+  periodoId        Int                    @map("id_periodo") @db.UnsignedInt
+  grupoId          Int                    @map("id_grupo") @db.UnsignedInt
+  estadoId         Int                    @map("id_estado_inscripcion") @db.UnsignedTinyInt
+  registradoPorId  Int                    @map("registrado_por") @db.UnsignedInt
+  fechaInscripcion DateTime               @default(now()) @map("fecha_inscripcion") @db.DateTime(3)
+  actualizadoEn    DateTime               @updatedAt @map("actualizado_en") @db.DateTime(3)
+  alumno           Alumno                 @relation(fields: [alumnoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  periodo          Periodo                @relation(fields: [periodoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  grupo            Grupo                  @relation("GrupoPeriodo", fields: [grupoId, periodoId], references: [id, periodoId], onDelete: Restrict, onUpdate: Cascade)
+  estado           EstadoInscripcion      @relation(fields: [estadoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  registradoPor    Empleado               @relation("InscripcionRegistradaPor", fields: [registradoPorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  historial        HistorialInscripcion[]
+
+  @@unique([alumnoId, periodoId], map: "uq_inscripcion_alumno_periodo")
+  @@index([grupoId, estadoId], map: "idx_inscripcion_grupo_estado")
+  @@index([registradoPorId, fechaInscripcion], map: "idx_inscripcion_empleado_fecha")
+  @@map("tbl_inscripcion")
+}
+
+model HistorialInscripcion {
+  id               Int                @id @default(autoincrement()) @map("id_historial_inscripcion") @db.UnsignedInt
+  inscripcionId    Int                @map("id_inscripcion") @db.UnsignedInt
+  estadoAnteriorId Int?               @map("id_estado_anterior") @db.UnsignedTinyInt
+  estadoNuevoId    Int                @map("id_estado_nuevo") @db.UnsignedTinyInt
+  grupoAnteriorId  Int?               @map("id_grupo_anterior") @db.UnsignedInt
+  grupoNuevoId     Int                @map("id_grupo_nuevo") @db.UnsignedInt
+  registradoPorId  Int                @map("registrado_por") @db.UnsignedInt
+  motivo           String?            @db.VarChar(500)
+  registradoEn     DateTime           @default(now()) @map("registrado_en") @db.DateTime(3)
+  inscripcion      Inscripcion        @relation(fields: [inscripcionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estadoAnterior   EstadoInscripcion? @relation("EstadoInscripcionAnterior", fields: [estadoAnteriorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estadoNuevo      EstadoInscripcion  @relation("EstadoInscripcionNuevo", fields: [estadoNuevoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  grupoAnterior    Grupo?             @relation("GrupoAnterior", fields: [grupoAnteriorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  grupoNuevo       Grupo              @relation("GrupoNuevo", fields: [grupoNuevoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  registradoPor    Empleado           @relation("MovimientoRegistradoPor", fields: [registradoPorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([inscripcionId, registradoEn], map: "idx_hist_inscripcion_fecha")
+  @@map("tbl_historial_inscripcion")
+}
+
+model HistorialEstadoExpediente {
+  id               Int               @id @default(autoincrement()) @map("id_historial_expediente") @db.UnsignedInt
+  expedienteId     Int               @map("id_expediente") @db.UnsignedInt
+  estadoAnteriorId Int?              @map("id_estado_anterior") @db.UnsignedTinyInt
+  estadoNuevoId    Int               @map("id_estado_nuevo") @db.UnsignedTinyInt
+  registradoPorId  Int?              @map("registrado_por") @db.UnsignedInt
+  observaciones    String?           @db.Text
+  registradoEn     DateTime          @default(now()) @map("registrado_en") @db.DateTime(3)
+  expediente       Expediente        @relation(fields: [expedienteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estadoAnterior   EstadoExpediente? @relation("EstadoExpedienteAnterior", fields: [estadoAnteriorId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  estadoNuevo      EstadoExpediente  @relation("EstadoExpedienteNuevo", fields: [estadoNuevoId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  registradoPor    Empleado?         @relation("CambioExpedientePor", fields: [registradoPorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([expedienteId, registradoEn], map: "idx_hist_expediente_fecha")
+  @@map("tbl_historial_estado_expediente")
+}
+
+model HistorialEstadoAlumno {
+  id               Int           @id @default(autoincrement()) @map("id_historial_alumno") @db.UnsignedInt
+  alumnoId         Int           @map("id_alumno") @db.UnsignedInt
+  estadoAnteriorId Int?          @map("id_estado_anterior") @db.UnsignedTinyInt
+  estadoNuevoId    Int           @map("id_estado_nuevo") @db.UnsignedTinyInt
+  registradoPorId  Int?          @map("registrado_por") @db.UnsignedInt
+  motivo           String?       @db.VarChar(500)
+  registradoEn     DateTime      @default(now()) @map("registrado_en") @db.DateTime(3)
+  alumno           Alumno        @relation(fields: [alumnoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estadoAnterior   EstadoAlumno? @relation("EstadoAlumnoAnterior", fields: [estadoAnteriorId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  estadoNuevo      EstadoAlumno  @relation("EstadoAlumnoNuevo", fields: [estadoNuevoId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  registradoPor    Empleado?     @relation("CambioAlumnoPor", fields: [registradoPorId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([alumnoId, registradoEn], map: "idx_hist_alumno_fecha")
+  @@map("tbl_historial_estado_alumno")
+}
+
+model Conversacion {
+  id                 Int                @id @default(autoincrement()) @map("id_conversacion") @db.UnsignedInt
+  alumnoId           Int                @map("id_alumno") @db.UnsignedInt
+  empleadoAsignadoId Int?               @map("id_empleado_asignado") @db.UnsignedInt
+  areaDestino        AreaDestino        @map("area_destino")
+  asunto             String             @db.VarChar(160)
+  estado             EstadoConversacion @default(ABIERTA)
+  creadoEn           DateTime           @default(now()) @map("creado_en") @db.DateTime(3)
+  actualizadoEn      DateTime           @updatedAt @map("actualizado_en") @db.DateTime(3)
+  cerradoEn          DateTime?          @map("cerrado_en") @db.DateTime(3)
+  alumno             Alumno             @relation(fields: [alumnoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  empleadoAsignado   Empleado?          @relation("ConversacionAsignadaA", fields: [empleadoAsignadoId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  mensajes           Mensaje[]
+
+  @@index([alumnoId, actualizadoEn], map: "idx_conversacion_alumno_fecha")
+  @@index([areaDestino, estado, actualizadoEn], map: "idx_conversacion_bandeja")
+  @@map("tbl_conversacion")
+}
+
+model Mensaje {
+  id                 Int              @id @default(autoincrement()) @map("id_mensaje") @db.UnsignedInt
+  conversacionId     Int              @map("id_conversacion") @db.UnsignedInt
+  remitenteUsuarioId Int              @map("id_usuario_remitente") @db.UnsignedInt
+  contenido          String           @db.Text
+  enviadoEn          DateTime         @default(now()) @map("enviado_en") @db.DateTime(3)
+  conversacion       Conversacion     @relation(fields: [conversacionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  remitente          Usuario          @relation(fields: [remitenteUsuarioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  lecturas           MensajeLectura[]
+
+  @@index([conversacionId, enviadoEn], map: "idx_mensaje_conversacion_fecha")
+  @@index([remitenteUsuarioId, enviadoEn], map: "idx_mensaje_remitente_fecha")
+  @@map("tbl_mensaje")
+}
+
+model MensajeLectura {
+  mensajeId Int      @map("id_mensaje") @db.UnsignedInt
+  usuarioId Int      @map("id_usuario") @db.UnsignedInt
+  leidoEn   DateTime @default(now()) @map("leido_en") @db.DateTime(3)
+  mensaje   Mensaje  @relation(fields: [mensajeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@id([mensajeId, usuarioId])
+  @@index([usuarioId, leidoEn], map: "idx_lectura_usuario_fecha")
+  @@map("tbl_mensaje_lectura")
+}
+
+model NotificacionAspirante {
+  id                   Int                @id @default(autoincrement()) @map("id_notificacion") @db.UnsignedInt
+  aspiranteId          Int                @map("id_aspirante") @db.UnsignedInt
+  tipo                 TipoNotificacion
+  destinatario         String             @db.VarChar(254)
+  estado               EstadoNotificacion @default(PENDIENTE)
+  identificadorExterno String?            @map("identificador_externo") @db.VarChar(120)
+  errorDetalle         String?            @map("error_detalle") @db.Text
+  creadoEn             DateTime           @default(now()) @map("creado_en") @db.DateTime(3)
+  enviadoEn            DateTime?          @map("enviado_en") @db.DateTime(3)
+  aspirante            Aspirante          @relation(fields: [aspiranteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([aspiranteId, creadoEn], map: "idx_notificacion_aspirante_fecha")
+  @@index([estado, creadoEn], map: "idx_notificacion_pendiente")
+  @@map("tbl_notificacion_aspirante")
+}

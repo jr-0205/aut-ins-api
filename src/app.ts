@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { Router } from "express";
+import { fileURLToPath } from "node:url";
 
 import { env } from "./config/env.js";
 import { errorHandler } from "./modules/common/middleware/error-handler.js";
@@ -10,6 +11,7 @@ import { mountModuleRoutes } from "./modules/index.js";
 export const createApp = () => {
   const app = express();
   const apiRouter = Router();
+  const publicDirectory = fileURLToPath(new URL("../public", import.meta.url));
 
   app.disable("x-powered-by");
   app.use(
@@ -22,6 +24,16 @@ export const createApp = () => {
   );
   app.use(express.json({ limit: "2mb" }));
   app.use(express.urlencoded({ extended: true, limit: "2mb" }));
+  app.use(
+    express.static(publicDirectory, {
+      index: false,
+      maxAge: env.nodeEnv === "production" ? "1h" : 0,
+    }),
+  );
+
+  app.get("/", (_request, response) => {
+    response.sendFile("index.html", { root: publicDirectory });
+  });
 
   apiRouter.use("/health", healthRouter);
   mountModuleRoutes(apiRouter);

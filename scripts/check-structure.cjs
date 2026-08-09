@@ -21,6 +21,9 @@ const walk = (directory) => {
     const fullPath = path.join(directory, entry.name);
 
     if (entry.isDirectory()) {
+      if (fullPath === path.join(root, "src", "generated")) {
+        continue;
+      }
       walk(fullPath);
     } else if (entry.name.endsWith(".ts")) {
       sourceFiles.push(fullPath);

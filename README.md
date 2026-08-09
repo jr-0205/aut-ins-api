@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="Estado del proyecto" src="https://img.shields.io/badge/estado-base%20inicial-374151">
+  <img alt="Estado del proyecto" src="https://img.shields.io/badge/estado-demo%20funcional-1d5aa6">
   <img alt="Metodología Scrum" src="https://img.shields.io/badge/metodolog%C3%ADa-Scrum-111827">
   <img alt="Node.js" src="https://img.shields.io/badge/Node.js-22%2B-4b5563">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-API-1f2937">
@@ -21,29 +21,41 @@
 
 AUT-INS busca sustituir el manejo manual de inscripciones por un proceso centralizado, seguro y trazable. El alcance prioritario acompaña al aspirante desde el pre-registro y la carga documental hasta el dictamen, el enrolamiento y la generación de su matrícula institucional.
 
-Esta versión establece la base ejecutable del backend. Los contratos funcionales, las reglas de negocio y el acceso a MySQL se implementarán por módulo conforme sean aprobados en el tablero Scrum.
+Esta versión establece la base ejecutable del backend, el contrato inicial de la API y el modelo MySQL migrable. Las reglas operativas de cada módulo se implementarán conforme a los contratos aprobados en el tablero Scrum.
 
 ## Inicio rápido
 
-Requisitos: Node.js 22 o superior y npm.
+Requisitos generales: Node.js 22 o superior y npm. Para trabajar con persistencia local se requiere MySQL 8.4 instalado.
 
 ```powershell
-Copy-Item .env.example .env
 npm install
+npm run mysql:setup
+npm run db:deploy
+npm run db:seed
 npm run dev
 ```
 
-El servidor quedará disponible en `http://localhost:3000`. Para comprobarlo:
+La interfaz quedará disponible en `http://localhost:3000` y la comprobación de la API en:
 
 ```http
 GET /api/health
 ```
+
+El front end incluye una modalidad demostrativa almacenada en el navegador. Desde el inicio de sesión se pueden cargar accesos de prueba para Admisiones, Control Escolar, Coordinación Académica y Alumno. Al enrolar un aspirante aceptado, la demostración genera matrícula, contraseña temporal y un PDF confidencial descargable; esas credenciales permiten abrir inmediatamente el portal del nuevo alumno. Esta modalidad permite validar navegación y operaciones iniciales mientras se implementan la autenticación JWT y los endpoints definitivos; no debe utilizarse con datos personales reales.
+
+Todas las áreas comparten la misma política de sesión: cierre automático después de 15 minutos sin actividad por defecto, aviso previo y retorno obligatorio al inicio de sesión después de cerrar o expirar la sesión. Desde cada panel puede configurarse una vigencia de demostración de entre 10 segundos y 30 minutos; el botón de retroceso no permite recuperar un panel sin una sesión vigente.
+
+La mensajería demostrativa distingue destinatarios: el alumno puede enviar una solicitud al departamento de Control Escolar, visible para cualquier usuario con ese rol, o dirigirla a un coordinador específico, quien la recibe en su bandeja personal.
 
 Comandos disponibles:
 
 | Comando | Uso |
 |---|---|
 | `npm run dev` | Inicia el servidor en modo de desarrollo. |
+| `npm run mysql:setup` | Prepara MySQL local, la base y credenciales seguras. |
+| `npm run db:deploy` | Aplica las migraciones pendientes. |
+| `npm run db:seed` | Carga o actualiza los catálogos iniciales. |
+| `npm run check` | Ejecuta todas las validaciones del repositorio. |
 | `npm run check:structure` | Verifica módulos e importaciones internas. |
 | `npm run typecheck` | Revisa los tipos sin generar archivos. |
 | `npm run build` | Compila TypeScript en `dist/`. |
@@ -76,12 +88,12 @@ Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explíci
 |---|---|
 | Análisis, actores, UFP y cadena de valor | Concluido |
 | Tecnologías y requisitos | Registrados |
-| Modelo y normalización de datos | En desarrollo |
-| Diseño de recursos de la API | En desarrollo |
+| Modelo y normalización de datos | Definido y migrado localmente |
+| Diseño de recursos de la API | Documentado y revisado |
 | Base modular de Node.js, Express y TypeScript | Disponible |
-| Reglas de negocio y persistencia | Pendientes por módulo |
+| Reglas de negocio por módulo | Pendientes de implementación |
 | Pruebas funcionales | Pendientes |
-| Front end | Pendiente |
+| Front end | Demostración funcional por roles; integración real con la API pendiente |
 
 ## Tecnologías
 
@@ -91,9 +103,11 @@ Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explíci
 | TypeScript | Tipado y mantenimiento del código. |
 | CORS y dotenv | Orígenes autorizados y configuración por entorno. |
 | MySQL en Microsoft Azure | Persistencia relacional alojada en la nube. |
-| Prisma ORM | Acceso a datos y migraciones, cuando se integre el esquema aprobado. |
+| Prisma ORM | Acceso tipado a datos, migraciones y catálogos iniciales. |
 | JWT | Autenticación y autorización por rol, pendiente de implementación. |
 | EmailJS | Notificaciones externas dirigidas exclusivamente a aspirantes. |
+| HTML5, CSS3 y Bootstrap 5.3 | Interfaz responsive, formularios y paneles por rol. |
+| jsPDF 4.2 | Generación local del documento descargable con las credenciales iniciales del alumno. |
 | Git y GitHub | Control de versiones, revisión y colaboración. |
 
 Microsoft Azure alojará únicamente MySQL. GitHub conservará el código fuente; el servicio donde se ejecutará la API aún debe definirse.

@@ -36,6 +36,10 @@ Permitirá autenticar usuarios y proteger las operaciones de acuerdo con el rol 
 
 Se empleará para confirmar solicitudes y comunicar dictámenes u observaciones al aspirante. No se utilizará como mensajería del alumno; esa comunicación se resolverá mediante el módulo interno `mensajes`.
 
+### jsPDF
+
+Se utilizará en el front end para generar el comprobante descargable con la matrícula, la contraseña temporal y las instrucciones de acceso del alumno. El documento se crea localmente en el navegador al concluir el enrolamiento y no sustituye el tratamiento seguro de contraseñas que deberá realizar el backend en la implementación definitiva.
+
 ### Git y GitHub
 
 Mantendrán el historial del código y la documentación, facilitarán el trabajo por ramas y permitirán revisar los cambios antes de integrarlos. GitHub almacenará el repositorio, pero no ejecutará la API.

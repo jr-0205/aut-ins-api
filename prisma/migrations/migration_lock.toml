@@ -1,0 +1,2 @@
+# No editar manualmente después de aplicar migraciones.
+provider = "mysql"

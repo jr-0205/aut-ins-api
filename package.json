@@ -6,17 +6,33 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:generate": "prisma generate",
+    "db:validate": "prisma validate",
+    "db:typecheck": "tsc -p tsconfig.prisma.json --noEmit",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "mysql:setup": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/local-mysql.ps1 setup",
+    "mysql:start": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/local-mysql.ps1 start",
+    "mysql:stop": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/local-mysql.ps1 stop",
+    "mysql:status": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/local-mysql.ps1 status",
     "check:structure": "node scripts/check-structure.cjs",
-    "check": "npm run check:structure && npm run typecheck"
+    "postman:build": "node scripts/build-postman.cjs",
+    "check:postman": "node scripts/build-postman.cjs --check",
+    "check": "npm run db:validate && npm run db:typecheck && npm run check:structure && npm run check:postman && npm run typecheck"
   },
   "engines": {
     "node": ">=22"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.9.1",
+    "@prisma/client": "^7.9.1",
     "cors": "2.8.6",
     "dotenv": "17.4.2",
     "express": "5.2.1"
@@ -25,6 +41,7 @@
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
     "@types/node": "22.20.1",
+    "prisma": "^7.9.1",
     "tsx": "4.23.1",
     "typescript": "7.0.2"
   }
