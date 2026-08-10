@@ -71,6 +71,29 @@ a {
   letter-spacing: -0.03em;
 }
 
+.brand-logo {
+  display: block;
+  width: 3.4rem;
+  height: 3.4rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+  border: 1px solid rgba(71, 102, 148, 0.24);
+  border-radius: 0.7rem;
+  box-shadow: 0 8px 20px rgba(15, 38, 73, 0.2);
+}
+
+.brand-logo-login {
+  width: 4.6rem;
+  height: 4.6rem;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.brand-logo-sidebar {
+  width: 4rem;
+  height: 4rem;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
 .brand-title {
   color: var(--aut-navy);
   font-weight: 850;

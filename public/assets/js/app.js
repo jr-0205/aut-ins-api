@@ -346,7 +346,7 @@ const publicNavigation = () => `
   <nav class="navbar navbar-expand-md public-navbar fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="#/inicio" aria-label="AUT-INS, inicio">
-        <span class="brand-mark">AUT</span>
+        <img class="brand-logo" src="/assets/img/aut-ins-logo.svg" alt="" aria-hidden="true">
         <span class="brand-title">AUT-INS</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#public-nav" aria-controls="public-nav" aria-expanded="false" aria-label="Mostrar navegación">
@@ -462,7 +462,7 @@ const renderLogin = () => `
           <div class="col-lg-5">
             <section class="pattern-panel d-flex flex-column justify-content-between">
               <div>
-                <div class="d-flex align-items-center gap-2 mb-5"><span class="brand-mark">AUT</span><span class="fw-bold fs-5">AUT-INS</span></div>
+                <div class="d-flex align-items-center gap-3 mb-5"><img class="brand-logo brand-logo-login" src="/assets/img/aut-ins-logo.svg" alt="" aria-hidden="true"><span class="fw-bold fs-5">AUT-INS</span></div>
                 <span class="eyebrow">Acceso institucional</span>
                 <h1 class="display-5 fw-bold lh-1 mb-3">Bienvenido de nuevo.</h1>
                 <p class="text-white-50 lh-lg">El sistema identificará tu rol y abrirá el espacio de trabajo correspondiente.</p>
@@ -592,7 +592,7 @@ const dashboardShell = (session, content) => `
   <div class="dashboard-layout">
     <aside class="sidebar">
       <a class="d-flex align-items-center gap-2 text-decoration-none" href="#/panel/${roleRoutes[session.role]}">
-        <span class="brand-mark">AUT</span><span class="brand-title">AUT-INS</span>
+        <img class="brand-logo brand-logo-sidebar" src="/assets/img/aut-ins-logo.svg" alt="" aria-hidden="true"><span class="brand-title">AUT-INS</span>
       </a>
       <span class="role-chip">${escapeHtml(roleLabels[session.role])}</span>
       <nav class="sidebar-nav" aria-label="Secciones del panel">

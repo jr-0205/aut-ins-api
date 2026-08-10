@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/aut-ins-mark.svg" width="220" alt="Identidad gráfica de AUT-INS">
+  <img src="public/assets/img/aut-ins-logo.svg" width="280" alt="Logotipo oficial de AUT-INS">
 </p>
 
 <h1 align="center">AUT-INS API</h1>
