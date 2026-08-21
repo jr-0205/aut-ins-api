@@ -24,7 +24,10 @@ export const createApp = () => {
       origin:
         env.corsOrigin === "*"
           ? "*"
-          : env.corsOrigin.split(",").map((origin) => origin.trim()),
+          : env.corsOrigin
+              .split(",")
+              .map((origin) => origin.trim())
+              .filter(Boolean),
     }),
   );
   app.use(express.json({ limit: "2mb" }));

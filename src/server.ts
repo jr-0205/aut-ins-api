@@ -1,7 +1,9 @@
 import { app } from "./app.js";
 import { env } from "./config/env.js";
 
-const server = app.listen(env.port, () => {
+const host = "0.0.0.0";
+
+const server = app.listen(env.port, host, () => {
   console.log(`AUT-INS API disponible en http://localhost:${env.port}/api/health`);
 });
 

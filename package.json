@@ -29,7 +29,7 @@
     "check": "npm run db:validate && npm run db:typecheck && npm run check:structure && npm run check:postman && npm run typecheck && npm test"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22 <25"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.9.1",

@@ -43,6 +43,19 @@ La interfaz quedará disponible en `http://localhost:3000` y la comprobación de
 GET /api/health
 ```
 
+## Despliegue en Render
+
+El repositorio incluye [`render.yaml`](render.yaml) para crear un Web Service gratuito y reproducible desde GitHub.
+
+1. En Render selecciona **New → Blueprint**.
+2. Conecta el repositorio `jr-0205/aut-ins-api` y la rama `main`.
+3. Confirma el servicio `aut-ins-api` definido por el Blueprint.
+4. Espera a que termine el despliegue y comprueba `GET /api/health` en la URL asignada.
+
+La configuración versionada utiliza Node.js 24.14.1, ejecuta `npm ci --include=dev && npm run build`, inicia con `npm start` y configura `/api/health` como comprobación HTTP. `JWT_SECRET` se genera dentro de Render y no se guarda en Git. En producción, CORS autoriza automáticamente el dominio HTTPS asignado por Render; otros orígenes deben declararse explícitamente en `CORS_ORIGIN`.
+
+La beta pública actual puede mostrar la interfaz y los flujos demostrativos sin base remota porque esos datos se mantienen en el navegador. Para activar persistencia real, agrega `DATABASE_URL` en **Environment** con una conexión MySQL accesible desde internet; una dirección local como `127.0.0.1:3307` sólo funciona en tu computadora. Después ejecuta `npm run db:deploy` y `npm run db:seed` contra esa base.
+
 El front end incluye una modalidad demostrativa almacenada en el navegador. Desde el inicio de sesión se pueden cargar accesos de prueba para Admisiones, Control Escolar, Coordinación Académica y Alumno. Al enrolar un aspirante aceptado, la demostración genera matrícula, contraseña temporal y un PDF confidencial descargable; esas credenciales permiten abrir inmediatamente el portal del nuevo alumno. Esta modalidad permite validar navegación y operaciones iniciales mientras se implementan la autenticación JWT y los endpoints definitivos; no debe utilizarse con datos personales reales.
 
 ### Accesos de demostración
@@ -124,7 +137,7 @@ Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explíci
 | jsPDF 4.2 | Generación local del documento descargable con las credenciales iniciales del alumno. |
 | Git y GitHub | Control de versiones, revisión y colaboración. |
 
-Microsoft Azure alojará únicamente MySQL. GitHub conservará el código fuente; el servicio donde se ejecutará la API aún debe definirse.
+Microsoft Azure puede alojar MySQL cuando se active la persistencia remota. GitHub conserva el código fuente y Render ejecuta la beta pública de la aplicación.
 
 ## Documentación
 

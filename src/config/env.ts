@@ -13,6 +13,12 @@ const parsePort = (rawValue: string | undefined): number => {
 export const env = Object.freeze({
   nodeEnv: process.env.NODE_ENV ?? "development",
   port: parsePort(process.env.PORT),
-  corsOrigin: process.env.CORS_ORIGIN ?? "*",
+  corsOrigin:
+    process.env.CORS_ORIGIN ??
+    (process.env.RENDER_EXTERNAL_HOSTNAME
+      ? `https://${process.env.RENDER_EXTERNAL_HOSTNAME}`
+      : process.env.NODE_ENV === "production"
+        ? ""
+        : "*"),
   databaseUrl: process.env.DATABASE_URL,
 });
