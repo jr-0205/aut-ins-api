@@ -16,6 +16,7 @@ let currentPreviewUrl = null;
 let sessionWarningTimer = null;
 let sessionExpiryTimer = null;
 let lastActivitySync = 0;
+const loginGuard = { failures: 0, blockedUntil: 0 };
 
 const ACTIVITY_SYNC_INTERVAL_MS = 5 * 1000;
 
@@ -479,11 +480,11 @@ const renderLogin = () => `
               <form id="login-form" class="row g-3" novalidate>
                 <div class="col-12">
                   <label class="form-label" for="login">Correo o matrícula</label>
-                  <input class="form-control" id="login" name="login" autocomplete="username" required>
+                  <input class="form-control" id="login" name="login" autocomplete="username" minlength="3" maxlength="120" required>
                 </div>
                 <div class="col-12">
                   <label class="form-label" for="password">Contraseña</label>
-                  <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
+                  <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required>
                 </div>
                 <div class="col-12 d-grid mt-4">
                   <button class="btn btn-aut-primary btn-lg" type="submit">Continuar</button>
@@ -496,7 +497,7 @@ const renderLogin = () => `
                   ${demoUsers
                     .map(
                       (user) => `<div class="demo-user">
-                        <div><strong class="small">${escapeHtml(roleLabels[user.role])}</strong><small>${escapeHtml(user.login)} · contraseña oculta</small></div>
+                        <div><strong class="small">${escapeHtml(roleLabels[user.role])}</strong><small>${escapeHtml(user.login)} · ${escapeHtml(user.password)}</small></div>
                         <button class="btn btn-sm btn-aut-soft" type="button" data-action="use-demo" data-login="${escapeHtml(user.login)}">Usar acceso</button>
                       </div>`,
                     )
@@ -958,11 +959,30 @@ document.addEventListener("submit", (event) => {
     const form = event.target;
     if (!form.reportValidity()) return;
     const data = new FormData(form);
-    const session = store.authenticate(data.get("login"), data.get("password"));
+    const login = String(data.get("login") ?? "").trim();
+    const password = String(data.get("password") ?? "");
+    const now = Date.now();
+    if (loginGuard.blockedUntil > now) {
+      const seconds = Math.ceil((loginGuard.blockedUntil - now) / 1000);
+      document.querySelector("#login-alert").innerHTML = `<div class="alert alert-warning py-2 small">Demasiados intentos. Vuelve a intentarlo en ${seconds} segundos.</div>`;
+      return;
+    }
+    if (login.length < 3 || login.length > 120 || password.length < 8 || password.length > 128) {
+      document.querySelector("#login-alert").innerHTML = `<div class="alert alert-danger py-2 small">Revisa el formato del usuario y la contraseña.</div>`;
+      return;
+    }
+    const session = store.authenticate(login, password);
     if (!session) {
+      loginGuard.failures += 1;
+      if (loginGuard.failures >= 5) {
+        loginGuard.blockedUntil = Date.now() + 30 * 1000;
+        loginGuard.failures = 0;
+      }
       document.querySelector("#login-alert").innerHTML = `<div class="alert alert-danger py-2 small">Las credenciales no son correctas para este entorno.</div>`;
       return;
     }
+    loginGuard.failures = 0;
+    loginGuard.blockedUntil = 0;
     window.location.hash = `#/panel/${roleRoutes[session.role]}`;
     return;
   }

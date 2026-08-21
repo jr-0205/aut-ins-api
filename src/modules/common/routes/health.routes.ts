@@ -11,6 +11,7 @@ healthRouter.get("/", (_request, response) => {
       service: "AUT-INS API",
       status: "operational",
       apiVersion: "v1",
+      releaseStage: "beta",
       modules: moduleNames,
       timestamp: new Date().toISOString(),
     },

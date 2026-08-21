@@ -1,0 +1,3780 @@
+{
+  "source": "C:\\VS Code\\aut-ins-api\\docs\\entregables\\Proyecto_Aplicacion_AUT-INS_2_ETAPA_4_CERRADA.docx",
+  "paragraphs": [
+    {
+      "index": 1,
+      "style": "Normal",
+      "text": "PROYECTO ACADÉMICO"
+    },
+    {
+      "index": 6,
+      "style": "Normal",
+      "text": "DESARROLLO DE UNA APLICACIÓN\nESCOLAR INTELIGENTE"
+    },
+    {
+      "index": 9,
+      "style": "Normal",
+      "text": "Gestión de inscripciones escolares"
+    },
+    {
+      "index": 10,
+      "style": "Normal",
+      "text": "Metodología Scrum"
+    },
+    {
+      "index": 11,
+      "style": "Normal",
+      "text": "EQUIPO DEL PROYECTO"
+    },
+    {
+      "index": 12,
+      "style": "Normal",
+      "text": "Carlos Eduardo Martínez Morales"
+    },
+    {
+      "index": 13,
+      "style": "Normal",
+      "text": "Daen Sánchez Marín"
+    },
+    {
+      "index": 14,
+      "style": "Normal",
+      "text": "Fernando Pérez Acuautla"
+    },
+    {
+      "index": 15,
+      "style": "Normal",
+      "text": "Fernando Aguilar Velázquez"
+    },
+    {
+      "index": 16,
+      "style": "Normal",
+      "text": "Pedro Jair Suárez Flores"
+    },
+    {
+      "index": 17,
+      "style": "Normal",
+      "text": "AGOSTO DE 2026"
+    },
+    {
+      "index": 19,
+      "style": "Normal",
+      "text": "DESARROLLO DE UNA APLICACIÓN ESCOLAR INTELIGENTE\nPARA LA GESTIÓN DE INSCRIPCIONES"
+    },
+    {
+      "index": 20,
+      "style": "Normal",
+      "text": "Índice general"
+    },
+    {
+      "index": 23,
+      "style": "Heading 1",
+      "text": "Integrantes y responsabilidades generales"
+    },
+    {
+      "index": 24,
+      "style": "Heading 1",
+      "text": "Objetivo"
+    },
+    {
+      "index": 25,
+      "style": "Normal",
+      "text": "Desarrollar una aplicación web que permita administrar el proceso de inscripción de estudiantes a una institución educativa, aplicando metodologías de análisis, diseño y desarrollo de APIs. El equipo deberá seleccionar las tecnologías más adecuadas para resolver el problema y justificar cada decisión tomada. La solución deberá contemplar tanto aspectos funcionales como de seguridad, organización de datos y experiencia del usuario."
+    },
+    {
+      "index": 26,
+      "style": "Heading 1",
+      "text": "Problemática"
+    },
+    {
+      "index": 27,
+      "style": "Normal",
+      "text": "Una institución educativa realiza actualmente las inscripciones de manera manual mediante hojas de cálculo y formularios impresos."
+    },
+    {
+      "index": 28,
+      "style": "Normal",
+      "text": "Esto provoca diversos problemas: inscripciones duplicadas, grupos saturados, captura incorrecta de información, dificultad para consultar el historial de alumnos, poca seguridad en el acceso al sistema y falta de reportes para la toma de decisiones."
+    },
+    {
+      "index": 29,
+      "style": "Normal",
+      "text": "La dirección escolar solicita el desarrollo de una aplicación inteligente que permita administrar este proceso."
+    },
+    {
+      "index": 30,
+      "style": "Normal",
+      "text": "El equipo deberá analizar el problema y proponer una solución."
+    },
+    {
+      "index": 33,
+      "style": "Heading 1",
+      "text": "1. Primera etapa. Análisis del problema"
+    },
+    {
+      "index": 34,
+      "style": "Normal",
+      "text": "El equipo deberá comprender completamente el problema antes de comenzar a programar."
+    },
+    {
+      "index": 35,
+      "style": "Heading 2",
+      "text": "1.1 Identificación de actores"
+    },
+    {
+      "index": 36,
+      "style": "List Bullet",
+      "text": "Aspirante"
+    },
+    {
+      "index": 37,
+      "style": "List Bullet",
+      "text": "Coordinación de Admisiones"
+    },
+    {
+      "index": 38,
+      "style": "List Bullet",
+      "text": "Control Escolar"
+    },
+    {
+      "index": 39,
+      "style": "List Bullet",
+      "text": "Coordinador Académico"
+    },
+    {
+      "index": 40,
+      "style": "List Bullet",
+      "text": "Alumno"
+    },
+    {
+      "index": 41,
+      "style": "List Bullet",
+      "text": "Sistema"
+    },
+    {
+      "index": 42,
+      "style": "Heading 2",
+      "text": "1.2 Matriz Actores–Responsabilidades"
+    },
+    {
+      "index": 43,
+      "style": "Heading 2",
+      "text": "1.3 Unidades Funcionales de Proceso (Procesos Principales)"
+    },
+    {
+      "index": 44,
+      "style": "Heading 3",
+      "text": "1. Pre-registro y Carga Documental de Aspirante"
+    },
+    {
+      "index": 46,
+      "style": "Heading 3",
+      "text": "2. Revisión, Validación y Dictamen de Admisiones"
+    },
+    {
+      "index": 48,
+      "style": "Heading 3",
+      "text": "3. Enrolamiento Escolar y Generación de Credenciales Únicas"
+    },
+    {
+      "index": 50,
+      "style": "Heading 3",
+      "text": "4. Administración General de Alumnos y Coordinadores por Carrera"
+    },
+    {
+      "index": 52,
+      "style": "Heading 3",
+      "text": "5. Asignación Académica de Grupo y Materias por Coordinador"
+    },
+    {
+      "index": 54,
+      "style": "Heading 3",
+      "text": "6. Consulta de Información Personal, Grupo y Carga Académica"
+    },
+    {
+      "index": 56,
+      "style": "Heading 3",
+      "text": "7. Gestión de Solicitudes de Ayuda y Corrección de Datos"
+    },
+    {
+      "index": 58,
+      "style": "Heading 3",
+      "text": "8. Emisión de Reportes Estadísticos y Control de Seguridad"
+    },
+    {
+      "index": 60,
+      "style": "Heading 2",
+      "text": "1.4 Unidades Funcionales Sugeridas"
+    },
+    {
+      "index": 61,
+      "style": "Heading 3",
+      "text": "1. Validación Automática de Disponibilidad y Cupo Máximo"
+    },
+    {
+      "index": 63,
+      "style": "Heading 3",
+      "text": "2. Autenticación, Control de Sesión y Roles de Usuario"
+    },
+    {
+      "index": 65,
+      "style": "Heading 3",
+      "text": "3. Reenvío de Información Reclamada por Admisiones"
+    },
+    {
+      "index": 68,
+      "style": "Heading 2",
+      "text": "1.5 Cadena de valor y diagrama 0"
+    },
+    {
+      "index": 71,
+      "style": "Heading 1",
+      "text": "2. Segunda etapa. Diseño de la solución"
+    },
+    {
+      "index": 72,
+      "style": "Normal",
+      "text": "El equipo deberá decidir la arquitectura y justificar: Cliente - Servidor, API REST, Monolito u otra propuesta."
+    },
+    {
+      "index": 74,
+      "style": "Heading 2",
+      "text": "2.1 Tecnologías registradas en el avance"
+    },
+    {
+      "index": 75,
+      "style": "Normal",
+      "text": "Hasta este momento, las tecnologías confirmadas para el proyecto son JWT, Microsoft Azure, MySQL, Prisma ORM y EmailJS; además, el código de la API se conservará en un repositorio Git. Su elección responde a las necesidades de seguridad, disponibilidad, organización de datos, facilidad de desarrollo, colaboración y comunicación con los usuarios."
+    },
+    {
+      "index": 76,
+      "style": "Heading 2",
+      "text": "2.2 Relación entre las tecnologías"
+    },
+    {
+      "index": 77,
+      "style": "Normal",
+      "text": "Microsoft Azure se utilizará únicamente para alojar la base de datos MySQL. Prisma ORM servirá como capa de acceso entre la API y esa base de datos; JWT permitirá autenticar usuarios y aplicar permisos según su rol; EmailJS se utilizará únicamente para enviar notificaciones al aspirante durante su trámite; y, cuando la persona ya sea alumno, la comunicación se realizará dentro de su propia vista mediante la caja de mensajes del sistema. El código fuente de la API permanecerá en un repositorio Git para su control de versiones y trabajo colaborativo. El servicio donde se ejecutará la API todavía no se encuentra definido."
+    },
+    {
+      "index": 78,
+      "style": "Normal",
+      "text": "3. Tercera etapa. Diseño de la base de datos"
+    },
+    {
+      "index": 79,
+      "style": "Normal",
+      "text": "Estado del avance Scrum. SCRUM-13, correspondiente al análisis de requisitos y entidades, está aprobado. SCRUM-14 se encuentra en curso; la Segunda y Tercera Forma Normal, la implementación y la publicación permanecerán como apartados pendientes hasta que sus responsables concluyan cada tarea."
+    },
+    {
+      "index": 80,
+      "style": "Normal",
+      "text": "Alcance priorizado. El núcleo del proyecto se concentra en la admisión e inscripción, la consulta del estado del trámite y las notificaciones al aspirante. Los componentes académicos y de comunicación interna se mantienen como apoyo complementario."
+    },
+    {
+      "index": 81,
+      "style": "Heading 2",
+      "text": "3.1 Propósito del diseño de la base de datos"
+    },
+    {
+      "index": 82,
+      "style": "Normal",
+      "text": "El propósito de esta etapa es diseñar una base de datos relacional que permita registrar y dar seguimiento al proceso de admisión e inscripción, conservar el historial de cada trámite y garantizar la integridad de la información. Este diseño servirá como base para la implementación posterior mediante MySQL y Prisma ORM."
+    },
+    {
+      "index": 83,
+      "style": "Normal",
+      "text": "La solución se plantea mediante una base de datos relacional que conserva el historial completo de cada proceso. La información no se elimina cuando una solicitud es rechazada, un alumno egresa o se presenta una baja definitiva; en su lugar, el sistema utiliza estados para distinguir los procesos vigentes de los históricos. Esta decisión permite mantener trazabilidad y, al mismo tiempo, controlar cuándo un CURP puede iniciar un nuevo proceso de admisión."
+    },
+    {
+      "index": 84,
+      "style": "Heading 2",
+      "text": "3.2 Objetivos de la base de datos"
+    },
+    {
+      "index": 85,
+      "style": "Heading 3",
+      "text": "3.2.1 Objetivo general"
+    },
+    {
+      "index": 86,
+      "style": "Normal",
+      "text": "Diseñar una estructura de información que permita administrar de forma segura y trazable el registro de aspirantes, revisión documental, generación de alumnos, inscripción por periodos y grupos, control de cupos, seguimiento de estados académicos, historial de procesos y comunicación interna entre alumnos y personal."
+    },
+    {
+      "index": 87,
+      "style": "Heading 3",
+      "text": "3.2.2 Objetivos específicos"
+    },
+    {
+      "index": 89,
+      "style": "Heading 2",
+      "text": "3.3 Análisis de requisitos y entidades (SCRUM-13)"
+    },
+    {
+      "index": 90,
+      "style": "Heading 3",
+      "text": "3.3.1 Requisitos funcionales"
+    },
+    {
+      "index": 92,
+      "style": "Heading 3",
+      "text": "3.3.2 Requisitos no funcionales"
+    },
+    {
+      "index": 94,
+      "style": "Heading 2",
+      "text": "3.4 Reglas de datos e integridad"
+    },
+    {
+      "index": 96,
+      "style": "Heading 2",
+      "text": "3.5 Análisis detallado de entidades"
+    },
+    {
+      "index": 97,
+      "style": "Heading 3",
+      "text": "3.5.1 Entidad Aspirante"
+    },
+    {
+      "index": 98,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_aspirante"
+    },
+    {
+      "index": 99,
+      "style": "Normal",
+      "text": "Propósito: Representar cada intento formal de ingreso de una persona a la institución. Un mismo CURP puede aparecer en diferentes procesos históricos, siempre que solamente uno se encuentre vigente."
+    },
+    {
+      "index": 101,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Se relaciona con tbl_cat_carrera para identificar la carrera solicitada y con tbl_expediente para continuar el trámite. No requiere un booleano de activo si la vigencia del proceso se determina mediante el estado del expediente."
+    },
+    {
+      "index": 102,
+      "style": "Normal",
+      "text": "Ejemplo de funcionamiento: Una persona fue aspirante a Sistemas y posteriormente quedó Inactiva después de una baja definitiva. Años después puede registrarse a otra carrera con el mismo CURP, generándose un nuevo aspirante sin eliminar el registro anterior."
+    },
+    {
+      "index": 104,
+      "style": "Heading 3",
+      "text": "3.5.2 Entidad Expediente"
+    },
+    {
+      "index": 105,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_expediente"
+    },
+    {
+      "index": 106,
+      "style": "Normal",
+      "text": "Propósito: Concentrar la documentación y representar el estado central del proceso de admisión y su vigencia histórica."
+    },
+    {
+      "index": 108,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Es la entidad utilizada como referencia principal para interpretar la vigencia del proceso. Su estado permite distinguir procesos en revisión, rechazados, temporalmente suspendidos o cerrados definitivamente."
+    },
+    {
+      "index": 109,
+      "style": "Normal",
+      "text": "Ejemplo de funcionamiento: Si Admisiones rechaza el expediente, se conserva Aspirante + Expediente con estado Rechazado y no se crea Alumno. Si posteriormente la persona vuelve a intentarlo, se generan nuevos registros."
+    },
+    {
+      "index": 111,
+      "style": "Heading 3",
+      "text": "3.5.3 Catálogo Estado de Expediente"
+    },
+    {
+      "index": 112,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_cat_estadoExpediente"
+    },
+    {
+      "index": 113,
+      "style": "Normal",
+      "text": "Propósito: Definir de forma controlada los estados que gobiernan la vigencia del proceso."
+    },
+    {
+      "index": 115,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Centraliza los valores permitidos y evita escribir estados manualmente en tbl_expediente."
+    },
+    {
+      "index": 116,
+      "style": "Normal",
+      "text": "Ejemplo de funcionamiento: 1 Aceptado; 2 Rechazado; 3 En proceso; 4 Inactivo; 5 No activo."
+    },
+    {
+      "index": 118,
+      "style": "Heading 3",
+      "text": "3.5.4 Entidad Alumno"
+    },
+    {
+      "index": 119,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_alumno"
+    },
+    {
+      "index": 120,
+      "style": "Normal",
+      "text": "Propósito: Representar la condición académica generada después de que un expediente es aceptado."
+    },
+    {
+      "index": 122,
+      "style": "Normal",
+      "text": "Justificación y relaciones: El alumno no duplica nombre, apellidos o CURP; dichos datos se recuperan a través de tbl_expediente y tbl_aspirante. El catálogo de estado del alumno permite expresar la situación académica con mayor precisión, mientras que el expediente conserva la condición general del proceso."
+    },
+    {
+      "index": 123,
+      "style": "Normal",
+      "text": "Ejemplo de funcionamiento: Un alumno con Baja temporal no aparece en una vista de alumnos cursando, pero sigue existiendo y su CURP continúa bloqueado."
+    },
+    {
+      "index": 124,
+      "style": "Heading 3",
+      "text": "3.5.5 Catálogo Estado de Alumno"
+    },
+    {
+      "index": 125,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_cat_estadoAlumno"
+    },
+    {
+      "index": 126,
+      "style": "Normal",
+      "text": "Propósito: Controlar la situación académica específica del alumno."
+    },
+    {
+      "index": 128,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Se mantiene separado del estado del expediente porque el estado del trámite y el estado académico representan conceptos relacionados, pero no idénticos."
+    },
+    {
+      "index": 129,
+      "style": "Heading 3",
+      "text": "3.5.6 Entidad Inscripción"
+    },
+    {
+      "index": 130,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_inscripcion"
+    },
+    {
+      "index": 131,
+      "style": "Normal",
+      "text": "Propósito: Registrar cada asignación de un alumno a un grupo y conservar el historial de movimientos por ciclo escolar."
+    },
+    {
+      "index": 133,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Permite conservar múltiples registros para un mismo alumno y evita sobrescribir su historial."
+    },
+    {
+      "index": 134,
+      "style": "Normal",
+      "text": "Ejemplo de funcionamiento: Si un grupo tiene capacidad 30 y ya existen 30 inscripciones válidas, el sistema rechaza la inscripción número 31."
+    },
+    {
+      "index": 135,
+      "style": "Heading 3",
+      "text": "3.5.7 Entidad Grupo"
+    },
+    {
+      "index": 136,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_grupo"
+    },
+    {
+      "index": 137,
+      "style": "Normal",
+      "text": "Propósito: Representar los grupos académicos disponibles por carrera, grado, turno y periodo."
+    },
+    {
+      "index": 139,
+      "style": "Normal",
+      "text": "Justificación y relaciones: El catálogo de periodo evita capturas libres y disminuye errores humanos. capacidad_maxima permite controlar la saturación."
+    },
+    {
+      "index": 140,
+      "style": "Heading 3",
+      "text": "3.5.8 Catálogo Periodo"
+    },
+    {
+      "index": 141,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_cat_periodo"
+    },
+    {
+      "index": 142,
+      "style": "Normal",
+      "text": "Propósito: Centralizar los periodos escolares que pueden utilizarse al crear grupos."
+    },
+    {
+      "index": 144,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Un periodo puede tener muchos grupos y cada grupo pertenece a un único periodo. La selección desde catálogo reduce errores de escritura y facilita filtros y reportes."
+    },
+    {
+      "index": 145,
+      "style": "Heading 3",
+      "text": "3.5.9 Entidad Empleado"
+    },
+    {
+      "index": 146,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_empleado"
+    },
+    {
+      "index": 147,
+      "style": "Normal",
+      "text": "Propósito: Representar al personal que participa en los procesos administrativos y académicos."
+    },
+    {
+      "index": 149,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Permite aplicar control de acceso por rol y conservar qué empleado realizó una inscripción o participa en una conversación."
+    },
+    {
+      "index": 150,
+      "style": "Heading 3",
+      "text": "3.5.10 Catálogo Rol de Empleado"
+    },
+    {
+      "index": 151,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_cat_rolEmpleado"
+    },
+    {
+      "index": 152,
+      "style": "Normal",
+      "text": "Propósito: Definir los roles autorizados del personal."
+    },
+    {
+      "index": 154,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Evita almacenar el texto del rol repetidamente y facilita control de permisos."
+    },
+    {
+      "index": 155,
+      "style": "Heading 3",
+      "text": "3.5.11 Catálogo Carrera"
+    },
+    {
+      "index": 156,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_cat_carrera"
+    },
+    {
+      "index": 157,
+      "style": "Normal",
+      "text": "Propósito: Centralizar las carreras ofrecidas por la institución."
+    },
+    {
+      "index": 159,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Se relaciona con aspirantes, alumnos, grupos y empleados cuando corresponde. Esto evita duplicar nombres de carrera y facilita cambios institucionales."
+    },
+    {
+      "index": 160,
+      "style": "Heading 3",
+      "text": "3.5.12 Entidad Conversación"
+    },
+    {
+      "index": 161,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_conversacion"
+    },
+    {
+      "index": 162,
+      "style": "Normal",
+      "text": "Propósito: Agrupar un hilo de comunicación interna entre un alumno y un empleado."
+    },
+    {
+      "index": 164,
+      "style": "Normal",
+      "text": "Justificación y relaciones: Separar conversación de mensaje evita repetir participantes y asunto en cada mensaje. Un alumno y un empleado pueden participar en múltiples conversaciones."
+    },
+    {
+      "index": 165,
+      "style": "Heading 3",
+      "text": "3.5.13 Entidad Mensaje"
+    },
+    {
+      "index": 166,
+      "style": "Normal",
+      "text": "Nombre lógico: tbl_mensaje"
+    },
+    {
+      "index": 167,
+      "style": "Normal",
+      "text": "Propósito: Almacenar cada intervención enviada dentro de una conversación."
+    },
+    {
+      "index": 169,
+      "style": "Normal",
+      "text": "Justificación y relaciones: La identidad de los participantes se obtiene mediante tbl_conversacion, por lo que no es necesario repetir id_alumno e id_empleado en cada mensaje."
+    },
+    {
+      "index": 170,
+      "style": "Normal",
+      "text": "Ejemplo de funcionamiento: Una conversación sobre un problema de inscripción puede contener un mensaje del alumno, dos respuestas de Control Escolar y una confirmación final del alumno."
+    },
+    {
+      "index": 171,
+      "style": "Heading 2",
+      "text": "3.6 Relaciones y cardinalidades"
+    },
+    {
+      "index": 173,
+      "style": "Heading 2",
+      "text": "3.7 Criterios de integridad y vigencia"
+    },
+    {
+      "index": 174,
+      "style": "Heading 3",
+      "text": "3.7.1 Alcance de las relaciones"
+    },
+    {
+      "index": 175,
+      "style": "Normal",
+      "text": "Las claves foráneas garantizan que los registros relacionados existan, permiten navegar entre las entidades y preservan la integridad referencial. La relación establece el vínculo entre los datos, pero no determina por sí misma el comportamiento de las vistas o de la API."
+    },
+    {
+      "index": 176,
+      "style": "Heading 3",
+      "text": "3.7.2 Vigencia sin duplicar indicadores"
+    },
+    {
+      "index": 177,
+      "style": "Normal",
+      "text": "Agregar activo/inactivo simultáneamente en Aspirante, Expediente y Alumno introduciría tres fuentes potenciales de verdad. Podrían producirse combinaciones contradictorias, por ejemplo un aspirante activo, un expediente inactivo y un alumno activo. El modelo propuesto utiliza el estado del expediente como referencia de vigencia del proceso y el estado del alumno como descripción académica específica."
+    },
+    {
+      "index": 178,
+      "style": "Heading 3",
+      "text": "3.7.3 Vigencia e historial del CURP"
+    },
+    {
+      "index": 179,
+      "style": "Normal",
+      "text": "El CURP se modela considerando su historial y la vigencia del proceso asociado. La estructura permite conservar varios procesos históricos de la misma persona sin convertir el CURP en una unicidad global."
+    },
+    {
+      "index": 181,
+      "style": "Heading 2",
+      "text": "3.8 Casos de validación del modelo"
+    },
+    {
+      "index": 182,
+      "style": "Heading 3",
+      "text": "3.8.1 Mismo CURP con dos procesos históricos"
+    },
+    {
+      "index": 184,
+      "style": "Normal",
+      "text": "El ejemplo es válido porque el primer proceso ya terminó definitivamente. Ambos conjuntos de registros permanecen en la base de datos, pero únicamente el segundo se considera vigente."
+    },
+    {
+      "index": 185,
+      "style": "Heading 3",
+      "text": "3.8.2 Intento de duplicidad durante baja temporal"
+    },
+    {
+      "index": 186,
+      "style": "Normal",
+      "text": "Si el proceso existente se encuentra No activo debido a una baja temporal, el sistema encuentra el CURP como asociado a una relación académica vigente y rechaza la creación de un nuevo aspirante. La persona deberá reincorporarse utilizando su proceso existente."
+    },
+    {
+      "index": 187,
+      "style": "Heading 3",
+      "text": "3.8.3 Rechazo y nuevo intento"
+    },
+    {
+      "index": 188,
+      "style": "Normal",
+      "text": "Cuando una solicitud es Rechazada, no se crea Alumno. Aspirante y Expediente se conservan para auditoría e historial. Si la persona vuelve a intentarlo, se crea un nuevo Aspirante y un nuevo Expediente con el mismo CURP, porque el proceso anterior ya no es vigente."
+    },
+    {
+      "index": 189,
+      "style": "Heading 2",
+      "text": "3.9 Trazabilidad entre requisitos y entidades"
+    },
+    {
+      "index": 191,
+      "style": "Heading 2",
+      "text": "3.10 Consideraciones para el diseño posterior"
+    },
+    {
+      "index": 192,
+      "style": "Heading 3",
+      "text": "3.10.1 Integridad referencial"
+    },
+    {
+      "index": 193,
+      "style": "Normal",
+      "text": "Las claves foráneas deben impedir referencias hacia registros inexistentes. La eliminación física de entidades maestras relacionadas con historial debe restringirse o evitarse. En este proyecto, los cambios de vigencia se resuelven mediante estados, no mediante borrado del historial."
+    },
+    {
+      "index": 194,
+      "style": "Heading 3",
+      "text": "3.10.2 Transacciones"
+    },
+    {
+      "index": 195,
+      "style": "Normal",
+      "text": "Operaciones que cambian varios elementos relacionados, como una baja definitiva que actualiza el estado académico y el estado del expediente, deberían ejecutarse dentro de una transacción. Así se evita que una actualización quede aplicada y otra falle, dejando estados contradictorios."
+    },
+    {
+      "index": 196,
+      "style": "Heading 3",
+      "text": "3.10.3 CURP e índices"
+    },
+    {
+      "index": 197,
+      "style": "Normal",
+      "text": "El CURP no debe tratarse como una unicidad global si se conservarán varios procesos históricos. No obstante, conviene indexarlo para acelerar la búsqueda de procesos anteriores. La regla de “un solo proceso vigente” debe implementarse mediante validación de negocio y, cuando el motor y el diseño definitivo lo permitan, mediante restricciones adicionales compatibles con esa lógica."
+    },
+    {
+      "index": 198,
+      "style": "Heading 3",
+      "text": "3.10.4 Catálogos"
+    },
+    {
+      "index": 199,
+      "style": "Normal",
+      "text": "Los catálogos de carrera, roles, estados y periodos reducen inconsistencias porque sustituyen textos capturados repetidamente por identificadores controlados. Esto facilita filtros, reportes y mantenimiento."
+    },
+    {
+      "index": 200,
+      "style": "Heading 2",
+      "text": "3.11 Primera Forma Normal (SCRUM-14)"
+    },
+    {
+      "index": 201,
+      "style": "Normal",
+      "text": "Estado: en curso. Este apartado será completado exclusivamente con el análisis y la aplicación de la Primera Forma Normal sobre el modelo aprobado en SCRUM-13."
+    },
+    {
+      "index": 202,
+      "style": "Heading 2",
+      "text": "3.12 Segunda Forma Normal (SCRUM-15)"
+    },
+    {
+      "index": 203,
+      "style": "Normal",
+      "text": "Estado: pendiente. Se desarrollará cuando finalice la Primera Forma Normal y deberá documentar dependencias parciales y sus correcciones."
+    },
+    {
+      "index": 204,
+      "style": "Heading 2",
+      "text": "3.13 Tercera Forma Normal (SCRUM-16)"
+    },
+    {
+      "index": 205,
+      "style": "Normal",
+      "text": "Estado: pendiente. Se desarrollará después de la Segunda Forma Normal y deberá documentar dependencias transitivas y la estructura resultante."
+    },
+    {
+      "index": 206,
+      "style": "Heading 2",
+      "text": "3.14 Diseño e implementación de la base de datos (SCRUM-17)"
+    },
+    {
+      "index": 207,
+      "style": "Normal",
+      "text": "Estado: pendiente. Los ejemplos siguientes son únicamente material preliminar; no representan el diseño lógico, físico ni la implementación definitiva."
+    },
+    {
+      "index": 208,
+      "style": "Heading 3",
+      "text": "3.14.1 Ejemplos conceptuales de consultas"
+    },
+    {
+      "index": 209,
+      "style": "Normal",
+      "text": "Los siguientes ejemplos se conservan como referencia inicial para la persona responsable. Los nombres de columnas, restricciones y consultas deberán ajustarse al modelo normalizado y a la implementación definitiva."
+    },
+    {
+      "index": 210,
+      "style": "Heading 4",
+      "text": "Ejemplo 1. Mostrar expedientes en proceso"
+    },
+    {
+      "index": 211,
+      "style": "Normal",
+      "text": "SELECT ... FROM tbl_expediente e JOIN tbl_cat_estadoExpediente s ON ... WHERE s.descripcion = 'En proceso';"
+    },
+    {
+      "index": 212,
+      "style": "Heading 4",
+      "text": "Ejemplo 2. Consultar historial de un CURP"
+    },
+    {
+      "index": 213,
+      "style": "Normal",
+      "text": "SELECT ... FROM tbl_aspirante a JOIN tbl_expediente e ON ... WHERE a.curp_aspirante = ? ORDER BY a.fecha_registro;"
+    },
+    {
+      "index": 214,
+      "style": "Heading 4",
+      "text": "Ejemplo 3. Validar cupo antes de inscripción"
+    },
+    {
+      "index": 215,
+      "style": "Normal",
+      "text": "La aplicación obtiene capacidad_maxima de tbl_grupo y compara ese valor con el conteo de inscripciones que ocupan lugar en el grupo. La inserción solamente se confirma cuando existe disponibilidad."
+    },
+    {
+      "index": 217,
+      "style": "Heading 1",
+      "text": "4. Cuarta etapa. Diseño de la API"
+    },
+    {
+      "index": 218,
+      "style": "Normal",
+      "text": "Estado del apartado 4. Los resultados de SCRUM-19 a SCRUM-24 se encuentran integrados y revisados. La etapa queda concluida como línea base para iniciar el desarrollo; cualquier modificación posterior deberá registrarse como cambio de contrato antes de aplicarse al código."
+    },
+    {
+      "index": 219,
+      "style": "Normal",
+      "text": "Tabla 4.1. Control de entregables de la etapa."
+    },
+    {
+      "index": 221,
+      "style": "Heading 2",
+      "text": "4.1 Identificación de recursos de la API (SCRUM-19)"
+    },
+    {
+      "index": 222,
+      "style": "Normal",
+      "text": "Los recursos se derivan de las UFP y se agrupan por capacidad funcional. La estructura no replica las tablas de MySQL: la API expone contratos orientados al proceso y mantiene separadas las responsabilidades de Admisiones, Control Escolar, Coordinación y Alumno."
+    },
+    {
+      "index": 223,
+      "style": "Normal",
+      "text": "Tabla 4.2. Recursos funcionales de la API REST."
+    },
+    {
+      "index": 225,
+      "style": "Heading 2",
+      "text": "4.2 Diseño de rutas (SCRUM-20)"
+    },
+    {
+      "index": 226,
+      "style": "Normal",
+      "text": "La ruta base será /api. Los nombres se expresan en plural, los identificadores variables se representan con :id y las acciones que no corresponden a un CRUD directo se modelan mediante subrecursos, por ejemplo dictamen, estado y lectura."
+    },
+    {
+      "index": 227,
+      "style": "Normal",
+      "text": "Tabla 4.3. Matriz consolidada de endpoints."
+    },
+    {
+      "index": 229,
+      "style": "Normal",
+      "text": "Nota de alcance. Materias y reportes se conservan como recursos complementarios; su desarrollo no condiciona la entrega funcional del proceso de admisión e inscripción."
+    },
+    {
+      "index": 230,
+      "style": "Heading 2",
+      "text": "4.3 Definición de entradas y respuestas (SCRUM-21)"
+    },
+    {
+      "index": 231,
+      "style": "Normal",
+      "text": "Los cuerpos JSON utilizarán nombres en camelCase y no expondrán nombres de tablas, columnas internas, contraseñas, hashes ni detalles de Prisma. Las fechas se devolverán en formato ISO 8601 y los archivos se enviarán mediante multipart/form-data."
+    },
+    {
+      "index": 232,
+      "style": "Heading 3",
+      "text": "4.3.1 Formato uniforme de respuesta"
+    },
+    {
+      "index": 233,
+      "style": "Normal",
+      "text": "Respuesta exitosa:"
+    },
+    {
+      "index": 234,
+      "style": "Normal",
+      "text": "{\n  \"success\": true,\n  \"message\": \"Operación realizada correctamente.\",\n  \"data\": {},\n  \"meta\": { \"timestamp\": \"2026-08-08T15:25:00Z\" }\n}"
+    },
+    {
+      "index": 235,
+      "style": "Normal",
+      "text": "Respuesta de error:"
+    },
+    {
+      "index": 236,
+      "style": "Normal",
+      "text": "{\n  \"success\": false,\n  \"error\": { \"code\": \"BUSINESS_CONFLICT\", \"message\": \"Descripción del error.\", \"details\": [] },\n  \"meta\": { \"timestamp\": \"2026-08-08T15:25:00Z\" }\n}"
+    },
+    {
+      "index": 237,
+      "style": "Normal",
+      "text": "Las respuestas paginadas agregarán data.items y meta.pagination con page, limit, total y totalPages. Los valores predeterminados serán page=1 y limit=10; limit no podrá exceder 100."
+    },
+    {
+      "index": 238,
+      "style": "Heading 3",
+      "text": "4.3.2 Contratos principales"
+    },
+    {
+      "index": 239,
+      "style": "Normal",
+      "text": "Tabla 4.4. Entradas y salidas de los contratos principales."
+    },
+    {
+      "index": 241,
+      "style": "Normal",
+      "text": "Los identificadores de alumno, empleado, conversación y remitente no se aceptarán desde el cliente cuando puedan obtenerse de la sesión. Esta medida evita que un usuario intente operar en nombre de otra persona."
+    },
+    {
+      "index": 242,
+      "style": "Heading 2",
+      "text": "4.4 Diseño de validaciones y errores (SCRUM-22)"
+    },
+    {
+      "index": 243,
+      "style": "Normal",
+      "text": "Las validaciones se aplicarán antes de ejecutar cambios persistentes. Los conflictos funcionales devolverán mensajes comprensibles y códigos estables; los detalles internos de base de datos se registrarán solamente en los logs del servidor."
+    },
+    {
+      "index": 244,
+      "style": "Normal",
+      "text": "Tabla 4.5. Matriz de reglas, excepciones y códigos HTTP."
+    },
+    {
+      "index": 246,
+      "style": "Normal",
+      "text": "Para los códigos combinados, la API distinguirá la causa: 404 cuando el recurso no exista; 409 cuando exista pero su estado impida continuar; 400 cuando la entrada esté mal formada; y 415 cuando el tipo de archivo no sea compatible."
+    },
+    {
+      "index": 247,
+      "style": "Heading 2",
+      "text": "4.5 Diseño de autenticación y permisos (SCRUM-23)"
+    },
+    {
+      "index": 248,
+      "style": "Heading 3",
+      "text": "4.5.1 Inicio de sesión y emisión de JWT"
+    },
+    {
+      "index": 249,
+      "style": "Normal",
+      "text": "Tabla 4.6. Flujo de autenticación."
+    },
+    {
+      "index": 251,
+      "style": "Normal",
+      "text": "La duración del token se controlará mediante JWT_EXPIRES_IN; no se codificará una vigencia fija dentro de las rutas. La matrícula sirve como credencial de acceso, mientras que la identidad de sesión se obtiene del claim sub del JWT."
+    },
+    {
+      "index": 252,
+      "style": "Heading 3",
+      "text": "4.5.2 Contenido mínimo del token"
+    },
+    {
+      "index": 253,
+      "style": "Normal",
+      "text": "Tabla 4.7. Claims autorizados en el JWT."
+    },
+    {
+      "index": 255,
+      "style": "Normal",
+      "text": "No se incluirán contraseñas, hashes, CURP, documentos ni información personal innecesaria dentro del token."
+    },
+    {
+      "index": 256,
+      "style": "Heading 3",
+      "text": "4.5.3 Matriz de control de acceso"
+    },
+    {
+      "index": 257,
+      "style": "Normal",
+      "text": "Tabla 4.8. Permisos por actor y ámbito."
+    },
+    {
+      "index": 259,
+      "style": "Heading 3",
+      "text": "4.5.4 Protección de rutas"
+    },
+    {
+      "index": 260,
+      "style": "List Bullet",
+      "text": "authenticateJWT validará el encabezado Authorization: Bearer <token> y adjuntará la identidad autenticada a la petición."
+    },
+    {
+      "index": 261,
+      "style": "List Bullet",
+      "text": "checkRole verificará los roles autorizados antes de ejecutar el controlador."
+    },
+    {
+      "index": 262,
+      "style": "List Bullet",
+      "text": "La carrera de Coordinación se obtendrá del JWT; el cliente no podrá ampliar su ámbito mediante parámetros de consulta."
+    },
+    {
+      "index": 263,
+      "style": "List Bullet",
+      "text": "El remitente de un mensaje y el alumno consultado en rutas /me se derivarán de la sesión, no del cuerpo enviado."
+    },
+    {
+      "index": 264,
+      "style": "List Bullet",
+      "text": "401 indicará ausencia o invalidez de autenticación; 403 indicará identidad válida sin permiso suficiente."
+    },
+    {
+      "index": 265,
+      "style": "Heading 3",
+      "text": "4.5.5 Tratamiento de credenciales"
+    },
+    {
+      "index": 266,
+      "style": "Normal",
+      "text": "Las contraseñas se almacenarán únicamente como hashes seguros. Ninguna respuesta, reporte o correo incluirá la contraseña almacenada. Al finalizar el enrolamiento, el aspirante podrá recibir su matrícula e instrucciones para establecer o cambiar su contraseña mediante un mecanismo temporal."
+    },
+    {
+      "index": 267,
+      "style": "Heading 2",
+      "text": "4.6 Documentar y revisar la API (SCRUM-24)"
+    },
+    {
+      "index": 268,
+      "style": "Normal",
+      "text": "Estado: concluido. Las rutas aprobadas se reunieron en una colección inicial de Postman y se revisaron contra las UFP, los contratos, las validaciones y los permisos definidos en los apartados 4.1 a 4.5."
+    },
+    {
+      "index": 269,
+      "style": "Heading 3",
+      "text": "4.6.1 Colección inicial de Postman"
+    },
+    {
+      "index": 270,
+      "style": "Normal",
+      "text": "La colección se conserva en docs/postman/AUT-INS_API.postman_collection.json y utiliza el formato Postman Collection v2.1. Su propósito es reunir los contratos de diseño en un recurso importable y preparar la ejecución de pruebas cuando la API esté implementada."
+    },
+    {
+      "index": 271,
+      "style": "Normal",
+      "text": "Tabla 4.9. Evidencias de cierre de SCRUM-24."
+    },
+    {
+      "index": 273,
+      "style": "Heading 3",
+      "text": "4.6.2 Cobertura de las Unidades Funcionales de Proceso"
+    },
+    {
+      "index": 274,
+      "style": "Normal",
+      "text": "La cobertura se comprobó relacionando cada UFP con al menos una solicitud de la colección. Los módulos académicos complementarios se conservaron sin condicionar el flujo principal de admisión e inscripción."
+    },
+    {
+      "index": 275,
+      "style": "Normal",
+      "text": "Tabla 4.10. Matriz de cobertura UFP-Postman."
+    },
+    {
+      "index": 277,
+      "style": "Heading 3",
+      "text": "4.6.3 Revisión conjunta del diseño"
+    },
+    {
+      "index": 278,
+      "style": "Normal",
+      "text": "La revisión conjunta se consolidó mediante una comprobación cruzada de los entregables de la etapa. Esta revisión valida el diseño documental; la ejecución completa y sus evidencias pertenecen a la sexta etapa."
+    },
+    {
+      "index": 279,
+      "style": "Normal",
+      "text": "Tabla 4.11. Lista de comprobación de la revisión."
+    },
+    {
+      "index": 281,
+      "style": "Heading 3",
+      "text": "4.6.4 Conclusión de la etapa"
+    },
+    {
+      "index": 282,
+      "style": "Normal",
+      "text": "Resultado: aprobado. El diseño de la API es consistente con el alcance acordado, cubre todas las UFP y cuenta con una colección inicial importable. Con estas evidencias se cierra el sprint de diseño y se autoriza el inicio de la quinta etapa."
+    },
+    {
+      "index": 283,
+      "style": "Heading 1",
+      "text": "5. Quinta etapa. Desarrollo"
+    },
+    {
+      "index": 284,
+      "style": "Normal",
+      "text": "Estado: pendiente. Esta etapa se limitará a implementar la API con base en el diseño aprobado; no deberá redefinir requisitos, entidades o contratos sin registrar primero el cambio en su etapa correspondiente."
+    },
+    {
+      "index": 285,
+      "style": "Heading 1",
+      "text": "6. Sexta etapa. Pruebas"
+    },
+    {
+      "index": 286,
+      "style": "Normal",
+      "text": "Responsable de pruebas: Pedro Jair Suárez Flores. Estado: pendiente. Esta etapa comprenderá la planeación, ejecución y documentación de pruebas funcionales, casos de error y evidencias sobre la implementación terminada."
+    },
+    {
+      "index": 287,
+      "style": "Heading 1",
+      "text": "7. Séptima etapa. Front end"
+    },
+    {
+      "index": 288,
+      "style": "Normal",
+      "text": "Responsable previsto: Carlos Eduardo Martínez Morales. Estado: pendiente. La interfaz deberá consumir los contratos aprobados de la API y conservar el alcance prioritario del proceso de inscripción."
+    }
+  ],
+  "tables": [
+    {
+      "index": 0,
+      "rows": [
+        [
+          "INSTITUCIÓN: UNIVERSIDAD BANCARIA DE MÉXICO\nASIGNATURA: DESARROLLO DE APLICACIONES PARA INTERNET AVANZADO II\nDOCENTE: ROGELIO REYES REYES",
+          "ESPACIO PARA\nLOGOTIPO"
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "rows": [
+        [
+          "Apartado",
+          "Contenido"
+        ],
+        [
+          "Información general",
+          "Equipo, funciones y responsabilidades."
+        ],
+        [
+          "Objetivo",
+          "Propósito general del proyecto."
+        ],
+        [
+          "Problemática",
+          "Situación que origina la solución."
+        ],
+        [
+          "Etapa 1",
+          "Actores, UFP y cadena de valor."
+        ],
+        [
+          "Etapa 2",
+          "Arquitectura y tecnologías."
+        ],
+        [
+          "Etapa 3",
+          "Requisitos, entidades, normalización e implementación."
+        ],
+        [
+          "Etapa 4",
+          "Recursos, rutas, contratos, validaciones, permisos y colección de Postman."
+        ],
+        [
+          "Etapa 5",
+          "Implementación de la solución aprobada."
+        ],
+        [
+          "Etapa 6",
+          "Estrategia, ejecución y evidencias de prueba."
+        ],
+        [
+          "Etapa 7",
+          "Interfaz web y experiencia de usuario."
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "rows": [
+        [
+          "Núm.",
+          "Integrante",
+          "Cargo"
+        ],
+        [
+          "1",
+          "Carlos Eduardo Martínez Morales",
+          "Scrum Master y desarrollador"
+        ],
+        [
+          "2",
+          "Daen Sánchez Marín",
+          "Lider técnico y desarrollador"
+        ],
+        [
+          "3",
+          "Fernando Pérez Acuautla",
+          "Desarrollador"
+        ],
+        [
+          "4",
+          "Fernando Aguilar Velázquez",
+          "Desarrollador"
+        ],
+        [
+          "5",
+          "Pedro Jair Suárez Flores",
+          "Tester del proyecto"
+        ]
+      ]
+    },
+    {
+      "index": 3,
+      "rows": [
+        [
+          "Actor",
+          "Responsabilidad"
+        ],
+        [
+          "Aspirante",
+          "Cargar la documentación requerida."
+        ],
+        [
+          "Aspirante",
+          "Consultar el estado de su solicitud."
+        ],
+        [
+          "Coordinación de Admisiones",
+          "Revisar la solicitud del aspirante."
+        ],
+        [
+          "Coordinación de Admisiones",
+          "Validar la documentación presentada."
+        ],
+        [
+          "Coordinación de Admisiones",
+          "Verificar que el aspirante cumpla los requisitos de admisión."
+        ],
+        [
+          "Coordinación de Admisiones",
+          "Aprobar o rechazar la solicitud."
+        ],
+        [
+          "Coordinación de Admisiones",
+          "Convertir al aspirante en alumno una vez aceptado."
+        ],
+        [
+          "Control Escolar",
+          "Generar el expediente del alumno."
+        ],
+        [
+          "Control Escolar",
+          "Asignar la matrícula o número de control."
+        ],
+        [
+          "Control Escolar",
+          "Asignar la carrera."
+        ],
+        [
+          "Control Escolar",
+          "Asignar el grado."
+        ],
+        [
+          "Control Escolar",
+          "Asignar el grupo."
+        ],
+        [
+          "Control Escolar",
+          "Asignar el turno."
+        ],
+        [
+          "Control Escolar",
+          "Mantener actualizada la información escolar del alumno."
+        ],
+        [
+          "Coordinador Académico",
+          "Asignar las materias correspondientes."
+        ],
+        [
+          "Coordinador Académico",
+          "Autorizar cambios de grupo."
+        ],
+        [
+          "Coordinador Académico",
+          "Autorizar cambios de carrera."
+        ],
+        [
+          "Coordinador Académico",
+          "Suspender alumnos cuando sea necesario."
+        ],
+        [
+          "Coordinador Académico",
+          "Dar de baja a los alumnos."
+        ],
+        [
+          "Coordinador Académico",
+          "Reactivar alumnos cuando proceda."
+        ],
+        [
+          "Alumno",
+          "Consultar sus datos personales."
+        ],
+        [
+          "Alumno",
+          "Consultar su carrera, grupo y turno."
+        ],
+        [
+          "Alumno",
+          "Consultar su horario."
+        ],
+        [
+          "Alumno",
+          "Consultar las materias asignadas."
+        ],
+        [
+          "Alumno",
+          "Solicitar cambios autorizados por el sistema."
+        ],
+        [
+          "Sistema",
+          "Validar la información capturada."
+        ],
+        [
+          "Sistema",
+          "Almacenar la información de los usuarios."
+        ],
+        [
+          "Sistema",
+          "Generar matrículas y expedientes."
+        ],
+        [
+          "Sistema",
+          "Enviar notificaciones del proceso de inscripción."
+        ],
+        [
+          "Sistema",
+          "Generar reportes administrativos."
+        ],
+        [
+          "Sistema",
+          "Mantener la integridad y seguridad de la información."
+        ]
+      ]
+    },
+    {
+      "index": 4,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-01: Pre-registro y Carga Documental de Aspirante"
+        ],
+        [
+          "Qué hace",
+          "Proporciona un formulario público donde el aspirante captura sus datos personales, selecciona su carrera de interés y adjunta sus documentos. Al finalizar el envío, desencadena una notificación automática vía correo electrónico (EmailJS) confirmando la recepción del trámite."
+        ],
+        [
+          "Actores involucrados",
+          "Aspirante, Sistema (EmailJS)."
+        ],
+        [
+          "Problemática que resuelve",
+          "Elimina las inscripciones manuales en papel/hojas de cálculo y evita la captura incorrecta de datos iniciales mediante validaciones en el formulario web."
+        ]
+      ]
+    },
+    {
+      "index": 5,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-02: Revisión, Validación y Dictamen de Admisiones"
+        ],
+        [
+          "Qué hace",
+          "Permite al equipo de admisiones cotejar los datos capturados contra los documentos adjuntos. Si detecta inconsistencias o faltantes, rechaza el trámite y notifica al aspirante por correo para que reenvíe sus datos; si todo es correcto, aprueba al aspirante y lo habilita para el enrolamiento oficial."
+        ],
+        [
+          "Actores involucrados",
+          "Coordinación de Admisiones, Aspirante, Sistema (EmailJS)."
+        ],
+        [
+          "Problemática que resuelve",
+          "Previene el ingreso de información falsa o incompleta al sistema y automatiza el seguimiento de aspirantes sin depender de llamadas o trámites presenciales."
+        ]
+      ]
+    },
+    {
+      "index": 6,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-03: Enrolamiento Escolar y Generación de Credenciales Únicas"
+        ],
+        [
+          "Qué hace",
+          "Registra formalmente al aspirante aceptado en la base de datos de la institución, generando automáticamente su matrícula única personalizada y una contraseña de acceso para que pueda iniciar sesión como alumno oficial."
+        ],
+        [
+          "Actores involucrados",
+          "Control Escolar, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Errores en la asignación manual de matrículas y falta de credenciales individuales de acceso para los estudiantes."
+        ]
+      ]
+    },
+    {
+      "index": 7,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-04: Administración General de Alumnos y Coordinadores por Carrera"
+        ],
+        [
+          "Qué hace",
+          "Proporciona un módulo a Control Escolar con funciones CRUD para gestionar los expedientes de los alumnos y la asignación de coordinadores por carrera (ID_Coordinador, Nombre, ID_Carrera). Permite la búsqueda rápida de alumnos por nombre o matrícula única para corregir errores de captura."
+        ],
+        [
+          "Actores involucrados",
+          "Control Escolar, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Dificultad para consultar, filtrar y actualizar el historial de alumnos, además de centralizar el control de las carreras y sus responsables."
+        ]
+      ]
+    },
+    {
+      "index": 8,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-05: Asignación Académica de Grupo y Materias por Coordinador"
+        ],
+        [
+          "Qué hace",
+          "Permite al coordinador de cada carrera gestionar y estructurar los registros académicos de sus alumnos asignados (distribución en grupos, materias del plan de estudios) y corregir eventuales inconsistencias de inscripción dentro de su área."
+        ],
+        [
+          "Actores involucrados",
+          "Coordinador Académico (por Carrera), Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Desorganización en la distribución de alumnos por carrera y falta de control sobre la saturación de grupos."
+        ]
+      ]
+    },
+    {
+      "index": 9,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-06: Consulta de Información Personal, Grupo y Carga Académica"
+        ],
+        [
+          "Qué hace",
+          "Permite al alumno autenticarse con su matrícula y contraseña para visualizar únicamente sus datos personales registrados, el grupo al que fue asignado, su horario/materias y el estado de su inscripción."
+        ],
+        [
+          "Actores involucrados",
+          "Alumno, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Desinformación del estudiante sobre su situación escolar y sobrecarga de atención en ventanilla para consultas básicas."
+        ]
+      ]
+    },
+    {
+      "index": 10,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-07: Gestión de Solicitudes de Ayuda y Corrección de Datos"
+        ],
+        [
+          "Qué hace",
+          "Ofrece un canal de comunicación directo donde el alumno puede solicitar soporte a Control Escolar (por errores en sus datos personales) o a su Coordinador de Carrera (por problemas con grupo o materias), manteniendo un registro histórico de todas las solicitudes realizadas."
+        ],
+        [
+          "Actores involucrados",
+          "Alumno, Control Escolar, Coordinador Académico, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Respuestas tardías e informales ante errores de registro y falta de trazabilidad en las peticiones de corrección."
+        ]
+      ]
+    },
+    {
+      "index": 11,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-08: Emisión de Reportes Estadísticos y Control de Seguridad"
+        ],
+        [
+          "Qué hace",
+          "Automatiza la creación de reportes globales para la dirección (totales de registrados, aceptados/rechazados por carrera, grupos asignados) y garantiza la integridad de la base de datos mediante reglas de validación y roles de acceso."
+        ],
+        [
+          "Actores involucrados",
+          "Control Escolar, Coordinador Académico, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Falta de reportes para la toma de decisiones y poca seguridad o pérdida de integridad en la información almacenada."
+        ]
+      ]
+    },
+    {
+      "index": 12,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-SUG-01: Validación Automática de Disponibilidad y Cupo Máximo"
+        ],
+        [
+          "Qué hace",
+          "Módulo que verifica en tiempo real la capacidad de un grupo antes de que el coordinador o Control Escolar confirme la asignación de un alumno, bloqueando el registro si el límite ha sido alcanzado."
+        ],
+        [
+          "Actores involucrados",
+          "Sistema, Coordinador Académico, Control Escolar."
+        ],
+        [
+          "Problemática que resuelve",
+          "Evita de forma directa la problemática de grupos saturados, impidiendo sobrecupos por descuido manual."
+        ]
+      ]
+    },
+    {
+      "index": 13,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-SUG-02: Autenticación, Control de Sesión y Roles de Usuario"
+        ],
+        [
+          "Qué hace",
+          "Módulo técnico encargado de validar las credenciales (matrícula/contraseña para alumnos; credenciales de personal para administrativos), gestionar el cierre de sesión por inactividad y restringir vistas según el rol (Alumno, Control Escolar, Coordinador)."
+        ],
+        [
+          "Actores involucrados",
+          "Alumno, Control Escolar, Coordinador Académico, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Ataca directamente la poca seguridad en el acceso al sistema, impidiendo que un alumno acceda a módulos administrativos o a la información de otros estudiantes."
+        ]
+      ]
+    },
+    {
+      "index": 14,
+      "rows": [
+        [
+          "Elemento",
+          "Información"
+        ],
+        [
+          "Nombre descriptivo",
+          "UFP-SUG-03: Reenvío de Información Reclamada por Admisiones"
+        ],
+        [
+          "Qué hace",
+          "Permite que un aspirante rechazado mediante el correo de EmailJS pueda ingresar nuevamente mediante un enlace o token único para corregir únicamente los campos o documentos señalados como incorrectos, sin tener que volver a capturar todo el formulario desde cero."
+        ],
+        [
+          "Actores involucrados",
+          "Aspirante, Coordinación de Admisiones, Sistema."
+        ],
+        [
+          "Problemática que resuelve",
+          "Evita la duplicación de folios de aspirante cuando un alumno vuelve a llenar el formulario tras ser rechazado."
+        ]
+      ]
+    },
+    {
+      "index": 15,
+      "rows": [
+        [
+          "CADENA DE VALOR AUT - INS",
+          "CADENA DE VALOR AUT - INS",
+          "CADENA DE VALOR AUT - INS",
+          "CADENA DE VALOR AUT - INS",
+          "CADENA DE VALOR AUT - INS"
+        ],
+        [
+          "Administración y Control de Inscripciones Escolares",
+          "Administración y Control de Inscripciones Escolares",
+          "Administración y Control de Inscripciones Escolares",
+          "Administración y Control de Inscripciones Escolares",
+          "Administración y Control de Inscripciones Escolares"
+        ],
+        [
+          "FASE 1\n\nPre-registro y Recepción de Aspirantes",
+          "FASE 2\n\nDictamen de Admisiones Documental",
+          "FASE 3\n\nEnrolamiento y Matriculación (Control Escolar)",
+          "FASE 4\n\nAsignación Académica y Cupos (Coordinación)",
+          "FASE 5\n\nServicio y Seguimiento (Portal / Mesa de Ayuda)"
+        ],
+        [
+          "CAPA TRANSVERSAL DE SOPORTE Y INFRAESTRUCTURA\nSOPORTE, SEGURIDAD (JWT) Y REPORTES ANALÍTICOS (MySQL / Prisma ORM)",
+          "CAPA TRANSVERSAL DE SOPORTE Y INFRAESTRUCTURA\nSOPORTE, SEGURIDAD (JWT) Y REPORTES ANALÍTICOS (MySQL / Prisma ORM)",
+          "CAPA TRANSVERSAL DE SOPORTE Y INFRAESTRUCTURA\nSOPORTE, SEGURIDAD (JWT) Y REPORTES ANALÍTICOS (MySQL / Prisma ORM)",
+          "CAPA TRANSVERSAL DE SOPORTE Y INFRAESTRUCTURA\nSOPORTE, SEGURIDAD (JWT) Y REPORTES ANALÍTICOS (MySQL / Prisma ORM)",
+          "CAPA TRANSVERSAL DE SOPORTE Y INFRAESTRUCTURA\nSOPORTE, SEGURIDAD (JWT) Y REPORTES ANALÍTICOS (MySQL / Prisma ORM)"
+        ]
+      ]
+    },
+    {
+      "index": 16,
+      "rows": [
+        [
+          "Tecnología",
+          "Uso dentro del proyecto",
+          "Justificación"
+        ],
+        [
+          "JWT",
+          "Autenticación y control de acceso.",
+          "Permitirá identificar a cada usuario después de iniciar sesión y proteger las rutas de acuerdo con su rol. Es apropiado para una API REST porque el servidor puede validar cada solicitud mediante un token, sin depender de una sesión almacenada. Esto ayuda a separar el acceso de alumnos, Control Escolar, Coordinación de Admisiones y coordinadores académicos."
+        ],
+        [
+          "Microsoft Azure",
+          "Alojamiento de la base de datos MySQL.",
+          "Se utilizará únicamente para alojar la base de datos MySQL en la nube. Esto permitirá centralizar la información escolar, facilitar el acceso controlado desde la API y evitar que la base de datos dependa de una computadora local encendida permanentemente. La configuración deberá restringir las conexiones y proteger las credenciales de acceso."
+        ],
+        [
+          "MySQL",
+          "Almacenamiento de la información escolar.",
+          "Es adecuada porque los datos del sistema tienen relaciones claras entre alumnos, carreras, grupos, materias, usuarios e inscripciones. Sus llaves, restricciones y transacciones permiten mantener la integridad de la información, evitar registros duplicados y controlar operaciones sensibles como la asignación de matrícula, grupo o inscripción."
+        ],
+        [
+          "Prisma ORM",
+          "Comunicación entre la API y MySQL.",
+          "Permitirá representar las tablas como modelos dentro del proyecto, realizar consultas de forma ordenada y administrar cambios mediante migraciones. Reduce la cantidad de SQL escrito manualmente, disminuye errores comunes y facilita que todos los desarrolladores trabajen con una estructura de datos consistente y mantenible."
+        ],
+        [
+          "EmailJS",
+          "Envío de notificaciones por correo electrónico.",
+          "Permitirá confirmar la recepción de solicitudes y comunicar al aspirante si su documentación fue aprobada, rechazada o requiere correcciones. Su integración es sencilla para los flujos de formularios y evita desarrollar desde el inicio un servidor de correo propio. Las plantillas y credenciales deberán configurarse con restricciones para evitar usos no autorizados."
+        ],
+        [
+          "Repositorio Git",
+          "Almacenamiento y control de versiones de la API.",
+          "El código fuente de la API se conservará en un repositorio Git. Esto permitirá que los desarrolladores trabajen sobre una base común, registren el historial de cambios, utilicen ramas para separar tareas y recuperen versiones anteriores cuando sea necesario. El repositorio almacenará el código, pero no sustituirá al servicio donde la API llegue a ejecutarse."
+        ]
+      ]
+    },
+    {
+      "index": 17,
+      "rows": [
+        [
+          "Objetivo",
+          "Descripción"
+        ],
+        [
+          "Centralización",
+          "Concentrar la información del proceso escolar en una base de datos relacional."
+        ],
+        [
+          "Integridad",
+          "Utilizar PK y FK para mantener relaciones consistentes entre aspirantes, expedientes, alumnos, grupos, inscripciones y personal."
+        ],
+        [
+          "Control de CURP",
+          "Evitar más de un proceso vigente para una misma persona, permitiendo nuevos procesos únicamente cuando el anterior se encuentre cerrado."
+        ],
+        [
+          "Trazabilidad",
+          "Conservar los procesos rechazados, inactivos, bajas y egresos como historial."
+        ],
+        [
+          "Control de cupo",
+          "Impedir inscripciones cuando un grupo haya alcanzado su capacidad máxima."
+        ],
+        [
+          "Periodos",
+          "Utilizar un catálogo de periodos para reducir errores de captura y asociar correctamente los grupos."
+        ],
+        [
+          "Comunicación",
+          "Permitir conversaciones internas de ida y vuelta entre alumnos y empleados."
+        ],
+        [
+          "Notificaciones",
+          "Notificar al aspirante por correo cuando registra su solicitud y cuando Admisiones emite un dictamen."
+        ]
+      ]
+    },
+    {
+      "index": 18,
+      "rows": [
+        [
+          "ID",
+          "Requisito funcional",
+          "Responsable / actor"
+        ],
+        [
+          "RF-01",
+          "Registrar aspirantes con datos personales, CURP, correo y carrera solicitada.",
+          "Aspirante"
+        ],
+        [
+          "RF-02",
+          "Generar un expediente asociado al aspirante y un folio único.",
+          "Sistema"
+        ],
+        [
+          "RF-03",
+          "Permitir cargar y consultar la documentación requerida.",
+          "Aspirante / Admisiones"
+        ],
+        [
+          "RF-04",
+          "Permitir a Admisiones revisar el expediente y emitir un estado.",
+          "Admisiones"
+        ],
+        [
+          "RF-05",
+          "Permitir registrar observaciones sobre documentación incorrecta, faltante o ilegible.",
+          "Admisiones"
+        ],
+        [
+          "RF-06",
+          "Permitir que el aspirante corrija o reenvíe únicamente los documentos observados sin repetir todo el registro.",
+          "Aspirante"
+        ],
+        [
+          "RF-07",
+          "Generar un registro de alumno cuando el proceso de admisión sea aceptado.",
+          "Sistema / Control Escolar"
+        ],
+        [
+          "RF-08",
+          "Asignar matrícula al alumno y conservar el vínculo con el expediente de origen.",
+          "Sistema"
+        ],
+        [
+          "RF-09",
+          "Administrar carreras mediante un catálogo institucional.",
+          "Personal autorizado"
+        ],
+        [
+          "RF-10",
+          "Administrar grupos por carrera, grado, turno, periodo y capacidad máxima.",
+          "Control Escolar"
+        ],
+        [
+          "RF-11",
+          "Registrar inscripciones asociando alumno, grupo, periodo lógico y empleado responsable.",
+          "Control Escolar"
+        ],
+        [
+          "RF-12",
+          "Impedir que un grupo supere su capacidad máxima.",
+          "Sistema"
+        ],
+        [
+          "RF-13",
+          "Conservar múltiples inscripciones de un alumno para mantener historial por periodos.",
+          "Sistema"
+        ],
+        [
+          "RF-14",
+          "Administrar empleados y sus roles: Admisiones, Control Escolar y Coordinación.",
+          "Administrador / Sistema"
+        ],
+        [
+          "RF-15",
+          "Restringir la información de Coordinación a la carrera que le corresponda.",
+          "Sistema"
+        ],
+        [
+          "RF-16",
+          "Permitir conversaciones internas entre alumnos y empleados.",
+          "Alumno / Empleado"
+        ],
+        [
+          "RF-17",
+          "Permitir múltiples mensajes dentro de una conversación e identificar quién envió cada mensaje.",
+          "Alumno / Empleado"
+        ],
+        [
+          "RF-18",
+          "Registrar estado de lectura y fecha de lectura de los mensajes.",
+          "Sistema"
+        ],
+        [
+          "RF-19",
+          "Enviar mediante EmailJS una notificación al aspirante al registrar la solicitud y cuando Admisiones emita un dictamen.",
+          "Sistema"
+        ],
+        [
+          "RF-20",
+          "Validar el CURP antes de crear una nueva solicitud.",
+          "Sistema"
+        ],
+        [
+          "RF-21",
+          "Bloquear un nuevo registro cuando el CURP se encuentre asociado con un proceso vigente.",
+          "Sistema"
+        ],
+        [
+          "RF-22",
+          "Permitir un nuevo proceso con el mismo CURP cuando el proceso anterior esté Rechazado o Inactivo.",
+          "Sistema"
+        ],
+        [
+          "RF-23",
+          "Conservar aspirante, expediente, alumno e inscripciones como historial aun cuando dejen de estar vigentes.",
+          "Sistema"
+        ],
+        [
+          "RF-24",
+          "Distinguir entre baja temporal y cierre definitivo del proceso académico.",
+          "Control Escolar / Sistema"
+        ],
+        [
+          "RF-25",
+          "Ocultar de las vistas operativas los procesos históricos sin eliminarlos físicamente.",
+          "Sistema"
+        ]
+      ]
+    },
+    {
+      "index": 19,
+      "rows": [
+        [
+          "ID",
+          "Requisito no funcional"
+        ],
+        [
+          "RNF-01",
+          "La información deberá almacenarse en una base de datos relacional con integridad referencial."
+        ],
+        [
+          "RNF-02",
+          "Las contraseñas deberán almacenarse mediante mecanismos seguros de hash; no deberán guardarse en texto plano."
+        ],
+        [
+          "RNF-03",
+          "El acceso deberá controlarse de acuerdo con el rol del usuario."
+        ],
+        [
+          "RNF-04",
+          "Las consultas operativas deberán diferenciar información vigente e histórica."
+        ],
+        [
+          "RNF-05",
+          "La validación de CURP deberá ejecutarse antes de confirmar una nueva solicitud."
+        ],
+        [
+          "RNF-06",
+          "Las operaciones críticas deberán ejecutarse de manera consistente para evitar estados parciales."
+        ],
+        [
+          "RNF-07",
+          "La solución deberá conservar trazabilidad de admisiones, inscripciones, bajas y comunicaciones."
+        ],
+        [
+          "RNF-08",
+          "Las credenciales y parámetros utilizados para EmailJS no deberán exponerse de forma insegura."
+        ],
+        [
+          "RNF-09",
+          "La interfaz deberá informar claramente cuando una acción no puede realizarse por estado, cupo o duplicidad."
+        ],
+        [
+          "RNF-10",
+          "La estructura deberá permitir crecimiento futuro sin perder el historial existente."
+        ]
+      ]
+    },
+    {
+      "index": 20,
+      "rows": [
+        [
+          "ID",
+          "Regla de negocio"
+        ],
+        [
+          "RN-01",
+          "Cada expediente pertenece a un único aspirante."
+        ],
+        [
+          "RN-02",
+          "Un aspirante puede existir antes de que se genere su expediente; una vez creado, el expediente conserva el vínculo con ese aspirante."
+        ],
+        [
+          "RN-03",
+          "Un expediente aceptado puede originar un registro de alumno; un expediente rechazado no genera alumno."
+        ],
+        [
+          "RN-04",
+          "Cada alumno se origina a partir de un expediente aceptado."
+        ],
+        [
+          "RN-05",
+          "Un alumno puede tener múltiples inscripciones a lo largo de su trayectoria."
+        ],
+        [
+          "RN-06",
+          "Cada inscripción pertenece a un alumno y a un grupo y registra al empleado responsable."
+        ],
+        [
+          "RN-07",
+          "La cantidad de alumnos inscritos en un grupo no podrá superar capacidad_maxima."
+        ],
+        [
+          "RN-08",
+          "Cada grupo pertenece a una carrera y a un periodo escolar."
+        ],
+        [
+          "RN-09",
+          "Un periodo puede contener múltiples grupos."
+        ],
+        [
+          "RN-10",
+          "Un CURP no podrá mantener simultáneamente más de un proceso vigente."
+        ],
+        [
+          "RN-11",
+          "Los estados En proceso, Aceptado con alumno vigente y No activo bloquean un nuevo registro con el mismo CURP."
+        ],
+        [
+          "RN-12",
+          "Los estados Rechazado e Inactivo permiten iniciar un nuevo proceso con el mismo CURP."
+        ],
+        [
+          "RN-13",
+          "Rechazado significa que el trámite terminó en Admisiones y no llegó a generar alumno."
+        ],
+        [
+          "RN-14",
+          "Inactivo significa que la persona sí llegó a ser alumno y posteriormente cerró definitivamente su relación académica, por baja definitiva o finalización del proceso."
+        ],
+        [
+          "RN-15",
+          "No activo representa una baja temporal: el proceso permanece vigente y el CURP continúa bloqueado."
+        ],
+        [
+          "RN-16",
+          "Los registros históricos nunca se eliminan por el simple hecho de dejar de estar vigentes."
+        ],
+        [
+          "RN-20",
+          "Una conversación vincula a un alumno y un empleado y puede contener múltiples mensajes."
+        ],
+        [
+          "RN-21",
+          "Cada mensaje pertenece a una sola conversación y tipo_remitente indica si fue enviado por ALUMNO o EMPLEADO."
+        ]
+      ]
+    },
+    {
+      "index": 21,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_aspirante",
+          "PK",
+          "Identificador único del registro de aspirante."
+        ],
+        [
+          "nombre_aspirante",
+          "—",
+          "Nombre de la persona que realiza la solicitud."
+        ],
+        [
+          "apellidoP_aspirante",
+          "—",
+          "Apellido paterno."
+        ],
+        [
+          "apellidoM_aspirante",
+          "—",
+          "Apellido materno."
+        ],
+        [
+          "curp_aspirante",
+          "—",
+          "CURP utilizado para validar procesos vigentes. No debe manejarse como UNIQUE global si se desea conservar procesos históricos."
+        ],
+        [
+          "correo_aspirante",
+          "—",
+          "Correo utilizado para comunicación y notificaciones de admisión."
+        ],
+        [
+          "fecha_registro",
+          "—",
+          "Fecha en que se inició la solicitud."
+        ],
+        [
+          "hora_registro",
+          "—",
+          "Hora en que se inició la solicitud."
+        ],
+        [
+          "id_carrera",
+          "FK → tbl_cat_carrera",
+          "Carrera solicitada en ese proceso de admisión."
+        ]
+      ]
+    },
+    {
+      "index": 22,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_expediente",
+          "PK",
+          "Identificador único del expediente."
+        ],
+        [
+          "folio",
+          "—",
+          "Folio institucional de seguimiento."
+        ],
+        [
+          "acta_nacimiento",
+          "—",
+          "Referencia o archivo del acta de nacimiento."
+        ],
+        [
+          "certificado_estudio",
+          "—",
+          "Referencia o archivo del certificado de estudios."
+        ],
+        [
+          "identificador_oficial",
+          "—",
+          "Documento oficial de identificación."
+        ],
+        [
+          "comprobante_de_domicilio",
+          "—",
+          "Comprobante de domicilio."
+        ],
+        [
+          "fotografia",
+          "—",
+          "Fotografía del aspirante."
+        ],
+        [
+          "curp_doc",
+          "",
+          "Clave Única de Registro de Población actualizado"
+        ],
+        [
+          "observaciones",
+          "—",
+          "Comentarios de Admisiones sobre documentos faltantes, ilegibles, incorrectos o motivos del dictamen."
+        ],
+        [
+          "id_estado",
+          "FK → tbl_cat_estadoExpediente",
+          "Estado del proceso: Aceptado, Rechazado, En proceso, Inactivo o No activo."
+        ],
+        [
+          "id_aspirante",
+          "FK → tbl_aspirante",
+          "Aspirante propietario del expediente."
+        ]
+      ]
+    },
+    {
+      "index": 23,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_estado",
+          "PK",
+          "Identificador del estado."
+        ],
+        [
+          "descripcion",
+          "—",
+          "Nombre del estado."
+        ]
+      ]
+    },
+    {
+      "index": 24,
+      "rows": [
+        [
+          "Estado",
+          "Interpretación",
+          "¿Bloquea CURP?",
+          "Tratamiento"
+        ],
+        [
+          "Aceptado",
+          "Admisiones aprobó el expediente. Si ya existe alumno vigente, el proceso continúa activo.",
+          "Sí",
+          "Continúa hacia alumno/inscripción."
+        ],
+        [
+          "Rechazado",
+          "El trámite terminó durante Admisiones y no generó alumno.",
+          "No",
+          "Se conserva como historial y permite nuevo intento."
+        ],
+        [
+          "En proceso",
+          "Admisiones se encuentra revisando el trámite.",
+          "Sí",
+          "Se muestra como proceso vigente."
+        ],
+        [
+          "Inactivo",
+          "La persona llegó a ser alumno y posteriormente cerró definitivamente su proceso académico.",
+          "No",
+          "Se conserva como historial y permite nuevo proceso."
+        ],
+        [
+          "No activo",
+          "Existe una baja temporal; la relación académica continúa vigente.",
+          "Sí",
+          "Se oculta de ciertas vistas de cursado, pero no permite nuevo proceso."
+        ]
+      ]
+    },
+    {
+      "index": 25,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_alumno",
+          "PK",
+          "Identificador único del alumno dentro de ese proceso académico."
+        ],
+        [
+          "matricula",
+          "—",
+          "Matrícula institucional del alumno."
+        ],
+        [
+          "password",
+          "—",
+          "Credencial de acceso almacenada de forma segura."
+        ],
+        [
+          "id_estado_alumno",
+          "FK → tbl_cat_estadoAlumno",
+          "Estado académico específico del alumno."
+        ],
+        [
+          "id_expediente",
+          "FK → tbl_expediente",
+          "Expediente que originó al alumno."
+        ],
+        [
+          "id_carrera",
+          "FK → tbl_cat_carrera",
+          "Carrera en la que se encuentra inscrito el alumno."
+        ]
+      ]
+    },
+    {
+      "index": 26,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_estado_alumno",
+          "PK",
+          "Identificador del estado académico."
+        ],
+        [
+          "descripcion",
+          "—",
+          "Descripción del estado: Activo, Baja temporal, Baja definitiva, Egresado u otro autorizado."
+        ]
+      ]
+    },
+    {
+      "index": 27,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_inscripcion",
+          "PK",
+          "Identificador único de la inscripción."
+        ],
+        [
+          "periodo",
+          "—",
+          "Dato histórico del periodo si el modelo actual aún lo conserva; puede sustituirse por la relación indirecta mediante el grupo y su catálogo de periodo."
+        ],
+        [
+          "fecha_inscripcion",
+          "—",
+          "Fecha en que se realizó la inscripción."
+        ],
+        [
+          "id_alumno",
+          "FK → tbl_alumno",
+          "Alumno inscrito."
+        ],
+        [
+          "id_grupo",
+          "FK → tbl_grupo",
+          "Grupo asignado."
+        ],
+        [
+          "id_empleado",
+          "FK → tbl_empleado",
+          "Empleado de Control Escolar responsable de la operación."
+        ]
+      ]
+    },
+    {
+      "index": 28,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_grupo",
+          "PK",
+          "Identificador único del grupo."
+        ],
+        [
+          "turno",
+          "—",
+          "Turno asignado."
+        ],
+        [
+          "grado",
+          "—",
+          "Grado o nivel académico."
+        ],
+        [
+          "capacidad_maxima",
+          "—",
+          "Número máximo de alumnos permitidos."
+        ],
+        [
+          "id_carrera",
+          "FK → tbl_cat_carrera",
+          "Carrera a la que pertenece."
+        ],
+        [
+          "id_periodo",
+          "FK → tbl_cat_periodo",
+          "Periodo escolar en el que se ofrece el grupo."
+        ]
+      ]
+    },
+    {
+      "index": 29,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_periodo",
+          "PK",
+          "Identificador único del periodo."
+        ],
+        [
+          "nombre_periodo",
+          "—",
+          "Nombre institucional, por ejemplo 2026-1 o 2026-2."
+        ],
+        [
+          "fecha_inicio",
+          "—",
+          "Fecha de inicio del periodo."
+        ],
+        [
+          "fecha_fin",
+          "—",
+          "Fecha de término del periodo."
+        ],
+        [
+          "estado",
+          "—",
+          "Indica si el periodo se encuentra disponible para operaciones actuales."
+        ]
+      ]
+    },
+    {
+      "index": 30,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_empleado",
+          "PK",
+          "Identificador único del empleado."
+        ],
+        [
+          "nombre_empleado",
+          "—",
+          "Nombre."
+        ],
+        [
+          "apellidoP_empleado",
+          "—",
+          "Apellido paterno."
+        ],
+        [
+          "apellidoM_empleado",
+          "—",
+          "Apellido materno."
+        ],
+        [
+          "matricula_empleado",
+          "—",
+          "Identificador institucional."
+        ],
+        [
+          "password_empleado",
+          "—",
+          "Credencial de acceso almacenada de forma segura."
+        ],
+        [
+          "id_rol",
+          "FK → tbl_cat_rolEmpleado",
+          "Rol del empleado."
+        ],
+        [
+          "id_carrera",
+          "FK → tbl_cat_carrera",
+          "Carrera asociada cuando aplique, especialmente para Coordinación."
+        ]
+      ]
+    },
+    {
+      "index": 31,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_rol",
+          "PK",
+          "Identificador del rol."
+        ],
+        [
+          "rol",
+          "—",
+          "Nombre del rol, por ejemplo Admisiones, Control Escolar o Coordinación."
+        ]
+      ]
+    },
+    {
+      "index": 32,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_carrera",
+          "PK",
+          "Identificador único de la carrera."
+        ],
+        [
+          "nombre_carrera",
+          "—",
+          "Nombre oficial."
+        ],
+        [
+          "descripcion_carrera",
+          "—",
+          "Descripción general."
+        ]
+      ]
+    },
+    {
+      "index": 33,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_conversacion",
+          "PK",
+          "Identificador único de la conversación."
+        ],
+        [
+          "id_alumno",
+          "FK → tbl_alumno",
+          "Alumno participante."
+        ],
+        [
+          "id_empleado",
+          "FK → tbl_empleado",
+          "Empleado participante."
+        ],
+        [
+          "asunto",
+          "—",
+          "Tema principal de la conversación."
+        ],
+        [
+          "fecha_creacion",
+          "—",
+          "Fecha y hora de creación."
+        ],
+        [
+          "estado",
+          "—",
+          "Estado de la conversación, por ejemplo abierta, pendiente o cerrada."
+        ]
+      ]
+    },
+    {
+      "index": 34,
+      "rows": [
+        [
+          "Atributo",
+          "Clave / relación",
+          "Descripción"
+        ],
+        [
+          "id_mensaje",
+          "PK",
+          "Identificador único del mensaje."
+        ],
+        [
+          "id_conversacion",
+          "FK → tbl_conversacion",
+          "Conversación a la que pertenece."
+        ],
+        [
+          "tipo_remitente",
+          "—",
+          "Indica ALUMNO o EMPLEADO."
+        ],
+        [
+          "contenido",
+          "—",
+          "Texto del mensaje."
+        ],
+        [
+          "fecha_envio",
+          "—",
+          "Fecha y hora del envío."
+        ],
+        [
+          "leido",
+          "—",
+          "Indica si el destinatario ya consultó el mensaje."
+        ],
+        [
+          "fecha_lectura",
+          "—",
+          "Fecha y hora de lectura; puede permanecer NULL mientras no se haya leído."
+        ]
+      ]
+    },
+    {
+      "index": 35,
+      "rows": [
+        [
+          "Entidad origen",
+          "Cardinalidad",
+          "Entidad destino",
+          "Interpretación"
+        ],
+        [
+          "tbl_cat_carrera",
+          "1:N",
+          "tbl_aspirante",
+          "Una carrera puede ser solicitada por muchos aspirantes."
+        ],
+        [
+          "tbl_aspirante",
+          "1:0..1",
+          "tbl_expediente",
+          "El aspirante puede existir antes de la creación del expediente; cada expediente pertenece a un aspirante."
+        ],
+        [
+          "tbl_cat_estadoExpediente",
+          "1:N",
+          "tbl_expediente",
+          "Un estado puede ser utilizado por múltiples expedientes."
+        ],
+        [
+          "tbl_expediente",
+          "1:0..1",
+          "tbl_alumno",
+          "Solo un expediente aceptado puede originar un alumno."
+        ],
+        [
+          "tbl_cat_estadoAlumno",
+          "1:N",
+          "tbl_alumno",
+          "Un estado académico puede corresponder a muchos alumnos."
+        ],
+        [
+          "tbl_cat_carrera",
+          "1:N",
+          "tbl_alumno",
+          "Una carrera puede tener muchos alumnos."
+        ],
+        [
+          "tbl_alumno",
+          "1:N",
+          "tbl_inscripcion",
+          "Un alumno puede acumular varias inscripciones históricas."
+        ],
+        [
+          "tbl_grupo",
+          "1:N",
+          "tbl_inscripcion",
+          "Un grupo puede recibir muchas inscripciones hasta su capacidad."
+        ],
+        [
+          "tbl_empleado",
+          "1:N",
+          "tbl_inscripcion",
+          "Un empleado puede registrar múltiples inscripciones."
+        ],
+        [
+          "tbl_cat_carrera",
+          "1:N",
+          "tbl_grupo",
+          "Una carrera puede ofrecer muchos grupos."
+        ],
+        [
+          "tbl_cat_periodo",
+          "1:N",
+          "tbl_grupo",
+          "Un periodo puede contener muchos grupos."
+        ],
+        [
+          "tbl_cat_rolEmpleado",
+          "1:N",
+          "tbl_empleado",
+          "Un rol puede asignarse a varios empleados."
+        ],
+        [
+          "tbl_cat_carrera",
+          "1:N",
+          "tbl_empleado",
+          "Una carrera puede asociarse con varios empleados cuando aplique."
+        ],
+        [
+          "tbl_alumno",
+          "1:N",
+          "tbl_conversacion",
+          "Un alumno puede iniciar o mantener varias conversaciones."
+        ],
+        [
+          "tbl_empleado",
+          "1:N",
+          "tbl_conversacion",
+          "Un empleado puede atender varias conversaciones."
+        ],
+        [
+          "tbl_conversacion",
+          "1:N",
+          "tbl_mensaje",
+          "Una conversación contiene múltiples mensajes."
+        ]
+      ]
+    },
+    {
+      "index": 36,
+      "rows": [
+        [
+          "Situación encontrada",
+          "Nuevo registro con el mismo CURP",
+          "Motivo"
+        ],
+        [
+          "Expediente En proceso",
+          "Bloqueado",
+          "Existe un trámite vigente."
+        ],
+        [
+          "Expediente Aceptado y alumno vigente",
+          "Bloqueado",
+          "Existe relación académica vigente."
+        ],
+        [
+          "Expediente No activo / Baja temporal",
+          "Bloqueado",
+          "La relación académica está suspendida, no terminada."
+        ],
+        [
+          "Expediente Rechazado",
+          "Permitido",
+          "El trámite terminó antes de generar alumno."
+        ],
+        [
+          "Expediente Inactivo",
+          "Permitido",
+          "El proceso académico anterior terminó definitivamente."
+        ]
+      ]
+    },
+    {
+      "index": 37,
+      "rows": [
+        [
+          "Proceso",
+          "Carrera",
+          "Estado final",
+          "Vigencia",
+          "CURP"
+        ],
+        [
+          "Proceso 1",
+          "Ingeniería en Sistemas Computacionales",
+          "Inactivo por baja definitiva",
+          "Histórico",
+          "ABC123..."
+        ],
+        [
+          "Proceso 2",
+          "Ingeniería Industrial",
+          "Aceptado / Alumno activo",
+          "Vigente",
+          "ABC123..."
+        ]
+      ]
+    },
+    {
+      "index": 38,
+      "rows": [
+        [
+          "Requisito / grupo",
+          "Entidades principales",
+          "Cobertura"
+        ],
+        [
+          "Registro y admisión",
+          "tbl_aspirante, tbl_expediente, tbl_cat_estadoExpediente",
+          "Datos personales, documentos, folio, revisión y dictamen."
+        ],
+        [
+          "Corrección documental",
+          "tbl_expediente",
+          "Observaciones y reemplazo de documentos dentro del mismo trámite."
+        ],
+        [
+          "Generación de alumno",
+          "tbl_expediente, tbl_alumno, tbl_cat_estadoAlumno",
+          "Conversión del expediente aceptado en condición académica."
+        ],
+        [
+          "Validación de CURP",
+          "tbl_aspirante, tbl_expediente, tbl_alumno",
+          "Detección de procesos vigentes e históricos."
+        ],
+        [
+          "Inscripción",
+          "tbl_alumno, tbl_inscripcion, tbl_grupo, tbl_empleado",
+          "Asignación y trazabilidad de la operación."
+        ],
+        [
+          "Capacidad",
+          "tbl_grupo, tbl_inscripcion",
+          "Prevención de saturación."
+        ],
+        [
+          "Periodo",
+          "tbl_cat_periodo, tbl_grupo",
+          "Selección controlada del ciclo escolar."
+        ],
+        [
+          "Roles",
+          "tbl_empleado, tbl_cat_rolEmpleado, tbl_cat_carrera",
+          "Control de responsabilidades y ámbito de Coordinación."
+        ],
+        [
+          "Mensajería",
+          "tbl_conversacion, tbl_mensaje, tbl_alumno, tbl_empleado",
+          "Comunicación interna bidireccional."
+        ],
+        [
+          "Notificación externa",
+          "tbl_aspirante, tbl_expediente + lógica EmailJS",
+          "Correo de confirmación y dictamen."
+        ]
+      ]
+    },
+    {
+      "index": 39,
+      "rows": [
+        [
+          "Actividad",
+          "Entregable integrado",
+          "Estado"
+        ],
+        [
+          "SCRUM-19",
+          "Identificación y delimitación de recursos",
+          "Concluido"
+        ],
+        [
+          "SCRUM-20",
+          "Rutas y métodos HTTP",
+          "Concluido"
+        ],
+        [
+          "SCRUM-21",
+          "Entradas, salidas y respuestas",
+          "Concluido"
+        ],
+        [
+          "SCRUM-22",
+          "Validaciones, excepciones y códigos HTTP",
+          "Concluido"
+        ],
+        [
+          "SCRUM-23",
+          "Autenticación JWT y permisos por rol",
+          "Concluido"
+        ],
+        [
+          "SCRUM-24",
+          "Colección inicial de Postman y revisión integral",
+          "Concluido"
+        ]
+      ]
+    },
+    {
+      "index": 40,
+      "rows": [
+        [
+          "Recurso",
+          "Responsabilidad",
+          "UFP",
+          "Alcance"
+        ],
+        [
+          "/auth",
+          "Inicio de sesión, emisión y validación de JWT.",
+          "UFP-SUG-02",
+          "Núcleo"
+        ],
+        [
+          "/aspirantes",
+          "Pre-registro, consulta del trámite y datos de contacto.",
+          "UFP-01",
+          "Núcleo"
+        ],
+        [
+          "/expedientes",
+          "Revisión, observaciones, dictamen y subsanación.",
+          "UFP-02 y UFP-SUG-03",
+          "Núcleo"
+        ],
+        [
+          "/documentos",
+          "Carga y reemplazo controlado del expediente digital.",
+          "UFP-01 y UFP-02",
+          "Núcleo"
+        ],
+        [
+          "/alumnos",
+          "Enrolamiento, matrícula, estado y consulta personal.",
+          "UFP-03, UFP-04 y UFP-06",
+          "Núcleo"
+        ],
+        [
+          "/empleados",
+          "Cuentas del personal y relación con rol y carrera.",
+          "UFP-04",
+          "Apoyo"
+        ],
+        [
+          "/carreras",
+          "Oferta educativa utilizada durante admisión e inscripción.",
+          "UFP-04 y UFP-05",
+          "Apoyo"
+        ],
+        [
+          "/periodos",
+          "Periodos habilitados para grupos e inscripciones.",
+          "UFP-05",
+          "Apoyo"
+        ],
+        [
+          "/grupos",
+          "Grupos, turno, carrera, periodo y capacidad máxima.",
+          "UFP-05 y UFP-SUG-01",
+          "Núcleo"
+        ],
+        [
+          "/inscripciones",
+          "Relación entre alumno y grupo con validación de cupo.",
+          "UFP-03, UFP-05 y UFP-SUG-01",
+          "Núcleo"
+        ],
+        [
+          "/conversaciones",
+          "Hilos de atención interna del alumno.",
+          "UFP-07",
+          "Complementario"
+        ],
+        [
+          "/mensajes",
+          "Intervenciones y seguimiento de lectura de cada hilo.",
+          "UFP-07",
+          "Complementario"
+        ],
+        [
+          "/historial",
+          "Consulta de procesos anteriores asociados con una CURP.",
+          "UFP-04 y UFP-08",
+          "Apoyo"
+        ],
+        [
+          "/reportes",
+          "Indicadores de admisión, inscripción y ocupación.",
+          "UFP-08",
+          "Complementario"
+        ],
+        [
+          "/materias",
+          "Consulta académica ampliada, sin bloquear la primera entrega.",
+          "UFP-05 y UFP-06",
+          "Complementario"
+        ]
+      ]
+    },
+    {
+      "index": 41,
+      "rows": [
+        [
+          "Módulo",
+          "Método",
+          "Ruta",
+          "Propósito",
+          "Acceso"
+        ],
+        [
+          "Auth",
+          "POST",
+          "/api/auth/login",
+          "Validar credenciales y emitir JWT.",
+          "Público"
+        ],
+        [
+          "Carreras",
+          "GET",
+          "/api/carreras",
+          "Consultar oferta activa para el registro.",
+          "Público"
+        ],
+        [
+          "Aspirantes",
+          "POST",
+          "/api/aspirantes",
+          "Crear el pre-registro y folio.",
+          "Público"
+        ],
+        [
+          "Aspirantes",
+          "GET",
+          "/api/aspirantes/:id/estado",
+          "Consultar el estado del trámite.",
+          "Token temporal"
+        ],
+        [
+          "Documentos",
+          "POST",
+          "/api/aspirantes/:id/documentos",
+          "Adjuntar documentos iniciales.",
+          "Token temporal"
+        ],
+        [
+          "Documentos",
+          "PATCH",
+          "/api/documentos/:id",
+          "Reemplazar un documento observado.",
+          "Token temporal"
+        ],
+        [
+          "Expedientes",
+          "GET",
+          "/api/expedientes",
+          "Listar expedientes con filtros y paginación.",
+          "Admisiones / CE"
+        ],
+        [
+          "Expedientes",
+          "GET",
+          "/api/expedientes/:id",
+          "Consultar datos y documentos de un expediente.",
+          "Admisiones / CE"
+        ],
+        [
+          "Expedientes",
+          "PATCH",
+          "/api/expedientes/:id/dictamen",
+          "Aceptar, rechazar u observar la solicitud.",
+          "Admisiones"
+        ],
+        [
+          "Alumnos",
+          "POST",
+          "/api/alumnos",
+          "Enrolar desde un expediente aceptado.",
+          "Control Escolar"
+        ],
+        [
+          "Alumnos",
+          "GET",
+          "/api/alumnos",
+          "Listar alumnos según ámbito autorizado.",
+          "CE / Coordinación"
+        ],
+        [
+          "Alumnos",
+          "GET",
+          "/api/alumnos/:id",
+          "Consultar expediente esencial del alumno.",
+          "CE / Coordinación"
+        ],
+        [
+          "Alumnos",
+          "PATCH",
+          "/api/alumnos/:id/estado",
+          "Registrar baja, reincorporación o egreso.",
+          "Control Escolar"
+        ],
+        [
+          "Portal",
+          "GET",
+          "/api/alumnos/me",
+          "Consultar perfil, matrícula y estado propios.",
+          "Alumno"
+        ],
+        [
+          "Portal",
+          "GET",
+          "/api/alumnos/me/inscripcion",
+          "Consultar carrera, grupo, turno y periodo propios.",
+          "Alumno"
+        ],
+        [
+          "Empleados",
+          "GET",
+          "/api/empleados",
+          "Consultar personal y roles.",
+          "Control Escolar"
+        ],
+        [
+          "Empleados",
+          "POST",
+          "/api/empleados",
+          "Registrar personal autorizado.",
+          "Control Escolar"
+        ],
+        [
+          "Empleados",
+          "PUT",
+          "/api/empleados/:id",
+          "Actualizar cuenta, rol o carrera asignada.",
+          "Control Escolar"
+        ],
+        [
+          "Periodos",
+          "GET",
+          "/api/periodos",
+          "Consultar periodos disponibles.",
+          "CE / Coordinación"
+        ],
+        [
+          "Periodos",
+          "POST",
+          "/api/periodos",
+          "Registrar un periodo institucional.",
+          "Control Escolar"
+        ],
+        [
+          "Grupos",
+          "GET",
+          "/api/grupos",
+          "Consultar grupos y disponibilidad.",
+          "CE / Coordinación"
+        ],
+        [
+          "Grupos",
+          "POST",
+          "/api/grupos",
+          "Crear un grupo y establecer capacidad.",
+          "CE / Coordinación"
+        ],
+        [
+          "Grupos",
+          "PUT",
+          "/api/grupos/:id",
+          "Actualizar datos autorizados del grupo.",
+          "CE / Coordinación"
+        ],
+        [
+          "Inscripciones",
+          "POST",
+          "/api/inscripciones",
+          "Inscribir al alumno en un grupo con cupo.",
+          "CE / Coordinación"
+        ],
+        [
+          "Inscripciones",
+          "GET",
+          "/api/inscripciones",
+          "Consultar inscripciones mediante filtros.",
+          "CE / Coordinación"
+        ],
+        [
+          "Conversaciones",
+          "GET",
+          "/api/conversaciones",
+          "Listar hilos visibles para el usuario.",
+          "Usuario autenticado"
+        ],
+        [
+          "Conversaciones",
+          "POST",
+          "/api/conversaciones",
+          "Crear una solicitud de ayuda.",
+          "Alumno"
+        ],
+        [
+          "Conversaciones",
+          "GET",
+          "/api/conversaciones/:id",
+          "Consultar un hilo autorizado.",
+          "Participantes"
+        ],
+        [
+          "Mensajes",
+          "GET",
+          "/api/conversaciones/:id/mensajes",
+          "Consultar mensajes sin modificar su estado.",
+          "Participantes"
+        ],
+        [
+          "Mensajes",
+          "POST",
+          "/api/conversaciones/:id/mensajes",
+          "Enviar un mensaje en un hilo abierto.",
+          "Participantes"
+        ],
+        [
+          "Mensajes",
+          "PATCH",
+          "/api/conversaciones/:id/lectura",
+          "Marcar como leídos los mensajes recibidos.",
+          "Participantes"
+        ],
+        [
+          "Conversaciones",
+          "PATCH",
+          "/api/conversaciones/:id/estado",
+          "Cerrar o cambiar el estado del hilo.",
+          "Área responsable"
+        ],
+        [
+          "Historial",
+          "GET",
+          "/api/historial/curp/:curp",
+          "Consultar procesos históricos de una persona.",
+          "Control Escolar"
+        ],
+        [
+          "Reportes",
+          "GET",
+          "/api/reportes/inscripciones",
+          "Obtener indicadores del proceso.",
+          "Control Escolar"
+        ],
+        [
+          "Materias",
+          "GET",
+          "/api/materias",
+          "Consultar catálogo académico si se habilita.",
+          "Autenticado"
+        ]
+      ]
+    },
+    {
+      "index": 42,
+      "rows": [
+        [
+          "Ruta",
+          "Entrada",
+          "Salida esperada"
+        ],
+        [
+          "POST /auth/login",
+          "matricula, password",
+          "token, tipoUsuario, rol y datos mínimos de sesión"
+        ],
+        [
+          "POST /aspirantes",
+          "nombre, apellidos, curp, correo, telefono, carreraId",
+          "aspiranteId, expedienteId, folio, estado y token temporal"
+        ],
+        [
+          "GET /aspirantes/:id/estado",
+          "Path :id y token temporal",
+          "folio, estado, observaciones permitidas y fechaActualizacion"
+        ],
+        [
+          "POST /aspirantes/:id/documentos",
+          "archivo, tipoDocumento; PDF/JPG/PNG",
+          "documentoId, nombre, tipo, estado y fechaCarga"
+        ],
+        [
+          "PATCH /documentos/:id",
+          "archivo sustituto y token temporal",
+          "documentoId, estado actualizado y fechaCarga"
+        ],
+        [
+          "GET /expedientes",
+          "estado, carreraId, page, limit",
+          "lista paginada de expedientes autorizados"
+        ],
+        [
+          "PATCH /expedientes/:id/dictamen",
+          "estado y observaciones cuando correspondan",
+          "expedienteId, estado, observaciones y fechaDictamen"
+        ],
+        [
+          "POST /alumnos",
+          "expedienteId",
+          "alumnoId, matricula, estado y carrera heredada"
+        ],
+        [
+          "PATCH /alumnos/:id/estado",
+          "estado y motivo",
+          "alumnoId, estadoAnterior, estadoActual y fechaActualizacion"
+        ],
+        [
+          "GET /alumnos/me",
+          "JWT",
+          "matricula, nombre, carrera y estados permitidos"
+        ],
+        [
+          "GET /alumnos/me/inscripcion",
+          "JWT",
+          "periodo, grupo, turno y situación de inscripción"
+        ],
+        [
+          "POST /empleados",
+          "nombre, apellidos, matricula, rolId y carreraId condicional",
+          "empleadoId, matricula, rol y carrera asignada"
+        ],
+        [
+          "POST /periodos",
+          "nombre, fechaInicio, fechaFin y estado",
+          "periodoId y datos registrados"
+        ],
+        [
+          "POST /grupos",
+          "turno, grado, capacidadMaxima, carreraId y periodoId",
+          "grupoId, capacidad y cupoDisponible"
+        ],
+        [
+          "POST /inscripciones",
+          "alumnoId y grupoId",
+          "inscripcionId, alumno, grupo, periodo y fechaInscripcion"
+        ],
+        [
+          "POST /conversaciones",
+          "asunto y areaDestino",
+          "conversacionId, estado y fechaCreacion"
+        ],
+        [
+          "POST /conversaciones/:id/mensajes",
+          "contenido; remitente derivado del JWT",
+          "mensajeId, conversacionId y fechaEnvio"
+        ],
+        [
+          "PATCH /conversaciones/:id/lectura",
+          "Sin cuerpo obligatorio",
+          "cantidad de mensajes marcados y fechaLectura"
+        ],
+        [
+          "GET /historial/curp/:curp",
+          "CURP en path",
+          "procesos históricos, estados y referencias relacionadas"
+        ],
+        [
+          "GET /reportes/inscripciones",
+          "periodoId y carreraId opcionales",
+          "totales y distribución del proceso"
+        ]
+      ]
+    },
+    {
+      "index": 43,
+      "rows": [
+        [
+          "ID",
+          "Condición",
+          "Respuesta de la API",
+          "HTTP"
+        ],
+        [
+          "VAL-01",
+          "Campos obligatorios ausentes o formato inválido.",
+          "VALIDATION_ERROR - Revise los datos enviados.",
+          "400"
+        ],
+        [
+          "VAL-02",
+          "CURP distinta de 18 caracteres o con formato inválido.",
+          "INVALID_CURP - La CURP proporcionada no es válida.",
+          "400"
+        ],
+        [
+          "VAL-03",
+          "La CURP ya cuenta con un proceso vigente.",
+          "ACTIVE_PROCESS_EXISTS - Ya existe un trámite activo para esta CURP.",
+          "409"
+        ],
+        [
+          "VAL-04",
+          "Recurso solicitado inexistente.",
+          "RESOURCE_NOT_FOUND - No se encontró el registro solicitado.",
+          "404"
+        ],
+        [
+          "VAL-05",
+          "Archivo vacío, corrupto o con tipo no permitido.",
+          "INVALID_DOCUMENT - Use PDF, JPG o PNG.",
+          "400/415"
+        ],
+        [
+          "VAL-06",
+          "Archivo mayor al límite configurable de 10 MB.",
+          "DOCUMENT_TOO_LARGE - El archivo supera el tamaño permitido.",
+          "413"
+        ],
+        [
+          "VAL-07",
+          "Documento no observado durante la subsanación.",
+          "DOCUMENT_NOT_OBSERVED - Solo puede reemplazar documentos señalados.",
+          "409"
+        ],
+        [
+          "VAL-08",
+          "Dictamen incompatible con el estado actual.",
+          "INVALID_STATUS_TRANSITION - No es posible aplicar el dictamen solicitado.",
+          "409"
+        ],
+        [
+          "VAL-09",
+          "Enrolamiento desde expediente no aceptado.",
+          "EXPEDIENT_NOT_ACCEPTED - El expediente no está aprobado.",
+          "409"
+        ],
+        [
+          "VAL-10",
+          "El expediente ya originó un alumno.",
+          "STUDENT_ALREADY_EXISTS - El expediente ya tiene matrícula.",
+          "409"
+        ],
+        [
+          "VAL-11",
+          "Colisión de matrícula después de los reintentos internos.",
+          "ENROLLMENT_GENERATION_FAILED - No fue posible generar la matrícula.",
+          "500"
+        ],
+        [
+          "VAL-12",
+          "Movimiento académico redundante o no permitido.",
+          "INVALID_STUDENT_STATUS - El cambio de estado no procede.",
+          "409"
+        ],
+        [
+          "VAL-13",
+          "Rol Coordinación sin carrera asignada.",
+          "CAREER_REQUIRED - Debe asignarse una carrera al coordinador.",
+          "400"
+        ],
+        [
+          "VAL-14",
+          "Matrícula de empleado duplicada.",
+          "EMPLOYEE_ID_EXISTS - La matrícula ya está registrada.",
+          "409"
+        ],
+        [
+          "VAL-15",
+          "Periodo inexistente o inactivo.",
+          "PERIOD_UNAVAILABLE - El periodo no admite operaciones.",
+          "404/409"
+        ],
+        [
+          "VAL-16",
+          "Alumno inactivo o no apto para inscripción.",
+          "STUDENT_NOT_ELIGIBLE - El estado actual impide la inscripción.",
+          "409"
+        ],
+        [
+          "VAL-17",
+          "Grupo correspondiente a otra carrera.",
+          "CAREER_MISMATCH - El grupo no pertenece a la carrera del alumno.",
+          "409"
+        ],
+        [
+          "VAL-18",
+          "Grupo sin disponibilidad.",
+          "GROUP_FULL - El grupo alcanzó su capacidad máxima.",
+          "409"
+        ],
+        [
+          "VAL-19",
+          "Inscripción duplicada para el mismo grupo y periodo.",
+          "DUPLICATE_ENROLLMENT - La inscripción ya existe.",
+          "409"
+        ],
+        [
+          "VAL-20",
+          "Conversación ajena o fuera del ámbito autorizado.",
+          "CONVERSATION_FORBIDDEN - No tiene acceso al hilo.",
+          "403"
+        ],
+        [
+          "VAL-21",
+          "Mensaje vacío o conversación cerrada.",
+          "MESSAGE_INVALID / CONVERSATION_CLOSED.",
+          "400/409"
+        ],
+        [
+          "VAL-22",
+          "Token ausente, inválido o expirado.",
+          "UNAUTHORIZED - La sesión no es válida o expiró.",
+          "401"
+        ],
+        [
+          "VAL-23",
+          "Rol válido sin permiso o fuera de su carrera.",
+          "FORBIDDEN - No cuenta con autorización para esta operación.",
+          "403"
+        ],
+        [
+          "VAL-24",
+          "Error interno no controlado.",
+          "INTERNAL_ERROR - No fue posible completar la operación.",
+          "500"
+        ]
+      ]
+    },
+    {
+      "index": 44,
+      "rows": [
+        [
+          "Paso",
+          "Comportamiento"
+        ],
+        [
+          "1",
+          "El usuario envía matrícula y contraseña mediante POST /api/auth/login."
+        ],
+        [
+          "2",
+          "La API identifica si la matrícula pertenece a alumno o empleado."
+        ],
+        [
+          "3",
+          "La contraseña se compara con el hash almacenado; nunca se recupera ni se devuelve."
+        ],
+        [
+          "4",
+          "Para alumnos se comprueba que el expediente no esté cerrado de forma definitiva."
+        ],
+        [
+          "5",
+          "La API firma un JWT con vigencia configurable y devuelve datos mínimos de sesión."
+        ]
+      ]
+    },
+    {
+      "index": 45,
+      "rows": [
+        [
+          "Claim",
+          "Tipo",
+          "Uso"
+        ],
+        [
+          "sub",
+          "Entero",
+          "Identificador del alumno o empleado autenticado."
+        ],
+        [
+          "tipoUsuario",
+          "Cadena",
+          "ALUMNO o EMPLEADO."
+        ],
+        [
+          "rol",
+          "Cadena",
+          "ALUMNO, ADMISIONES, CONTROL_ESCOLAR o COORDINACION."
+        ],
+        [
+          "carreraId",
+          "Entero opcional",
+          "Solo cuando el ámbito del usuario depende de una carrera."
+        ],
+        [
+          "iat / exp",
+          "Numérico",
+          "Fechas de emisión y expiración administradas por JWT."
+        ]
+      ]
+    },
+    {
+      "index": 46,
+      "rows": [
+        [
+          "Actor / rol",
+          "Operaciones",
+          "Restricción"
+        ],
+        [
+          "Público",
+          "Login, carreras activas y pre-registro.",
+          "No permite consultar datos institucionales."
+        ],
+        [
+          "Aspirante",
+          "Estado propio, documentos y subsanación.",
+          "Acceso mediante token temporal asociado con un solo expediente."
+        ],
+        [
+          "Admisiones",
+          "Aspirantes, expedientes, documentos y dictamen.",
+          "No genera matrícula ni administra grupos."
+        ],
+        [
+          "Control Escolar",
+          "Alumnos, empleados, periodos, grupos, inscripciones, historial y reportes.",
+          "Ámbito administrativo general aprobado."
+        ],
+        [
+          "Coordinación",
+          "Alumnos, grupos, inscripciones y conversaciones.",
+          "Limitado a la carrera obtenida del JWT."
+        ],
+        [
+          "Alumno",
+          "Perfil e inscripción propios; conversaciones y mensajes propios.",
+          "No puede modificar expediente, estado, grupo o datos de terceros."
+        ]
+      ]
+    },
+    {
+      "index": 47,
+      "rows": [
+        [
+          "Elemento",
+          "Evidencia integrada",
+          "Resultado"
+        ],
+        [
+          "Formato",
+          "Colección JSON compatible con Postman v2.1.",
+          "Conforme"
+        ],
+        [
+          "Contratos",
+          "35 combinaciones únicas de método y ruta.",
+          "Conforme"
+        ],
+        [
+          "Organización",
+          "13 carpetas agrupadas por capacidad funcional.",
+          "Conforme"
+        ],
+        [
+          "Variables",
+          "13 variables para URL, tokens e identificadores reutilizables.",
+          "Conforme"
+        ],
+        [
+          "Seguridad",
+          "Acceso público, token temporal y JWT según la operación.",
+          "Conforme"
+        ],
+        [
+          "Solicitudes",
+          "Cuerpos JSON, formularios, filtros y parámetros de ejemplo.",
+          "Conforme"
+        ],
+        [
+          "Pruebas iniciales",
+          "Códigos HTTP, JSON, tiempo de respuesta y captura de datos.",
+          "Conforme"
+        ],
+        [
+          "Reproducibilidad",
+          "Comandos postman:build y check:postman en el repositorio.",
+          "Conforme"
+        ]
+      ]
+    },
+    {
+      "index": 48,
+      "rows": [
+        [
+          "UFP",
+          "Rutas o carpetas que proporcionan cobertura",
+          "Resultado"
+        ],
+        [
+          "UFP-01",
+          "Carreras, Aspirantes y carga de Documentos.",
+          "Cubierta"
+        ],
+        [
+          "UFP-02",
+          "Expedientes, Dictamen y revisión de Documentos.",
+          "Cubierta"
+        ],
+        [
+          "UFP-03",
+          "Enrolamiento de Alumnos e Inscripciones.",
+          "Cubierta"
+        ],
+        [
+          "UFP-04",
+          "Alumnos, Personal, Expedientes e Historial.",
+          "Cubierta"
+        ],
+        [
+          "UFP-05",
+          "Periodos, Grupos, Inscripciones y Materias.",
+          "Cubierta"
+        ],
+        [
+          "UFP-06",
+          "Perfil e inscripción propios del Alumno.",
+          "Cubierta"
+        ],
+        [
+          "UFP-07",
+          "Conversaciones, Mensajes, Lectura y Estado.",
+          "Cubierta"
+        ],
+        [
+          "UFP-08",
+          "Historial por CURP y Reportes.",
+          "Cubierta"
+        ],
+        [
+          "UFP-SUG-01",
+          "Grupos e Inscripciones con validación de cupo.",
+          "Cubierta"
+        ],
+        [
+          "UFP-SUG-02",
+          "Login, JWT y permisos de las rutas.",
+          "Cubierta"
+        ],
+        [
+          "UFP-SUG-03",
+          "Estado del trámite y sustitución documental.",
+          "Cubierta"
+        ]
+      ]
+    },
+    {
+      "index": 49,
+      "rows": [
+        [
+          "Criterio",
+          "Comprobación realizada",
+          "Resultado"
+        ],
+        [
+          "Consistencia",
+          "La colección coincide con las rutas del apartado 4.2.",
+          "Conforme"
+        ],
+        [
+          "Contratos",
+          "Los cuerpos y salidas respetan el apartado 4.3.",
+          "Conforme"
+        ],
+        [
+          "Errores",
+          "Los códigos esperados consideran las reglas del apartado 4.4.",
+          "Conforme"
+        ],
+        [
+          "Permisos",
+          "Cada solicitud declara acceso público, temporal o JWT.",
+          "Conforme"
+        ],
+        [
+          "Identidad",
+          "Los datos de sesión no se aceptan del cliente cuando pueden derivarse del JWT.",
+          "Conforme"
+        ],
+        [
+          "Cobertura",
+          "Las once UFP cuentan con rutas asociadas.",
+          "Conforme"
+        ],
+        [
+          "Integridad",
+          "No existen combinaciones duplicadas de método y ruta.",
+          "Conforme"
+        ]
+      ]
+    }
+  ],
+  "sections": 1,
+  "inline_shapes": 1,
+  "style_tokens": {
+    "Normal": {
+      "font": "Arial",
+      "size_pt": 10.5,
+      "bold": null,
+      "italic": null,
+      "color": "000000",
+      "space_before_pt": null,
+      "space_after_pt": 6.0,
+      "line_spacing": null,
+      "keep_with_next": null
+    },
+    "Heading 1": {
+      "font": null,
+      "size_pt": 14.0,
+      "bold": true,
+      "italic": null,
+      "color": "365F91",
+      "space_before_pt": 16.0,
+      "space_after_pt": 7.0,
+      "line_spacing": null,
+      "keep_with_next": true
+    },
+    "Heading 2": {
+      "font": null,
+      "size_pt": 13.0,
+      "bold": true,
+      "italic": null,
+      "color": "4F81BD",
+      "space_before_pt": 12.0,
+      "space_after_pt": 5.0,
+      "line_spacing": null,
+      "keep_with_next": true
+    },
+    "Heading 3": {
+      "font": null,
+      "size_pt": 11.0,
+      "bold": true,
+      "italic": null,
+      "color": null,
+      "space_before_pt": 9.0,
+      "space_after_pt": 4.0,
+      "line_spacing": null,
+      "keep_with_next": true
+    },
+    "Heading 4": {
+      "font": null,
+      "size_pt": null,
+      "bold": true,
+      "italic": true,
+      "color": "4F81BD",
+      "space_before_pt": 10.0,
+      "space_after_pt": null,
+      "line_spacing": null,
+      "keep_with_next": true
+    }
+  },
+  "section_tokens": [
+    {
+      "page_width_in": 8.5,
+      "page_height_in": 11.0,
+      "top_margin_in": 0.85,
+      "bottom_margin_in": 0.8,
+      "left_margin_in": 0.9,
+      "right_margin_in": 0.9,
+      "header_distance_in": 0.35,
+      "footer_distance_in": 0.35,
+      "different_first_page": true
+    }
+  ]
+}

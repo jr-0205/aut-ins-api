@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 import { env } from "./config/env.js";
 import { errorHandler } from "./modules/common/middleware/error-handler.js";
 import { notFound } from "./modules/common/middleware/not-found.js";
+import { requestContext } from "./modules/common/middleware/request-context.js";
+import { securityHeaders } from "./modules/common/middleware/security-headers.js";
 import { healthRouter } from "./modules/common/routes/health.routes.js";
 import { mountModuleRoutes } from "./modules/index.js";
 
@@ -14,6 +16,9 @@ export const createApp = () => {
   const publicDirectory = fileURLToPath(new URL("../public", import.meta.url));
 
   app.disable("x-powered-by");
+  app.set("trust proxy", env.nodeEnv === "production" ? 1 : false);
+  app.use(requestContext);
+  app.use(securityHeaders);
   app.use(
     cors({
       origin:

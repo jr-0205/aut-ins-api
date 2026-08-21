@@ -1,0 +1,171 @@
+{
+  "input": "C:\\VS Code\\aut-ins-api\\docs\\entregables\\Proyecto_Aplicacion_AUT-INS_2_ETAPA_4_CERRADA.docx",
+  "fonts_by_char_count": {
+    "Arial": 13628,
+    "Consolas": 527
+  },
+  "direct_run_formatting_runs": 1535,
+  "direct_paragraph_formatting_paragraphs": 1539,
+  "heading_like_paragraphs_not_heading_style": [
+    {
+      "para_index": 2,
+      "text": "PROYECTO ACAD\u00c9MICO",
+      "style": "Normal"
+    },
+    {
+      "para_index": 7,
+      "text": "DESARROLLO DE UNA APLICACI\u00d3N\nESCOLAR INTELIGENTE",
+      "style": "Normal"
+    },
+    {
+      "para_index": 11,
+      "text": "Metodolog\u00eda Scrum",
+      "style": "Normal"
+    },
+    {
+      "para_index": 12,
+      "text": "EQUIPO DEL PROYECTO",
+      "style": "Normal"
+    },
+    {
+      "para_index": 18,
+      "text": "AGOSTO DE 2026",
+      "style": "Normal"
+    },
+    {
+      "para_index": 21,
+      "text": "\u00cdndice general",
+      "style": "Normal"
+    },
+    {
+      "para_index": 99,
+      "text": "Nombre l\u00f3gico: tbl_aspirante",
+      "style": "Normal"
+    },
+    {
+      "para_index": 106,
+      "text": "Nombre l\u00f3gico: tbl_expediente",
+      "style": "Normal"
+    },
+    {
+      "para_index": 113,
+      "text": "Nombre l\u00f3gico: tbl_cat_estadoExpediente",
+      "style": "Normal"
+    },
+    {
+      "para_index": 120,
+      "text": "Nombre l\u00f3gico: tbl_alumno",
+      "style": "Normal"
+    },
+    {
+      "para_index": 126,
+      "text": "Nombre l\u00f3gico: tbl_cat_estadoAlumno",
+      "style": "Normal"
+    },
+    {
+      "para_index": 131,
+      "text": "Nombre l\u00f3gico: tbl_inscripcion",
+      "style": "Normal"
+    },
+    {
+      "para_index": 137,
+      "text": "Nombre l\u00f3gico: tbl_grupo",
+      "style": "Normal"
+    },
+    {
+      "para_index": 142,
+      "text": "Nombre l\u00f3gico: tbl_cat_periodo",
+      "style": "Normal"
+    },
+    {
+      "para_index": 147,
+      "text": "Nombre l\u00f3gico: tbl_empleado",
+      "style": "Normal"
+    },
+    {
+      "para_index": 152,
+      "text": "Nombre l\u00f3gico: tbl_cat_rolEmpleado",
+      "style": "Normal"
+    },
+    {
+      "para_index": 157,
+      "text": "Nombre l\u00f3gico: tbl_cat_carrera",
+      "style": "Normal"
+    },
+    {
+      "para_index": 162,
+      "text": "Nombre l\u00f3gico: tbl_conversacion",
+      "style": "Normal"
+    },
+    {
+      "para_index": 167,
+      "text": "Nombre l\u00f3gico: tbl_mensaje",
+      "style": "Normal"
+    },
+    {
+      "para_index": 290,
+      "text": "INSTITUCI\u00d3N: UNIVERSIDAD BANCARIA DE M\u00c9XICO",
+      "style": "Normal"
+    }
+  ],
+  "examples": {
+    "direct_paragraph_formatting": [
+      {
+        "para_index": 1,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 2,
+        "text": "PROYECTO ACAD\u00c9MICO",
+        "style": "Normal"
+      },
+      {
+        "para_index": 3,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 4,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 5,
+        "text": "",
+        "style": "Normal"
+      }
+    ],
+    "direct_run_formatting": [
+      {
+        "para_index": 2,
+        "run_text": "PROYECTO ACAD\u00c9MICO",
+        "style": "Normal"
+      },
+      {
+        "para_index": 7,
+        "run_text": "DESARROLLO DE UNA APLICACI\u00d3N",
+        "style": "Normal"
+      },
+      {
+        "para_index": 7,
+        "run_text": "\nESCOLAR INTELIGENTE",
+        "style": "Normal"
+      },
+      {
+        "para_index": 10,
+        "run_text": "Gesti\u00f3n de inscripciones escolares",
+        "style": "Normal"
+      },
+      {
+        "para_index": 11,
+        "run_text": "Metodolog\u00eda Scrum",
+        "style": "Normal"
+      }
+    ]
+  },
+  "notes": [
+    "Direct formatting is not always wrong, but it often causes inconsistent output when templates change.",
+    "Heading-like paragraphs not using Heading styles can break TOC and accessibility."
+  ]
+}

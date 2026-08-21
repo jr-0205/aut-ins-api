@@ -894,6 +894,108 @@ a {
   }
 }
 
+/* Portal oscuro inspirado en interfaces de entretenimiento, conservando la identidad AUT-INS. */
+body:has(.page-shell),
+body:has(.dashboard-layout) {
+  color: #eef4fb;
+  background:
+    radial-gradient(circle at 88% 0, rgba(36, 128, 198, 0.22), transparent 30rem),
+    radial-gradient(circle at 10% 100%, rgba(65, 84, 180, 0.16), transparent 34rem),
+    #080d15;
+}
+
+body:has(.page-shell) .auth-card {
+  background: rgba(13, 20, 31, 0.96);
+  border-color: #28384d;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.46);
+}
+
+body:has(.page-shell) .pattern-panel {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(79, 180, 233, 0.34), transparent 18rem),
+    linear-gradient(145deg, #0e2138, #133e68 58%, #112845);
+}
+
+body:has(.page-shell) .section-title,
+body:has(.page-shell) .form-label {
+  color: #edf5ff;
+}
+
+body:has(.page-shell) .form-control,
+body:has(.page-shell) .form-select,
+body:has(.dashboard-layout) .form-control,
+body:has(.dashboard-layout) .form-select {
+  color: #eef4fb;
+  background-color: #0b121d;
+  border-color: #2a3a50;
+}
+
+body:has(.page-shell) .demo-access {
+  background: #0b121d;
+  border-color: #344b65;
+}
+
+body:has(.page-shell) .demo-access summary,
+body:has(.page-shell) .demo-user small {
+  color: #94a8bd;
+}
+
+body:has(.page-shell) .demo-user {
+  background: #111c2a;
+  border-color: #263950;
+}
+
+body:has(.dashboard-layout) .sidebar {
+  background:
+    radial-gradient(circle at 50% 0, rgba(48, 133, 193, 0.22), transparent 18rem),
+    linear-gradient(180deg, #0d1724, #0a111b);
+  border-right-color: #263346;
+}
+
+body:has(.dashboard-layout) .dashboard-main {
+  background: transparent;
+}
+
+body:has(.dashboard-layout) .dashboard-title,
+body:has(.dashboard-layout) .surface-card-title,
+body:has(.dashboard-layout) .metric-value,
+body:has(.dashboard-layout) .section-title {
+  color: #f2f6fb;
+}
+
+body:has(.dashboard-layout) .surface-card,
+body:has(.dashboard-layout) .metric-card,
+body:has(.dashboard-layout) .feature-card {
+  color: #e6edf6;
+  background: rgba(16, 24, 36, 0.94);
+  border-color: #27364a;
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.25);
+}
+
+body:has(.dashboard-layout) .surface-card-header,
+body:has(.dashboard-layout) .table thead th {
+  color: #9bacc0;
+  background: #121d2a;
+  border-color: #27364a;
+}
+
+body:has(.dashboard-layout) .table {
+  --bs-table-color: #dce6f2;
+  --bs-table-hover-color: #ffffff;
+  --bs-table-hover-bg: rgba(65, 151, 211, 0.08);
+}
+
+body:has(.dashboard-layout) .table td,
+body:has(.dashboard-layout) .table th,
+body:has(.dashboard-layout) .sidebar-user {
+  border-color: #263448;
+}
+
+body:has(.dashboard-layout) .text-secondary,
+body:has(.dashboard-layout) .metric-label {
+  color: #91a2b7 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

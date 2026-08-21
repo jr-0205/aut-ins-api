@@ -15,6 +15,7 @@ export const errorHandler: ErrorRequestHandler = (error, _request, response, nex
         code: error.code,
         message: error.message,
         ...(error.details === undefined ? {} : { details: error.details }),
+        requestId: response.locals.requestId,
       },
     });
     return;
@@ -26,6 +27,7 @@ export const errorHandler: ErrorRequestHandler = (error, _request, response, nex
     error: {
       code: "INTERNAL_ERROR",
       message: "Ocurrio un error interno en el servidor.",
+      requestId: response.locals.requestId,
     },
   });
 };

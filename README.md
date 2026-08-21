@@ -2,6 +2,8 @@
   <img src="public/assets/img/aut-ins-logo.svg" width="280" alt="Logotipo oficial de AUT-INS">
 </p>
 
+> **Estado beta académico:** la plataforma base, la demostración por roles y el contrato documental están disponibles. La autenticación real y las reglas de negocio continúan en desarrollo; no deben emplearse datos personales reales.
+
 <h1 align="center">AUT-INS API</h1>
 
 <p align="center">
@@ -43,6 +45,17 @@ GET /api/health
 
 El front end incluye una modalidad demostrativa almacenada en el navegador. Desde el inicio de sesión se pueden cargar accesos de prueba para Admisiones, Control Escolar, Coordinación Académica y Alumno. Al enrolar un aspirante aceptado, la demostración genera matrícula, contraseña temporal y un PDF confidencial descargable; esas credenciales permiten abrir inmediatamente el portal del nuevo alumno. Esta modalidad permite validar navegación y operaciones iniciales mientras se implementan la autenticación JWT y los endpoints definitivos; no debe utilizarse con datos personales reales.
 
+### Accesos de demostración
+
+| Área | Usuario | Contraseña | Operaciones disponibles |
+|---|---|---|---|
+| Admisiones | `admisiones@aut-ins.demo` | `Admisiones2026!` | Revisar aspirantes y emitir dictámenes. |
+| Control Escolar | `control@aut-ins.demo` | `Control2026!` | Enrolar aspirantes aceptados, generar matrícula y atender solicitudes. |
+| Coordinación | `coordinacion@aut-ins.demo` | `Coordinacion2026!` | Gestionar grupos, revisar cupos y recibir mensajes dirigidos. |
+| Alumno | `AUT20260001` | `Alumno2026!` | Consultar perfil, inscripción y enviar solicitudes. |
+
+El formulario comprueba longitudes y campos obligatorios, limita a cinco intentos fallidos y bloquea durante 30 segundos antes de permitir un nuevo intento. Las credenciales se muestran únicamente como datos ficticios de evaluación. La experiencia visual usa un sistema oscuro de navegación lateral, tarjetas, tablas y estados consistente entre los cuatro paneles.
+
 Todas las áreas comparten la misma política de sesión: cierre automático después de 15 minutos sin actividad por defecto, aviso previo y retorno obligatorio al inicio de sesión después de cerrar o expirar la sesión. Desde cada panel puede configurarse una vigencia de demostración de entre 10 segundos y 30 minutos; el botón de retroceso no permite recuperar un panel sin una sesión vigente.
 
 La mensajería demostrativa distingue destinatarios: el alumno puede enviar una solicitud al departamento de Control Escolar, visible para cualquier usuario con ese rol, o dirigirla a un coordinador específico, quien la recibe en su bandeja personal.
@@ -56,6 +69,7 @@ Comandos disponibles:
 | `npm run db:deploy` | Aplica las migraciones pendientes. |
 | `npm run db:seed` | Carga o actualiza los catálogos iniciales. |
 | `npm run check` | Ejecuta todas las validaciones del repositorio. |
+| `npm test` | Compila y ejecuta las pruebas HTTP del contrato base. |
 | `npm run check:structure` | Verifica módulos e importaciones internas. |
 | `npm run typecheck` | Revisa los tipos sin generar archivos. |
 | `npm run build` | Compila TypeScript en `dist/`. |
@@ -93,7 +107,7 @@ Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explíci
 | Base modular de Node.js, Express y TypeScript | Disponible |
 | Reglas de negocio por módulo | Pendientes de implementación |
 | Pruebas funcionales | Pendientes |
-| Front end | Demostración funcional por roles; integración real con la API pendiente |
+| Front end | Demostración funcional por roles, validación de acceso y flujos de edición; integración real con la API pendiente |
 
 ## Tecnologías
 

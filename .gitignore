@@ -10,6 +10,8 @@ node_modules/
 dist/
 build/
 coverage/
+.test-dist/
+.test-dist/
 src/generated/prisma/
 
 # Registros y temporales
