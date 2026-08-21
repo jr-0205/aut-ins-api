@@ -589,16 +589,24 @@ const roleNavItems = {
   ALUMNO: [["Mi información", "#perfil"], ["Inscripción", "#inscripcion"], ["Mensajes", "#mensajes"]],
 };
 
-const dashboardShell = (session, content) => `
-  <div class="dashboard-layout">
+const dashboardShell = (session, content) => {
+  const navItems = roleNavItems[session.role] ?? [];
+  const requestedSection = new URLSearchParams(window.location.hash.split("?")[1] ?? "").get("section");
+  const availableSections = navItems.map(([, target]) => target.slice(1));
+  const activeSection = availableSections.includes(requestedSection) ? requestedSection : availableSections[0];
+
+  return `<div class="dashboard-layout">
     <aside class="sidebar">
       <a class="d-flex align-items-center gap-2 text-decoration-none" href="#/panel/${roleRoutes[session.role]}">
         <img class="brand-logo brand-logo-sidebar" src="/assets/img/aut-ins-logo.svg" alt="" aria-hidden="true"><span class="brand-title">AUT-INS</span>
       </a>
       <span class="role-chip">${escapeHtml(roleLabels[session.role])}</span>
       <nav class="sidebar-nav" aria-label="Secciones del panel">
-        ${(roleNavItems[session.role] ?? [])
-          .map(([label, target], index) => `<a class="${index === 0 ? "active" : ""}" href="${target}"><span class="nav-dot"></span>${escapeHtml(label)}</a>`)
+        ${navItems
+          .map(([label, target]) => {
+            const section = target.slice(1);
+            return `<a class="${section === activeSection ? "active" : ""}" href="#/panel/${roleRoutes[session.role]}?section=${encodeURIComponent(section)}"><span class="nav-dot"></span>${escapeHtml(label)}</a>`;
+          })
           .join("")}
       </nav>
       <div class="sidebar-user">
@@ -617,6 +625,7 @@ const dashboardShell = (session, content) => `
       ${content}
     </main>
   </div>`;
+};
 
 const metric = (label, value, hint) => `<div class="col-sm-6 col-xl-3"><article class="metric-card"><div class="metric-label">${escapeHtml(label)}</div><div class="metric-value">${escapeHtml(value)}</div><small class="text-secondary">${escapeHtml(hint)}</small></article></div>`;
 
@@ -874,27 +883,38 @@ const renderPanel = (session) => {
 
 const route = () => {
   const hash = window.location.hash || "#/inicio";
+  const [routePath, routeQuery = ""] = hash.split("?");
   const session = store.getSession();
 
-  if (hash.startsWith("#/panel/")) {
+  document.body.classList.remove("theme-auth", "theme-dashboard");
+
+  if (routePath.startsWith("#/panel/")) {
     if (!session) {
       clearSessionTimers();
       window.location.hash = "#/login";
       return;
     }
     const expected = roleRoutes[session.role];
-    if (hash !== `#/panel/${expected}`) {
+    if (routePath !== `#/panel/${expected}`) {
       window.location.hash = `#/panel/${expected}`;
       return;
     }
+    document.body.classList.add("theme-dashboard");
     app.innerHTML = renderPanel(session);
-  } else if (hash === "#/login") {
+    const requestedSection = new URLSearchParams(routeQuery).get("section");
+    if (requestedSection) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(requestedSection)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  } else if (routePath === "#/login") {
     if (session) {
       window.location.hash = `#/panel/${roleRoutes[session.role]}`;
       return;
     }
+    document.body.classList.add("theme-auth");
     app.innerHTML = renderLogin();
-  } else if (hash === "#/solicitud") {
+  } else if (routePath === "#/solicitud") {
     app.innerHTML = renderApplication();
   } else {
     app.innerHTML = renderLanding();
