@@ -2,7 +2,7 @@
   <img src="public/assets/img/aut-ins-logo.svg" width="280" alt="Logotipo oficial de AUT-INS">
 </p>
 
-> **Estado beta académico:** la plataforma base, la demostración por roles y el contrato documental están disponibles. La autenticación real y las reglas de negocio continúan en desarrollo; no deben emplearse datos personales reales.
+> **Estado beta académico:** la plataforma base, la demostración por roles y el contrato documental están disponibles, y la autenticación JWT ya es real. Las reglas de negocio por módulo continúan en desarrollo; no deben emplearse datos personales reales.
 
 <h1 align="center">AUT-INS API</h1>
 
@@ -27,7 +27,22 @@ Esta versión establece la base ejecutable del backend, el contrato inicial de l
 
 ## Inicio rápido
 
-Requisitos generales: Node.js 22 o superior y npm. Para trabajar con persistencia local se requiere MySQL 8.4 instalado.
+Requisitos generales: Node.js 22 o superior y npm. Para trabajar con persistencia local se requiere MySQL 8.4 o MariaDB 10.4 o superior.
+
+La vía más rápida es usar un servidor MySQL o MariaDB que ya tengas en ejecución (por ejemplo XAMPP en el puerto `3306`). Crea la base, un usuario dedicado y define `DATABASE_URL`; el proyecto usa el adaptador `@prisma/adapter-mariadb`, compatible con ambas familias:
+
+```env
+DATABASE_URL="mysql://aut_ins:AutIns2026@127.0.0.1:3306/aut_ins_local"
+```
+
+```powershell
+npm install
+npm run db:deploy
+npm run db:seed
+npm run dev
+```
+
+Si prefieres no configurar un servidor, `mysql:setup` prepara una instancia aislada en el puerto `3307`:
 
 ```powershell
 npm install
@@ -36,6 +51,8 @@ npm run db:deploy
 npm run db:seed
 npm run dev
 ```
+
+Consulta la [guía de Prisma](prisma/README.md) para el detalle de ambas rutas.
 
 La interfaz quedará disponible en `http://localhost:3000` y la comprobación de la API en:
 
@@ -54,7 +71,7 @@ El repositorio incluye [`render.yaml`](render.yaml) para crear un Web Service gr
 
 La configuración versionada utiliza Node.js 24.14.1, ejecuta `npm ci --include=dev && npm run build`, inicia con `npm start` y configura `/api/health` como comprobación HTTP. `JWT_SECRET` se genera dentro de Render y no se guarda en Git. En producción, CORS autoriza automáticamente el dominio HTTPS asignado por Render; otros orígenes deben declararse explícitamente en `CORS_ORIGIN`.
 
-La beta pública actual puede mostrar la interfaz y los flujos demostrativos sin base remota porque esos datos se mantienen en el navegador. Para activar persistencia real, agrega `DATABASE_URL` en **Environment** con una conexión MySQL accesible desde internet; una dirección local como `127.0.0.1:3307` sólo funciona en tu computadora. Después ejecuta `npm run db:deploy` y `npm run db:seed` contra esa base.
+La beta pública actual puede mostrar la interfaz y los flujos demostrativos sin base remota porque esos datos se mantienen en el navegador. Para activar persistencia real, agrega `DATABASE_URL` en **Environment** con una conexión MySQL accesible desde internet; una dirección local como `127.0.0.1:3306` sólo funciona en tu computadora. Después ejecuta `npm run db:deploy` y `npm run db:seed` contra esa base.
 
 El front end incluye una modalidad demostrativa almacenada en el navegador. Desde el inicio de sesión se pueden cargar accesos de prueba para Admisiones, Control Escolar, Coordinación Académica y Alumno. Al enrolar un aspirante aceptado, la demostración genera matrícula, contraseña temporal y un PDF confidencial descargable; esas credenciales permiten abrir inmediatamente el portal del nuevo alumno. Esta modalidad permite validar navegación y operaciones iniciales mientras se implementan la autenticación JWT y los endpoints definitivos; no debe utilizarse con datos personales reales.
 
@@ -78,7 +95,7 @@ Comandos disponibles:
 | Comando | Uso |
 |---|---|
 | `npm run dev` | Inicia el servidor en modo de desarrollo. |
-| `npm run mysql:setup` | Prepara MySQL local, la base y credenciales seguras. |
+| `npm run mysql:setup` | Opcional: prepara una instancia MySQL aislada en el puerto 3307 con credenciales seguras. |
 | `npm run db:deploy` | Aplica las migraciones pendientes. |
 | `npm run db:seed` | Carga o actualiza los catálogos iniciales. |
 | `npm run check` | Ejecuta todas las validaciones del repositorio. |
@@ -118,9 +135,39 @@ Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explíci
 | Modelo y normalización de datos | Definido y migrado localmente |
 | Diseño de recursos de la API | Documentado y revisado |
 | Base modular de Node.js, Express y TypeScript | Disponible |
+| Autenticación JWT, contraseñas con hash y roles | Implementada en el módulo `auth` (login, sesión y guardias) |
 | Reglas de negocio por módulo | Pendientes de implementación |
-| Pruebas funcionales | Pendientes |
+| Pruebas funcionales | En progreso: contrato base y autenticación |
 | Front end | Demostración funcional por roles, validación de acceso y flujos de edición; integración real con la API pendiente |
+
+## Autenticación
+
+El módulo `auth` ya está operativo. Las contraseñas se almacenan con scrypt y las sesiones usan JWT firmados con HS256, ambos con `node:crypto` para no agregar dependencias.
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{ "matricula": "20260001", "password": "Cambiar123!" }
+```
+
+Devuelve `data.token` (JWT) junto con la matrícula, el tipo de cuenta y los roles. Para consultar la sesión actual:
+
+```http
+GET /api/auth/me
+Authorization: Bearer <token>
+```
+
+Los demás módulos se protegerán con los guardias `requireAuth` y `requireRole(...)`. El secreto se configura con `JWT_SECRET` (obligatorio, mínimo 32 caracteres, en producción) y la vigencia con `JWT_EXPIRES_IN` (por ejemplo `1h`).
+
+Para probar el inicio de sesión en desarrollo se pueden crear dos cuentas de personal con la semilla opcional:
+
+```powershell
+$env:SEED_DEMO_USERS="true"; npm run db:seed
+# Matrículas: 20260001 (Admisiones) y 20260002 (Control Escolar), contraseña Cambiar123!
+```
+
+Estas cuentas son ficticias, están desactivadas por defecto y no deben usarse con datos personales reales ni habilitarse en producción.
 
 ## Tecnologías
 
@@ -131,7 +178,7 @@ Todas las rutas se agrupan bajo `/api`. Cada módulo tiene una frontera explíci
 | CORS y dotenv | Orígenes autorizados y configuración por entorno. |
 | MySQL en Microsoft Azure | Persistencia relacional alojada en la nube. |
 | Prisma ORM | Acceso tipado a datos, migraciones y catálogos iniciales. |
-| JWT | Autenticación y autorización por rol, pendiente de implementación. |
+| JWT y scrypt (`node:crypto`) | Autenticación, hash de contraseñas y autorización por rol, implementados en el módulo `auth`. |
 | EmailJS | Notificaciones externas dirigidas exclusivamente a aspirantes. |
 | HTML5, CSS3 y Bootstrap 5.3 | Interfaz responsive, formularios y paneles por rol. |
 | jsPDF 4.2 | Generación local del documento descargable con las credenciales iniciales del alumno. |

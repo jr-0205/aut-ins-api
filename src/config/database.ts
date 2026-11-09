@@ -16,8 +16,19 @@ const globalDatabase = globalThis as typeof globalThis & {
   prisma?: PrismaClient;
 };
 
-export const prisma = globalDatabase.prisma ?? createPrismaClient();
+/**
+ * El cliente se crea de forma perezosa: importar los modulos no abre una
+ * conexion ni exige DATABASE_URL. Esto mantiene las pruebas y la revision de
+ * estructura libres de una base de datos real.
+ */
+export const getPrisma = (): PrismaClient => {
+  const existing = globalDatabase.prisma;
 
-if (env.nodeEnv !== "production") {
-  globalDatabase.prisma = prisma;
-}
+  if (existing) {
+    return existing;
+  }
+
+  const client = createPrismaClient();
+  globalDatabase.prisma = client;
+  return client;
+};

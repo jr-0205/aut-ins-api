@@ -2,7 +2,7 @@
 
 ## Estado
 
-El modelo lógico y físico inicial está **definido, migrado y validado localmente**. La implementación utiliza MySQL 8.4 y Prisma ORM 7.9.1. El esquema, la migración y los datos semilla constituyen la línea base para desarrollar los módulos de la API.
+El modelo lógico y físico inicial está **definido, migrado y validado localmente**. La implementación utiliza Prisma ORM 7.9.1 con el adaptador `@prisma/adapter-mariadb`, compatible con MySQL 8.4 y MariaDB 10.4 o superior. La migración inicial y los datos semilla se aplicaron correctamente sobre MariaDB 10.4 (XAMPP, puerto `3306`). El esquema, la migración y los datos semilla constituyen la línea base para desarrollar los módulos de la API.
 
 ## Decisiones definitivas
 
@@ -98,6 +98,8 @@ El archivo `prisma/seed.ts` registra de forma idempotente:
 
 No se crean carreras, periodos, empleados ni usuarios ficticios.
 
+Como excepción controlada para probar el inicio de sesión, `prisma/seed.ts` puede crear cuentas de personal de demostración únicamente cuando la variable `SEED_DEMO_USERS` vale `true`. Esa opción está desactivada por defecto y no debe habilitarse en producción. Las contraseñas de esas cuentas se almacenan con el mismo hash seguro del resto del sistema.
+
 ## Archivos de implementación
 
 - `prisma/schema.prisma`: modelo físico.
@@ -109,12 +111,14 @@ No se crean carreras, periodos, empleados ni usuarios ficticios.
 ## Comandos
 
 ```bash
-npm run mysql:setup
 npm run db:validate
 npm run db:generate
 npm run db:deploy
 npm run db:seed
 npm run db:studio
+
+# Opcional: instancia aislada en .local/mysql (puerto 3307)
+npm run mysql:setup
 ```
 
-`mysql:setup` prepara una instancia aislada en `.local/mysql`, crea `aut_ins_local` en el puerto `3307` y genera `.env` con credenciales aleatorias. Tanto `.local` como `.env` están excluidos de Git. En equipos que ya dispongan de otro servidor MySQL puede configurarse manualmente una `DATABASE_URL` válida.
+`mysql:setup` es opcional: prepara una instancia aislada en `.local/mysql`, crea `aut_ins_local` en el puerto `3307` y genera `.env` con credenciales aleatorias. Tanto `.local` como `.env` están excluidos de Git. En equipos que ya dispongan de otro servidor (por ejemplo XAMPP con MariaDB 10.4 en el puerto `3306`) basta con crear la base y un usuario dedicado, y definir `DATABASE_URL`; el procedimiento está documentado en `prisma/README.md`.

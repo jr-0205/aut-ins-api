@@ -11,7 +11,7 @@ Este directorio contiene la línea base del modelo de datos AUT-INS.
 
 ## Preparación local
 
-Requisito: MySQL 8.4 instalado en Windows. El repositorio incluye un administrador local que aísla los datos en `.local/mysql`, usa el puerto `3307` y genera credenciales aleatorias fuera de Git.
+Requisito: MySQL 8.4 o MariaDB 10.4 o superior. El repositorio incluye un administrador local que aísla los datos en `.local/mysql`, usa el puerto `3307` y genera credenciales aleatorias fuera de Git. Si ya cuentas con un servidor en ejecución (por ejemplo XAMPP con MariaDB en el puerto `3306`), puedes saltar a la sección [Alternativa con XAMPP](#alternativa-con-xampp-mariadb).
 
 1. Instalar dependencias y preparar la instancia, la base y el archivo `.env`:
 
@@ -46,6 +46,31 @@ DATABASE_URL="mysql://aut_ins:CONTRASENA_GENERADA@127.0.0.1:3307/aut_ins_local"
 ```bash
 npm run db:studio
 ```
+
+## Alternativa con XAMPP (MariaDB)
+
+Si ya se tiene XAMPP en ejecución (MariaDB en el puerto `3306`), no es necesario `mysql:setup`. Basta con crear la base y un usuario dedicado, y apuntar `DATABASE_URL` a esa conexión:
+
+```sql
+CREATE DATABASE IF NOT EXISTS aut_ins_local
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'aut_ins'@'127.0.0.1' IDENTIFIED BY 'AutIns2026';
+GRANT ALL PRIVILEGES ON aut_ins_local.* TO 'aut_ins'@'127.0.0.1';
+FLUSH PRIVILEGES;
+```
+
+```env
+DATABASE_URL="mysql://aut_ins:AutIns2026@127.0.0.1:3306/aut_ins_local"
+```
+
+Después se aplican la migración y la semilla como siempre:
+
+```bash
+npm run db:deploy
+npm run db:seed
+```
+
+La migración inicial es compatible con MariaDB 10.4 (usa `ENUM`, `DATETIME(3)`, `CHECK` y `utf8mb4_unicode_ci`). El cliente Prisma ya usa el adaptador `@prisma/adapter-mariadb`.
 
 ## Producción
 

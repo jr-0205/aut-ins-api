@@ -3,6 +3,7 @@ import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 
 import { PrismaClient } from "../src/generated/prisma/client.js";
+import { hashPassword } from "../src/modules/auth/password.js";
 
 const databaseUrl = process.env.DATABASE_URL;
 
@@ -124,6 +125,75 @@ const tiposDocumento = [
   { codigo: "FOTOGRAFIA", nombre: "Fotografía", orden: 60 },
 ] as const;
 
+/**
+ * Cuentas de personal solo para probar el inicio de sesion en desarrollo.
+ * Se crean unicamente cuando SEED_DEMO_USERS="true" y nunca en produccion.
+ */
+const usuariosDemo = [
+  {
+    matricula: "20260001",
+    password: "Cambiar123!",
+    rolCodigo: "ADMISIONES",
+    nombre: "Admisiones",
+    apellidoPaterno: "Demo",
+  },
+  {
+    matricula: "20260002",
+    password: "Cambiar123!",
+    rolCodigo: "CONTROL_ESCOLAR",
+    nombre: "Control Escolar",
+    apellidoPaterno: "Demo",
+  },
+] as const;
+
+async function seedUsuariosDemo(): Promise<number> {
+  if (process.env.SEED_DEMO_USERS !== "true") {
+    return 0;
+  }
+
+  let creados = 0;
+
+  for (const demo of usuariosDemo) {
+    const rol = await prisma.rolEmpleado.findUnique({ where: { codigo: demo.rolCodigo } });
+
+    if (!rol) {
+      continue;
+    }
+
+    const passwordHash = await hashPassword(demo.password);
+
+    const usuario = await prisma.usuario.upsert({
+      where: { matricula: demo.matricula },
+      update: { passwordHash, activo: true, debeCambiarPassword: false },
+      create: {
+        matricula: demo.matricula,
+        passwordHash,
+        tipo: "EMPLEADO",
+        activo: true,
+        debeCambiarPassword: false,
+      },
+    });
+
+    const empleado = await prisma.empleado.findUnique({ where: { usuarioId: usuario.id } });
+
+    if (!empleado) {
+      await prisma.empleado.create({
+        data: {
+          usuarioId: usuario.id,
+          nombre: demo.nombre,
+          apellidoPaterno: demo.apellidoPaterno,
+          rolId: rol.id,
+          activo: true,
+        },
+      });
+    }
+
+    creados += 1;
+  }
+
+  return creados;
+}
+
 async function main(): Promise<void> {
   await prisma.$transaction([
     ...estadosExpediente.map((estado) =>
@@ -163,11 +233,19 @@ async function main(): Promise<void> {
     ),
   ]);
 
+  const usuariosDemoCreados = await seedUsuariosDemo();
+
   console.log(
     `Datos semilla aplicados: ${estadosExpediente.length} estados de expediente, ` +
       `${estadosAlumno.length} estados de alumno, ${estadosInscripcion.length} estados de inscripción, ` +
       `${roles.length} roles y ${tiposDocumento.length} tipos de documento.`,
   );
+
+  if (usuariosDemoCreados > 0) {
+    console.log(
+      `Usuarios demo habilitados: ${usuariosDemoCreados} cuentas de personal (SEED_DEMO_USERS=true).`,
+    );
+  }
 }
 
 main()
